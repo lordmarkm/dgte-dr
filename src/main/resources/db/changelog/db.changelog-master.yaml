@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: mbmartinez
+      changes:
+        - createSequence:
+            sequenceName: hibernate_sequence
+            minValue: 1000
+            startValue: 1000
