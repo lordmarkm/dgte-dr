@@ -7,3 +7,13 @@ databaseChangeLog:
             sequenceName: hibernate_sequence
             minValue: 1000
             startValue: 1000
+  - include:
+      file: /db/changelog/1.0-SNAPSHOT/20190519132640-changelog.yaml
+  - changeSet:
+      id: 2
+      author: mbmartinez
+      changes:
+        - loadData:
+            tableName: person
+            file: /db/changelog/1.0-SNAPSHOT/data/person.csv
+            quotchar: '"'

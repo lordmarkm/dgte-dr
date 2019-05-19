@@ -70,19 +70,43 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
+      <!-- Liquibase -->
       <plugin>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
         <configuration>
           <changeLogFile>src/main/resources/db/changelog/db.changelog-master.yaml</changeLogFile>
-          <url>jdbc:postgresql://localhost:5432/los?currentSchema=dgte_dr</url>
+          <url>jdbc:postgresql://localhost:5432/dgte_dr</url>
           <username>postgres</username>
           <password>postgres</password>
           <driver>org.postgresql.Driver</driver>
-          <referenceUrl>hibernate:spring:com.rbank.los.admin.data.model?dialect=org.hibernate.dialect.PostgreSQL95Dialect</referenceUrl>
+          <referenceUrl>hibernate:spring:com.dgtedr.domain?dialect=org.hibernate.dialect.PostgreSQL95Dialect</referenceUrl>
           <diffChangeLogFile>src/main/resources/db/changelog/${project.version}/${timestamp}-changelog.yaml</diffChangeLogFile>
         </configuration>
       </plugin>
+
+      <!-- QueryDSL -->
+      <plugin>
+        <groupId>com.mysema.maven</groupId>
+        <artifactId>apt-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>target/generated-sources/java</outputDirectory>
+              <processor>com.querydsl.apt.hibernate.HibernateAnnotationProcessor</processor>
+              <includes>
+                <include>com.dgtedr.domain
+                </include>
+              </includes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 </project>
