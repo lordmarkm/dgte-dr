@@ -15,12 +15,15 @@ databaseChangeLog:
         - column:
             name: created_date
             type: TIMESTAMP WITHOUT TIME ZONE
+            defaultValueComputed: CURRENT_TIMESTAMP
         - column:
             name: deleted
             type: CHAR(1)
+            defaultValue: N
         - column:
             name: updated_date
             type: TIMESTAMP WITHOUT TIME ZONE
+            defaultValueComputed: CURRENT_TIMESTAMP
         - column:
             name: civ_status
             type: VARCHAR(255)
