@@ -1,0 +1,151 @@
+<los-loading-wrapper [isLoading]="isLoading">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-12">
+        <h5 class="text-secondary mb-5 font-weight-bold">Loan Calculator</h5>
+      </div>
+    </div>
+    <!-- form -->
+    <form [formGroup]="loanCalculatorForm" (submit)="calculateMonthlyAmmortization()" #form="ngForm" autocomplete="off">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- rank -->
+          <div class="form-group">
+            <label>What is your current rank?</label>
+            <los-position-input [control]="rank"></los-position-input>
+            <los-form-input-error [showMessage]="rank.invalid && (rank.dirty || rank.touched) && rank.errors.required"
+                                  [message]="'Please select a rank'">
+            </los-form-input-error>
+          </div>
+          <!-- tenure -->
+          <div class="form-group">
+            <label>How long you have been in the company?</label>
+            <los-duration-form [formGroup]="loanCalculatorForm"
+                               [errorMessage]="{
+                             emptyDuration: 'Please enter your Tenure (duration of stay in the company).',
+                             min: 'Your tenure does not meet your company requirements. Please contact your HR for any clarification.'
+                           }">
+            </los-duration-form>
+          </div>
+          <!-- grossSalary -->
+          <div class="form-group">
+            <label for="grossSalary">How much is your Monthly Salary?</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">PHP</span>
+              </div>
+              <!-- we don't set any form control name here since we manually set the value after formatting it via Cleave -->
+              <input OnlyNumbers="true" id="grossSalary" type="text" class="form-control"
+                     aria-label="grossSalary"/>
+            </div>
+            <los-form-input-error [showMessage]="grossSalary.invalid && (grossSalary.dirty || grossSalary.touched)
+                                                && grossSalary.errors.required"
+                                  [message]="'Please enter your Monthly Salary'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="grossSalary.invalid && (grossSalary.dirty || grossSalary.touched)
+                                                && grossSalary.errors.minlength"
+                                  [message]="'Invalid Amount'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="grossSalary.invalid && (grossSalary.dirty || grossSalary.touched)
+                                                && grossSalary.errors.pattern"
+                                  [message]="'Invalid Format'">
+            </los-form-input-error>
+          </div>
+
+        </div>
+
+        <div class="col-md-6">
+          <!-- purpose -->
+          <div class="form-group">
+            <label for="purpose">What is the purpose of your loan?</label>
+            <los-loan-purpose-input id="purpose" [control]="purpose"></los-loan-purpose-input>
+            <los-form-input-error [showMessage]="purpose.invalid && (purpose.dirty || purpose.touched)
+                                                && purpose.errors.required"
+                                  [message]="'Please select a purpose of your loan application'">
+            </los-form-input-error>
+          </div>
+          <!-- amount input -->
+          <div class="form-group">
+            <label for="amount">What is the amount you wish to loan?</label>
+            <div class="input-group ">
+              <div class="input-group-prepend">
+                <span class="input-group-text">PHP</span>
+              </div>
+              <!-- we don't set any form control name here since we manually set the value after formatting it via Cleave -->
+              <input OnlyNumbers="true" id="amount" class="form-control" type="text"
+                     aria-label="Loan Amount"/>
+            </div>
+            <los-form-input-error [showMessage]="amount.invalid && (amount.dirty || amount.touched)
+                                                && amount.errors.required"
+                                  [message]="'Please enter your loan amount'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="amount.invalid && (amount.dirty || amount.touched)
+                                                && amount.errors.minlength"
+                                  [message]="'Invalid Amount'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="amount.invalid && (amount.dirty || amount.touched)
+                                                && amount.errors.pattern"
+                                  [message]="'Invalid Format'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="(amount.value && loanCalculatorForm.errors && (amount.dirty || amount.touched))
+                                                  && loanCalculatorForm.errors.minLoanAmount"
+                                  [message]="'We are sorry. Your intended loanable amount is below the loanable limit. '
+                                              + 'Please contact your HR for the Minimum Loanable Amount.'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="(amount.value && loanCalculatorForm.errors && (amount.dirty || amount.touched))
+                                                  && loanCalculatorForm.errors.maxLoanAmount"
+                                  [message]="'We are sorry. Your intended loanable amount exceeded the loanable limit. '
+                                              + 'Please contact your HR for the Maximum Loanable Amount.'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="(amount.value && loanCalculatorForm.errors && (amount.dirty || amount.touched))
+                                                  && loanCalculatorForm.errors.userMaxLoanAmount"
+                                  [message]="'We are sorry. You are not eligible to apply for the loan amount inputted.'">
+            </los-form-input-error>
+          </div>
+          <!-- term -->
+          <div class="form-group">
+            <label for="term">What is your desired payment term?</label>
+            <los-loan-term-input id="term" [control]="term"></los-loan-term-input>
+            <los-form-input-error [showMessage]="term.invalid && (term.dirty || term.touched)"
+                                  [message]="'Please select a payment term'">
+            </los-form-input-error>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <!-- buttons -->
+          <div class="d-sm-flex flex-row-reverse justify-content-sm-center mt-3 text-dark text-center">
+            <button type="submit" class="btn btn-outline-secondary mx-3 font-weight-bold text-uppercase mb-md-0 mb-3">Calculate</button>
+            <button type="button" (click)="clear(form)" class="btn btn-outline-light mx-3 text-uppercase">Clear</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- results -->
+    <ng-container *ngIf="loanDetails">
+      <div class="row mt-5">
+        <div class="offset-md-1 col-md-10">
+          <div class="card border border-secondary border py-lg-4">
+            <div class="card-body text-center" [ngClass]="{'text-muted': !loanDetails, 'text-dark': loanDetails}">
+              <h5>Your Monthly Amortization is</h5>
+              <h2 class="font-weight-bold text-secondary py-4" *ngIf="loanDetails; else default">
+                PHP {{ loanDetails.monthlyAmmortization | number: '1.2-2' }}
+              </h2>
+              <ng-template #default>
+                <h2 class="font-weight-bold text-muted py-4">-</h2>
+              </ng-template>
+              <p class="text-muted px-lg-5 small">
+                <small>Disclaimer: Actual amounts may vary based on prevailing rates when you apply.</small></p>
+
+              <button type="button" class="btn btn-secondary btn-lg text-uppercase font-weight-bold mt-3"
+                      *ngIf="loanDetails" (click)="applyNow()" [disabled]="loanCalculatorForm.invalid">
+                Apply Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+</los-loading-wrapper>

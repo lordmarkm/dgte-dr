@@ -1,0 +1,98 @@
+<div class="container-fluid company-list">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="m-0">Company List</h2>
+      </div>
+
+      <!--tabs-->
+      <div class="mt-4">
+        <ngb-tabset #tabset>
+          <ngb-tab id="companyList">
+            <ng-template ngbTabTitle>
+              Company
+              <!--<span class="badge badge-pill badge-danger">{{ plSearchQuery.totalElements }}</span>-->
+            </ng-template>
+            <ng-template ngbTabContent>
+              <div class="row">
+                <div class="col-8 table-container">
+                  <div class="d-flex justify-content-end align-items-center mb-3">
+                    <!--search-->
+                    <form (submit)="searchCompany()" autocomplete="off">
+                      <!--<input type="text" class="form-control search-input mr-2" placeholder="Keyword"-->
+                      <!--[(ngModel)]="companySearchQuery?.search" name="plSearchQuery">-->
+                      <input type="text" class="form-control search-input mr-2" placeholder="Keyword"
+                             [(ngModel)]="companySearchQuery.search" name="companySearchQuery">
+                      <button type="submit" class="btn btn-secondary mr-2 search-btn" [disabled]="companySearchQuery?.search?.length < 2">
+                        <i class="fa fa-search"></i>
+                      </button>
+                      <button type="button" class="btn btn-secondary search-btn" (click)="clearSearch()">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </form>
+                  </div>
+                  <!--company table-->
+                  <los-loading-wrapper [isLoading]="isCompanyLoading">
+                    <ngx-datatable
+                    class="material"
+                    [rows]="allCompany"
+                    [columnMode]="'force'"
+                    [headerHeight]="50"
+                    [footerHeight]="50"
+                    [rowHeight]="'50px'"
+                    [externalPaging]="true"
+                    [externalSorting]="true"
+                    [count]="companySearchQuery.totalElements"
+                    [offset]="companySearchQuery.page"
+                    [limit]="companySearchQuery.size"
+                    (sort)="onSort($event)"
+                    [sorts]="[{prop: 'createdDate', dir: 'desc'}]">
+                    <ngx-datatable-column name="Company Name" prop="name" [canAutoResize]="true"
+                                          [minWidth]="150" [width]="300" [maxWidth]="500">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Company URL" prop="companyUrl" [canAutoResize]="true"
+                                          [minWidth]="150" [width]="400" [maxWidth]="500">
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Actions" [minWidth]="165" [width]="165" [maxWidth]="500" headerClass="text-center"
+                                          cellClass="text-center" [sortable]="false" [canAutoResize]="true">
+                      <ng-template ngx-datatable-cell-template let-row="row">
+                        <a class="button" title="View Company" [routerLink]="[row.id]" >
+                          <i class="fas fa-eye"></i>
+                        </a>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <!-- footer -->
+                    <ngx-datatable-footer>
+                      <ng-template
+                        ngx-datatable-footer-template
+                        let-rowCount="rowCount"
+                        let-pageSize="pageSize"
+                        let-curPage="curPage">
+                        <div *ngIf="rowCount > 0" class="footer-wrapper">
+                          <span> Total: {{ rowCount }} </span>
+                          <div>
+                            <datatable-pager
+                              [page]="curPage"
+                              [size]="pageSize"
+                              [count]="rowCount"
+                              [pagerLeftArrowIcon]="'datatable-icon-left'"
+                              [pagerRightArrowIcon]="'datatable-icon-right'"
+                              [pagerPreviousIcon]="'datatable-icon-prev'"
+                              [pagerNextIcon]="'datatable-icon-skip'"
+                              (change)="setPage($event)">
+                            </datatable-pager>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </ngx-datatable-footer>
+                  </ngx-datatable>
+                  </los-loading-wrapper>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+</div>

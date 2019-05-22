@@ -1,0 +1,61 @@
+<los-loading-wrapper>
+  <div class="container-fluid company-details">
+    <div class="row">
+      <div class="col">
+        <h2 class="mb-4">{{ companyDetails?.name }}</h2>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="font-weight-bold text-secondary">Company Details</h6>
+                <hr class="mt-0">
+                <los-loading-wrapper [isLoading]="isLoading">
+                  <div class="row">
+                    <dt class="col-sm-4 col-12 text-left">Company Name</dt>
+                    <dd class="col-sm-8 col-12">{{ companyDetails?.name }}</dd>
+
+                    <dt class="col-sm-4 col-12 text-left">Company Code</dt>
+                    <dd class="col-sm-8 col-12">{{ companyDetails?.code }}</dd>
+
+                    <dt class="col-sm-4 col-12 text-left">Company URL</dt>
+                    <dd class="col-sm-8 col-12">{{ companyDetails?.companyUrl }}</dd>
+
+                    <dt class="col-sm-4 col-12 text-left">Company Address</dt>
+                    <dd class="col-sm-8 col-12">{{ companyDetails?.address?.fullAddress }}</dd>
+                  </div>
+                </los-loading-wrapper>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="font-weight-bold text-secondary">Authorized Signatories</h6>
+                <hr class="mt-0">
+                <los-loading-wrapper [isLoading]="isLoading">
+                  <div class="row">
+                    <div class="notes">
+                      <div class="card note" *ngFor="let authorizedSignatories of companyDetails?.authorizedSignatories">
+                        <div class="card-body">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <span class="font-weight-bold">{{ authorizedSignatories.name }}</span>
+                          </div>
+                          <span>{{ authorizedSignatories.email }}</span>
+                          <p>{{ authorizedSignatories.contactNumber }}</p>
+                        </div>
+                      </div>
+                      <div *ngIf="companyDetails?.authorizedSignatories?.length === 0" class="text-center">
+                        <i>No Authorized Signatories</i>
+                      </div>
+                    </div>
+                  </div>
+                </los-loading-wrapper>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</los-loading-wrapper>

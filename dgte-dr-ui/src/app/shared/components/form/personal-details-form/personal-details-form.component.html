@@ -1,0 +1,284 @@
+<ng-container *ngIf="!readonly; else review">
+  <form [formGroup]="personalDetailsForm" (submit)="submit()" autocomplete="off" novalidate>
+    <div class="row">
+      <ng-container *ngIf="type === 'coMaker'">
+        <div class="col-md-6">
+          <dl class="row mb-0">
+            <dt class="col-sm-5 col-12 text-left text-sm-right">Email Address</dt>
+            <dd class="col-sm-7 col-12">{{ personalDetailsForm.controls.emailAdd.value }}</dd>
+          </dl>
+        </div>
+        <div class="col-md-6">
+          <dl class="row mb-0">
+            <dt class="col-sm-5 col-12 text-left text-sm-right">Mobile Number</dt>
+            <dd class="col-sm-7 col-12">{{ personalDetailsForm.controls.mobileNumber.value }}</dd>
+          </dl>
+        </div>
+        <div class="col-12">
+          <hr/>
+        </div>
+        <div class="col-md-6">
+          <!-- firstName -->
+          <div class="form-group">
+            <label for="firstName">First Name <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <input id="firstName" formControlName="firstName" type="text" class="form-control" placeholder="Input First Name"
+                   aria-label="firstName"/>
+            <los-form-input-error [showMessage]="firstName.invalid && (firstName.dirty || firstName.touched) && firstName.errors.required"
+                                  [message]="'Please enter your First Name'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="firstName.invalid && (firstName.dirty || firstName.touched) && firstName.errors.maxlength"
+                                  [message]="'Character count exceeded'">
+            </los-form-input-error>
+          </div>
+          <!-- middleName -->
+          <div class="form-group">
+            <label for="middleName">Middle Name</label>
+            <input id="middleName" formControlName="middleName" type="text" class="form-control" placeholder="Input Middle Name"
+                   aria-label="middleName"/>
+          </div>
+          <!-- lastName -->
+          <div class="form-group">
+            <label for="lastName">Last Name <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <input id="lastName" formControlName="lastName" type="text" class="form-control" placeholder="Input Last Name"
+                   aria-label="lastName"/>
+            <los-form-input-error [showMessage]="lastName.invalid && (lastName.dirty || lastName.touched) && lastName.errors.required"
+                                  [message]="'Please enter your Last Name'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="lastName.invalid && (lastName.dirty || lastName.touched) && lastName.errors.maxlength"
+                                  [message]="'Character count exceeded'">
+            </los-form-input-error>
+          </div>
+          <!-- civilStatus -->
+          <div class="form-group">
+            <label for="civilStatus">Civil Status <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <los-civil-status-input id="civilStatus" [control]="civilStatus"></los-civil-status-input>
+            <los-form-input-error [showMessage]="civilStatus.invalid && (civilStatus.dirty || civilStatus.touched) && civilStatus.errors.required"
+                                  [message]="'Please enter your Civil Status'">
+            </los-form-input-error>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- gender -->
+          <div class="form-group">
+            <label for="gender">Gender <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <los-gender-input id="gender" [control]="gender"></los-gender-input>
+            <los-form-input-error [showMessage]="gender.invalid && (gender.dirty || gender.touched) && gender.errors.required"
+                                  [message]="'Please enter your Gender'">
+            </los-form-input-error>
+          </div>
+          <!-- date of birth -->
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="input-group-text" (click)="externalDate.instance.show()"><i class="far fa-calendar-alt"></i></button>
+              </div>
+              <input mbsc-date [mbsc-options]="mobileSettings" #externalDate="mobiscroll" class="invisible" formControlName="dateOfBirth"/>
+              <input id="dateOfBirth" class="form-control" (blur)="dateOfBirth.markAsDirty()" placeholder="MM/DD/YYYY">
+            </div>
+            <los-form-input-error [showMessage]="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched) && dateOfBirth.errors.required"
+                                  [message]="'Please enter your Date of Birth'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched) && dateOfBirth.errors.minimumAge"
+                                  [message]="'Age should be at least 18 years old'">
+            </los-form-input-error>
+          </div>
+          <!-- placeOfBirth -->
+          <div class="form-group">
+            <label for="placeOfBirth">Place of Birth <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <los-place-of-birth-input id="placeOfBirth" [control]="placeOfBirth"></los-place-of-birth-input>
+            <los-form-input-error [showMessage]="placeOfBirth.invalid && (placeOfBirth.dirty || placeOfBirth.touched) && placeOfBirth.errors.required"
+                                  [message]="'Please enter your Place of Birth'">
+            </los-form-input-error>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="type === 'borrower'">
+        <div class="col-md-6">
+          <!-- firstName -->
+          <div class="form-group">
+            <label for="firstName">First Name <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <input id="firstName" formControlName="firstName" type="text" class="form-control" placeholder="Input First Name"
+                   aria-label="firstName"/>
+            <los-form-input-error [showMessage]="firstName.invalid && (firstName.dirty || firstName.touched) && firstName.errors.required"
+                                  [message]="'Please enter your First Name'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="firstName.invalid && (firstName.dirty || firstName.touched) && firstName.errors.maxlength"
+                                  [message]="'Character count exceeded'">
+            </los-form-input-error>
+          </div>
+          <!-- middleName -->
+          <div class="form-group">
+            <label for="middleName">Middle Name</label>
+            <input id="middleName" formControlName="middleName" type="text" class="form-control" placeholder="Input Middle Name"
+                   aria-label="middleName"/>
+          </div>
+          <!-- lastName -->
+          <div class="form-group">
+            <label for="lastName">Last Name <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <input id="lastName" formControlName="lastName" type="text" class="form-control" placeholder="Input Last Name"
+                   aria-label="lastName"/>
+            <los-form-input-error [showMessage]="lastName.invalid && (lastName.dirty || lastName.touched) && lastName.errors.required"
+                                  [message]="'Please enter your Last Name'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="lastName.invalid && (lastName.dirty || lastName.touched) && lastName.errors.maxlength"
+                                  [message]="'Character count exceeded'">
+            </los-form-input-error>
+          </div>
+          <!-- civilStatus -->
+          <div class="form-group">
+            <label for="civilStatus">Civil Status <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <los-civil-status-input id="civilStatus" [control]="civilStatus"></los-civil-status-input>
+            <los-form-input-error [showMessage]="civilStatus.invalid && (civilStatus.dirty || civilStatus.touched) && civilStatus.errors.required"
+                                  [message]="'Please enter your Civil Status'">
+            </los-form-input-error>
+          </div>
+          <!-- gender -->
+          <div class="form-group">
+            <label for="gender">Gender <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <los-gender-input id="gender" [control]="gender"></los-gender-input>
+            <los-form-input-error [showMessage]="gender.invalid && (gender.dirty || gender.touched) && gender.errors.required"
+                                  [message]="'Please enter your Gender'">
+            </los-form-input-error>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <!-- emailAdd -->
+          <div class="form-group">
+            <label for="emailAddInput">Email Address <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <input id="emailAddInput" formControlName="emailAdd" type="text" class="form-control" placeholder="email@domain.com"
+                   aria-label="emailAdd"/>
+            <los-form-input-error [showMessage]="emailAdd.invalid && (emailAdd.dirty || emailAdd.touched) && emailAdd.errors.required"
+                                  [message]="'Please enter your Email Address'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="emailAdd.invalid && (emailAdd.dirty || emailAdd.touched) && emailAdd.errors.email"
+                                  [message]="'Please enter a valid Email Address'">
+            </los-form-input-error>
+          </div>
+          <!-- date of birth -->
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="input-group-text" (click)="externalDate.instance.show()"><i class="far fa-calendar-alt"></i></button>
+              </div>
+              <input mbsc-date [mbsc-options]="mobileSettings" #externalDate="mobiscroll" class="invisible" formControlName="dateOfBirth"/>
+              <input id="dateOfBirth" class="form-control" (blur)="dateOfBirth.markAsDirty()" placeholder="MM/DD/YYYY">
+            </div>
+            <los-form-input-error [showMessage]="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched) && dateOfBirth.errors.required"
+                                  [message]="'Please enter your Date of Birth'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="dateOfBirth.invalid && (dateOfBirth.dirty || dateOfBirth.touched) && dateOfBirth.errors.minimumAge"
+                                  [message]="'Age should be at least 18 years old'">
+            </los-form-input-error>
+          </div>
+          <!-- placeOfBirth -->
+          <div class="form-group">
+            <label for="placeOfBirth">Place of Birth <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <los-place-of-birth-input id="placeOfBirth" [control]="placeOfBirth"></los-place-of-birth-input>
+            <los-form-input-error [showMessage]="placeOfBirth.invalid && (placeOfBirth.dirty || placeOfBirth.touched) && placeOfBirth.errors.required"
+                                  [message]="'Please enter your Place of Birth'">
+            </los-form-input-error>
+          </div>
+          <!-- mobileNumber -->
+          <div class="form-group">
+            <label for="mobileNumberInput">Mobile Number <span *ngIf="!readonly" class="text-danger">*</span></label>
+            <input id="mobileNumberInput" formControlName="mobileNumber" type="text" class="form-control"
+                   aria-label="mobileNumber" placeholder="09XXXXXXXXX / 63XXXXXXXXXX"/>
+            <los-form-input-error [showMessage]="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched)
+                                   && mobileNumber.errors.required"
+                                  [message]="'Please enter your Mobile Number'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched)
+                                   && mobileNumber.errors.pattern"
+                                  [message]="'Invalid format'">
+            </los-form-input-error>
+            <los-form-input-error [showMessage]="mobileNumber.invalid && (mobileNumber.dirty || mobileNumber.touched)
+                                   && (mobileNumber.errors.minlength || mobileNumber.errors.maxlength)"
+                                  [message]="'Mobile Number should be 11 numbers'">
+            </los-form-input-error>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <h6 class="font-weight-bold">Landline Number (Home/Work)</h6>
+    <hr class="mt-0">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- landLineAreaCode -->
+        <div class="form-group">
+          <label for="landLineAreaCode">Area Code <span *ngIf="!readonly" class="text-danger">*</span></label>
+          <input id="landLineAreaCode" formControlName="landLineAreaCode" type="text" class="form-control" placeholder="0##"
+                 aria-label="landLineAreaCode"/>
+          <los-form-input-error [showMessage]="landLineAreaCode.invalid && (landLineAreaCode.dirty || landLineAreaCode.touched)
+                                  && landLineAreaCode.errors.required"
+                                [message]="'Please enter your Area Code'">
+          </los-form-input-error>
+          <los-form-input-error [showMessage]="landLineAreaCode.invalid && (landLineAreaCode.dirty || landLineAreaCode.touched)
+                                   && (landLineAreaCode.errors.minlength || landLineAreaCode.errors.maxlength)"
+                                [message]="'Area code should be 1-6 numbers'">
+          </los-form-input-error>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <!-- landLineNumber -->
+        <div class="form-group">
+          <label for="landLineNumber">Landline Number<span *ngIf="!readonly" class="text-danger">*</span></label>
+          <input id="landLineNumber" formControlName="landLineNumber" type="text" class="form-control" placeholder="########"
+                 aria-label="landLineNumber"/>
+          <los-form-input-error [showMessage]="landLineNumber.invalid && (landLineNumber.dirty || landLineNumber.touched)
+                                   && landLineNumber.errors.required"
+                                [message]="'Please enter your Landline Number'">
+          </los-form-input-error>
+          <los-form-input-error [showMessage]="landLineNumber.invalid && (landLineNumber.dirty || landLineNumber.touched)
+                                   && (landLineNumber.errors.minlength || landLineNumber.errors.maxlength)"
+                                [message]="'Landline number should be 7-8 numbers'">
+          </los-form-input-error>
+        </div>
+      </div>
+    </div>
+    <!-- add hidden submit button to retain submit on enter keypress functionality -->
+    <button *ngIf="!readonly" type="submit" class="d-none"></button>
+  </form>
+</ng-container>
+
+<ng-template #review>
+  <div class="row">
+    <div class="col-lg-6">
+      <dl class="row mb-0 mb-lg-3">
+        <dt class="col-sm-5 col-12text-left text-sm-right">First Name</dt>
+        <dd class="col-sm-7 col-12">{{ firstName.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Middle Name</dt>
+        <dd class="col-sm-7 col-12">{{ middleName.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Last Name</dt>
+        <dd class="col-sm-7 col-12">{{ lastName.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Gender</dt>
+        <dd class="col-sm-7 col-12">{{ gender.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Civil Status</dt>
+        <dd class="col-sm-7 col-12">{{ civilStatus.value }}</dd>
+      </dl>
+    </div>
+    <div class="col-lg-6">
+      <dl class="row">
+        <dt class="col-sm-5 col-12text-left text-sm-right">Date of Birth</dt>
+        <dd class="col-sm-7 col-12">{{ dateOfBirth.value | readableDate }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Place of Birth</dt>
+        <dd class="col-sm-7 col-12">{{ placeOfBirth.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Email Address</dt>
+        <dd class="col-sm-7 col-12">{{ emailAdd.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Mobile Number</dt>
+        <dd class="col-sm-7 col-12">{{ mobileNumber.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Landline Number (Home/Work)</dt>
+        <dd class="col-sm-7 col-12">{{ landLineAreaCode.value }} {{ landLineNumber.value }}</dd>
+      </dl>
+    </div>
+  </div>
+</ng-template>

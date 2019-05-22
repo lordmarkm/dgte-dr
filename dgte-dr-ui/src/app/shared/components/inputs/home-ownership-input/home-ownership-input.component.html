@@ -1,0 +1,10 @@
+<ng-select
+  [formControl]="control"
+  placeholder="Select Home Ownership Type"
+  [searchable]="false"
+  [selectOnTab]="true"
+  [clearable]="false">
+  <ng-option *ngFor="let homeOwnership of homeOwnerships" [value]="homeOwnership.description">
+    {{ homeOwnership.description }}
+  </ng-option>
+</ng-select>

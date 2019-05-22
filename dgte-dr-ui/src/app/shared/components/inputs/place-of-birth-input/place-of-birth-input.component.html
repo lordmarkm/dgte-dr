@@ -1,0 +1,10 @@
+<ng-select
+  [formControl]="control"
+  placeholder="Select your Place of birth"
+  [searchable]="true"
+  [selectOnTab]="true"
+  [clearable]="false">
+  <ng-option *ngFor="let placeOfBirth of placesOfBirth" [value]="placeOfBirth.cityName">
+    {{ placeOfBirth.cityName }}
+  </ng-option>
+</ng-select>

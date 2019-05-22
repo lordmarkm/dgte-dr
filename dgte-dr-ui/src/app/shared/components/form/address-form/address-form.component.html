@@ -1,0 +1,151 @@
+<ng-container *ngIf="!readonly; else review">
+<form [formGroup]="formGroup" (submit)="submit()">
+  <div class="row">
+    <div class="col-md-6">
+      <!-- homeNumber -->
+      <div class="form-group">
+        <label for="homeNumber">Home Number</label>
+        <input id="homeNumber" formControlName="homeNumber" type="text" class="form-control" placeholder="Input Home Number"
+               aria-label="homeNumber"/>
+      </div>
+      <!-- streetNumber -->
+      <div class="form-group">
+        <label for="streetNumber">Street Number</label>
+        <input id="streetNumber" formControlName="streetNumber" type="text" class="form-control" placeholder="Input Street Number"
+               aria-label="streetNumber"/>
+      </div>
+      <!-- streetName -->
+      <div class="form-group">
+        <label for="streetName">Street Name <span *ngIf="!readonly" class="text-danger">*</span></label>
+        <input id="streetName" formControlName="streetName" type="text" class="form-control" placeholder="Input Street Name"
+               aria-label="streetName"/>
+        <los-form-input-error [showMessage]="streetName.invalid
+                                              && (streetName.dirty || streetName.touched)
+                                              && streetName.errors.required"
+                              [message]="'Please enter your Street Name'">
+        </los-form-input-error>
+      </div>
+      <!-- houseOwnership -->
+      <div *ngIf="type === 'present'" class="form-group">
+        <label for="houseOwnership">House Ownership <span *ngIf="!readonly" class="text-danger">*</span></label>
+        <los-home-ownership-input id="houseOwnership" [control]="houseOwnership"></los-home-ownership-input>
+        <los-form-input-error [showMessage]="houseOwnership.invalid
+                                             && (houseOwnership.dirty || houseOwnership.touched)
+                                             && houseOwnership.errors.required"
+                              [message]="'Please enter your House Ownership'">
+        </los-form-input-error>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <!-- province -->
+      <div class="form-group">
+        <label for="province">Province <span *ngIf="!readonly" class="text-danger">*</span></label>
+        <los-loading-wrapper [isLoading]="isProvinceLoading">
+          <ng-select
+            id="province"
+            [formControl]="province"
+            placeholder="Select your Province"
+            [searchable]="true"
+            [selectOnTab]="true"
+            [clearable]="false"
+            (change)="provincesChange($event)">
+            <ng-option *ngFor="let provinceObj of provinces" [value]="provinceObj.stateName">
+              {{ provinceObj.stateName }}
+            </ng-option>
+          </ng-select>
+        </los-loading-wrapper>
+        <los-form-input-error [showMessage]="province.invalid && (province.dirty || province.touched)
+                                              && province.errors.required"
+                              [message]="'Please enter your Province'">
+        </los-form-input-error>
+      </div>
+
+      <!-- cityName -->
+      <div class="form-group">
+        <label for="cityName">City <span *ngIf="!readonly" class="text-danger">*</span></label>
+        <los-loading-wrapper [isLoading]="isCityLoading">
+          <ng-select
+            id="province"
+            [formControl]="cityName"
+            placeholder="Select your City"
+            [searchable]="true"
+            [selectOnTab]="true"
+            [clearable]="false"
+            (change)="citiesChange($event)">
+            <ng-option *ngFor="let cityObj of cities" [value]="cityObj.cityName">
+              {{ cityObj.cityName }}
+            </ng-option>
+          </ng-select>
+        </los-loading-wrapper>
+        <los-form-input-error [showMessage]="cityName.invalid && (cityName.dirty || cityName.touched)
+                                              && cityName.errors.required"
+                              [message]="'Please enter your City'">
+        </los-form-input-error>
+      </div>
+
+      <!-- zipCode -->
+      <div class="form-group">
+        <label for="zipCode">Zip Code <span *ngIf="!readonly" class="text-danger">*</span></label>
+        <los-loading-wrapper [isLoading]="isZipCodeLoading">
+          <ng-select
+            id="zipCode"
+            [formControl]="zipCode"
+            placeholder="Select your Zip Code"
+            [searchable]="true"
+            [selectOnTab]="true"
+            [clearable]="false">
+            <ng-option *ngFor="let zipCodeObj of zipCodes" [value]="zipCodeObj.postalCode">
+              {{ zipCodeObj.postalCode }}
+            </ng-option>
+          </ng-select>
+        </los-loading-wrapper>
+        <los-form-input-error [showMessage]="zipCode.invalid && (zipCode.dirty || zipCode.touched)
+                                            && zipCode.errors.required"
+                              [message]="'Please enter your Zip Code'">
+        </los-form-input-error>
+      </div>
+    </div>
+  </div>
+  <!-- add hidden submit button to retain submit on enter keypress functionality -->
+  <button type="submit" class="d-none"></button>
+</form>
+</ng-container>
+
+<ng-template #review>
+  <div class="row">
+    <div class="col-lg-6">
+      <dl class="row mb-0 mb-lg-3">
+        <dt class="col-sm-5 col-12text-left text-sm-right">Home Number</dt>
+        <dd class="col-sm-7 col-12">{{ homeNumber.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Street Number</dt>
+        <dd class="col-sm-7 col-12">{{ streetNumber.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Street Name</dt>
+        <dd class="col-sm-7 col-12">{{ streetName.value }}</dd>
+
+        <ng-container *ngIf="type === 'present'">
+          <dt class="col-sm-5 col-12text-left text-sm-right">House Ownership</dt>
+          <dd class="col-sm-7 col-12">{{ houseOwnership.value }}</dd>
+        </ng-container>
+      </dl>
+    </div>
+    <div class="col-lg-6">
+      <dl class="row">
+        <dt class="col-sm-5 col-12text-left text-sm-right">Province</dt>
+        <dd class="col-sm-7 col-12">{{ province.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">City</dt>
+        <dd class="col-sm-7 col-12">{{ cityName.value }}</dd>
+
+        <dt class="col-sm-5 col-12text-left text-sm-right">Zip Code</dt>
+        <dd class="col-sm-7 col-12">{{ zipCode.value }}</dd>
+
+        <ng-container *ngIf="type === 'present'">
+          <dt class="col-sm-5 col-12text-left text-sm-right">Length of Stay</dt>
+          <dd class="col-sm-7 col-12">{{ years.value }} Year/s and {{ months.value }} Month/s</dd>
+        </ng-container>
+      </dl>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,10 @@
+<ng-select
+  [formControl]="control"
+  placeholder="Select your Civil Status"
+  [searchable]="true"
+  [selectOnTab]="true"
+  [clearable]="false">
+  <ng-option *ngFor="let status of civilStatuses" [value]="status">
+    {{ status }}
+  </ng-option>
+</ng-select>

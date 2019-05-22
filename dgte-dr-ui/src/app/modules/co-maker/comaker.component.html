@@ -1,0 +1,9 @@
+<los-loading-wrapper [isLoading]="isLoading" [fullScreen]="true">
+  <div class="d-flex flex-column h-100">
+    <app-header [company]="company"
+                [iconUrl]="company ? ['/c', company.code | lowercase, company.id, referenceId, coMakerId] : ['/']">
+    </app-header>
+    <router-outlet></router-outlet>
+    <app-footer class="mt-auto"></app-footer>
+  </div>
+</los-loading-wrapper>

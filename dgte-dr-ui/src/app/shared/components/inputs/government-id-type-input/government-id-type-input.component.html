@@ -1,0 +1,10 @@
+<ng-select
+  [formControl]="control"
+  placeholder="Select Gov't ID Type"
+  [searchable]="true"
+  [selectOnTab]="true"
+  [clearable]="false">
+  <ng-option *ngFor="let id of ids" [value]="id">
+    {{ id }}
+  </ng-option>
+</ng-select>

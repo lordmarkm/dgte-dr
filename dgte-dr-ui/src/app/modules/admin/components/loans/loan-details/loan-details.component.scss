@@ -1,0 +1,50 @@
+@import 'app';
+
+.card-top-margin {
+  margin-top: 30px;
+}
+
+.notes {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  overflow: auto;
+  padding-right: 10px;
+}
+
+.note ~ .note {
+  margin-top: .5rem;
+}
+
+.view-attachments {
+  cursor: pointer;
+}
+
+.message-container {
+  height: 65px;
+  vertical-align: middle;
+  display: table;
+  width: 100%;
+  border:1px solid $gray-300;
+}
+
+.close-icon {
+  position: absolute;
+  right: 3px;
+  top: 2px;
+  font-size: 20px; // fa-2x is too big
+  color: $red;
+  cursor: pointer;
+}
+
+.success-message {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+
+  > .icon {
+    color: $secondary;
+  }
+}

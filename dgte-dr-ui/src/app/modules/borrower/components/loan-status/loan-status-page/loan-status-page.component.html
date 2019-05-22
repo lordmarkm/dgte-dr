@@ -1,0 +1,54 @@
+<los-section-title title="Loan Status" action="Log out" (triggerAction)="logout()"></los-section-title>
+<main class="container py-4">
+  <div class="row">
+    <div class="col">
+      <h4>Hi {{ completeLoanDetails?.borrower.fullName }},</h4>
+      <p>
+        The status of your loan application with reference number <span class="font-weight-bold">{{ completeLoanDetails?.loanReferenceNumber }}</span>
+        is currently:
+      </p>
+      <div class="d-flex flex-column align-items-center my-5">
+        <p class="font-weight-bold loan-status">
+          {{ completeLoanDetails?.externalStatus }}<br/>
+        </p>
+        <span class="font-italic">(As of <span class="font-weight-bold">{{ completeLoanDetails?.asOfDate | date }}</span>)</span>
+
+        <button *ngIf="completeLoanDetails?.externalStatus === 'Approved'" type="button" [routerLink]="['../accept-loan']"
+                class="btn btn-lg btn-secondary mt-4 px-5 font-weight-bold text-uppercase">
+          Accept Loan
+        </button>
+      </div>
+      <!-- Contracts -->
+      <div *ngIf="completeLoanDetails.status === APPLICATION_STATUS.BOOKED" class="row">
+        <los-section-title class="col-12" title="Contracts"></los-section-title>
+        <div class="col-12 col-sm-4">
+          <div class="text-center my-4">
+            <a href="/api/v1/loans/contract/terms-and-conditions/pdf" target="_blank">
+              <i class="fas fa-balance-scale fa-3x mb-3 text-gray-400"></i>
+              <p>Terms and Conditions</p>
+            </a>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4">
+          <div class="text-center my-4">
+            <a href="/api/v1/loans/contract/promissory-note/pdf/{{completeLoanDetails.loanReferenceNumber}}" target="_blank">
+              <i class="fas fa-file-signature fa-3x mb-3 text-gray-400"></i>
+              <p>Promissory note</p>
+            </a>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4">
+          <div class="text-center my-4">
+            <a href="/api/v1/loans/contract/amortization-schedule/pdf/{{completeLoanDetails.loanReferenceNumber}}" target="_blank">
+              <i class="far fa-calendar-alt fa-3x mb-3 text-gray-400"></i>
+              <p>Amortization Schedule</p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <p>For a complete detail of your application, click <a [routerLink]="['../loan-details']">here.</a></p>
+    </div>
+  </div>
+</main>
+

@@ -1,0 +1,29 @@
+.loan-status {
+  padding: 1rem;
+  border: 1px solid rgba(0,0,0, 0.2);
+  font-size: 1.2rem;
+}
+
+.payment-method-image {
+  height: 20px;
+}
+
+.payment-methods {
+  padding: 0 1rem;
+
+  .payment-method {
+    display: flex;
+    height: 50px;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.full-name-input {
+  max-width: 400px;
+}
+
+.accept-input {
+  max-width: 100px;
+  font-size: 1.2rem;
+}

@@ -1,0 +1,163 @@
+<los-loading-wrapper [isLoading]="isLoading">
+  <main class="container">
+    <form [formGroup]="acceptForm" (submit)="submit()" autocomplete="off" novalidate>
+      <!-- Loan Details -->
+      <div class="row">
+        <los-section-title class="col-12" title="Approved Loan Information" action="Log out" (triggerAction)="logout()"></los-section-title>
+        <div class="col-12">
+          <dl id="loan-details" class="row mt-3">
+            <!--loan reference number-->
+            <dt class="col-md-6 col-12 text-left text-md-right">
+              Loan Reference Number
+            </dt>
+            <dd class="col-md-6 col-12">{{ completeLoanDetails?.loanReferenceNumber }}</dd>
+            <!-- date applied -->
+            <dt class="col-md-6 col-12 text-left text-md-right">
+              Date Applied
+            </dt>
+            <dd class="col-md-6 col-12">{{ completeLoanDetails?.dateApplied | readableDate }}</dd>
+            <!--amount-->
+            <dt class="col-md-6 col-12 text-left text-md-right">
+              Approved amount
+            </dt>
+            <dd class="col-md-6 col-12">&#8369; {{ completeLoanDetails?.amount | number: '1.2-2' }}</dd>
+            <!--monthly amortization-->
+            <dt class="col-md-6 col-12 text-left text-md-right">
+              Monthly Ammortization
+            </dt>
+            <dd class="col-md-6 col-12">&#8369; {{ completeLoanDetails?.monthlyAmortizationAmount | number: '1.2-2' }}</dd>
+            <!--monthly amortization-->
+            <dt class="col-md-6 col-12 text-left text-md-right">
+              To be paid in
+            </dt>
+            <dd class="col-md-6 col-12">{{ completeLoanDetails?.termMonths | number }} months</dd>
+          </dl>
+        </div>
+      </div>
+      <!-- Payment details -->
+      <div class="row">
+        <los-section-title class="col-12" title="Payment Details"></los-section-title>
+        <ng-container *ngIf="company?.rbankPayroll">
+          <div class="col-12">
+            <h6 class="text-center my-4">Net proceed amounting to Php {{ completeLoanDetails?.amount }} will be credited to your payroll account.</h6>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!company?.rbankPayroll">
+          <div class="col-12 col-md-6">
+            <h6 class="font-weight-bold mt-4 text-secondary">Select your preferred payment method</h6>
+            <hr class="mt-0">
+            <div class="payment-methods">
+              <div class="payment-method">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="mc" value="mc" formControlName="paymentMethod">
+                  <label class="form-check-label font-weight-bold" for="mc">
+                    Managers Check
+                  </label>
+                </div>
+                <i class="fas fa-money-check text-gray-400 fa-2x"></i>
+              </div>
+              <div class="payment-method">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" id="instapay" value="instapay" formControlName="paymentMethod">
+                  <label class="form-check-label font-weight-bold" for="instapay">
+                    Instapay
+                  </label>
+                </div>
+                <img class="payment-method-image" src="/assets/images/instapay.png"/>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <h6 class="font-weight-bold mt-4 text-secondary">Enter Payment Detail</h6>
+            <hr class="mt-0">
+            <ng-container *ngIf="paymentMethod.value == 'mc'">
+              <div class="form-group">
+                <label for="payeeName">Payee Name <span *ngIf="!readonly" class="text-danger">*</span></label>
+                <input id="payeeName" type="text" class="form-control" name="payeeName" formControlName="payeeName"/>
+              </div>
+              <div class="form-group">
+                <label for="rbankBranch">Robinson Bank Branch<span *ngIf="!readonly" class="text-danger">*</span></label>
+                <ng-select
+                  id="rbankBranch"
+                  name="rbankBranch"
+                  placeholder="Select your Bank Branch"
+                  formControlName="rbankBranch"
+                  [searchable]="true"
+                  [selectOnTab]="true"
+                  [clearable]="false">
+                  <ng-option *ngFor="let branch of rbankBranches" [value]="branch">
+                    {{ branch.location }}, {{ branch.state }}
+                  </ng-option>
+                </ng-select>
+                <los-form-input-error [showMessage]="rbankBranch.invalid && rbankBranch.touched"
+                                      [message]="'Please select your prefered bank branch'">
+                </los-form-input-error>
+
+              </div>
+            </ng-container>
+            <ng-container *ngIf="paymentMethod.value == 'instapay'">
+              <div class="form-group">
+                <label for="nameOfBank">Bank Name <span *ngIf="!readonly" class="text-danger">*</span></label>
+                <input id="nameOfBank" type="text" class="form-control" formControlName="nameOfBank" placeholder="Input Bank Name"/>
+                <los-form-input-error [showMessage]="nameOfBank.invalid && nameOfBank.touched"
+                                      [message]="'Please enter your bank name'">
+                </los-form-input-error>
+              </div>
+              <div class="form-group">
+                <label for="accountName">Account Name</label>
+                <input id="accountName" type="text" class="form-control" formControlName="accountName" placeholder="Input Account Name"/>
+                <los-form-input-error [showMessage]="accountName.invalid && accountName.touched"
+                                      [message]="'Please enter your account name'">
+                </los-form-input-error>
+              </div>
+              <div class="form-group">
+                <label for="accountNumber">Account Number <span *ngIf="!readonly" class="text-danger">*</span></label>
+                <input id="accountNumber" type="text" class="form-control" formControlName="accountNumber" placeholder="Input Account Number"/>
+                <los-form-input-error [showMessage]="accountNumber.invalid && accountNumber.touched"
+                                      [message]="'Please enter your account number'">
+                </los-form-input-error>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+      <!-- Confirmation -->
+      <div class="row">
+        <los-section-title class="col-12" title="Confirmation"></los-section-title>
+        <div class="col-12 d-flex align-items-center flex-column">
+          <h6 class="mt-4 px-3 small text-center text-muted">
+            To proceed, please enter your full legal name.
+          </h6>
+          <input id="fullName" type="text" class="full-name-input form-control " formControlName="fullName" placeholder="Input Full Name"/>
+          <los-form-input-error [showMessage]="fullName.invalid && fullName.touched"
+                                [message]="'Please enter your full legal name'">
+          </los-form-input-error>
+
+          <h6 class="mt-4 px-3 small text-center text-muted">
+            and type "ACCEPT" as is.
+          </h6>
+          <input id="accept" type="text" class="accept-input form-control" formControlName="accept" maxlength="6"/>
+          <los-form-input-error [showMessage]="accept.invalid && accept.touched"
+                                [message]="'Incorrect. Type again the word using the correct format'">
+          </los-form-input-error>
+
+          <div class="my-4">
+            <button type="submit" class="btn btn-lg btn-secondary px-5 font-weight-bold text-uppercase">
+              Accept Loan
+            </button>
+
+            <!--<button type="button" (click)="download()" class="btn btn-lg btn-secondary px-5 font-weight-bold text-uppercase">-->
+              <!--download-->
+            <!--</button>-->
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="my-3 d-flex">
+        <button class="btn btn-secondary" type="button" [routerLink]="['../loan-status']">
+          Go back
+        </button>
+      </div>
+    </form>
+  </main>
+</los-loading-wrapper>

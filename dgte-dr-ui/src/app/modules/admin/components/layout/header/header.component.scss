@@ -1,0 +1,26 @@
+@import 'app';
+
+$top-nav-height: 65px;
+
+.top-nav {
+  height: $top-nav-height;
+  background: $gray-100;
+  border-bottom: 1px solid $gray-500;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rbank-logo {
+  max-height:35px;
+}
+
+.go-salary-logo {
+  max-height: 30px;
+}
+
+//.select-company {
+//  width: 150px;
+//}
