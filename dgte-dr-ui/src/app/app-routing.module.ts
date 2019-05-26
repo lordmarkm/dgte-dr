@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from '@los/shared/components/404/page-not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
-  { path: '/welcome', loadChildren: './modules/landing/landing.module#LandingModule' },
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+  { path: 'welcome', loadChildren: './modules/landing/landing.module#LandingModule' },
   { path: '**', component: PageNotFoundComponent }
 ];
 
