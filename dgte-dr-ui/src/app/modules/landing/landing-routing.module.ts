@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { LandingComponent } from './landing.component';
 import { LandingPageComponent, DirectoryComponent } from './components';
 
 const routes: Routes = [
   {
     path: '',
-    component: LandingPageComponent,
+    component: LandingComponent,
     children: [
       {
         path: '',
         component: LandingPageComponent
       },
       {
-        path: '/directory',
+        path: 'directory',
         component: DirectoryComponent
       }
     ]
