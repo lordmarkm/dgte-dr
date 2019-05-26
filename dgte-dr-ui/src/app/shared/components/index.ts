@@ -1,5 +1,6 @@
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
+
 import { SectionTitleComponent } from './layout/section-title/section-title.component';
 import { ContractAgreementComponent } from './contract-agreement/contract-agreement.component';
 import { LoadingWrapperComponent } from './loading-wrapper/loading-wrapper.component';
@@ -25,9 +26,13 @@ import { PositionInputComponent } from './inputs/position-input/position-input.c
 import { DocumentUploadFormComponent } from './form/document-upload-form/document-upload-form.component';
 import { UploadDocumentAttachmentsFormComponent } from './form/upload-document-attachments-form/upload-document-attachments-form.component';
 
+//Dgtedr
+import { NavbarComponent } from './layout/navbar/navbar.component';
+
 export const Components = [
   HeaderComponent,
   FooterComponent,
+  NavbarComponent,
   SectionTitleComponent,
   LoanTermInputComponent,
   LoanPurposeInputComponent,
@@ -59,6 +64,7 @@ export const EntryComponents = [
 export {
   HeaderComponent,
   FooterComponent,
+  NavbarComponent,
   SectionTitleComponent,
   LoanTermInputComponent,
   LoanPurposeInputComponent,
