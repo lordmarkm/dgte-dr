@@ -5,6 +5,11 @@
         <h5 class="text-secondary mb-5 font-weight-bold">Dumaguete Doctors > Directory</h5>
       </div>
     </div>
-    <!-- form -->
+
+    <div class="row">
+      <div class="col-4" *ngFor="let person of people">
+        <featured-person [person]="person"></featured-person>
+      </div>
+    </div>
   </div>
 </los-loading-wrapper>

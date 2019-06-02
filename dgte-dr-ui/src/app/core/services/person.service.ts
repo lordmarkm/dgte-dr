@@ -4,7 +4,8 @@ import { Observable, of } from 'rxjs';
 
 import { environment } from '@env/environment';
 import {
-  Person
+  Person,
+  Page
 } from '@los/shared/models';
 
 @Injectable()
@@ -15,8 +16,8 @@ export class PersonService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getPeople(params): Observable<Person> {
-    return this.httpClient.get<Person>(this.urls.GET_PEOPLE, { params });
+  public getPeople(params): Observable<Page<Person>> {
+    return this.httpClient.get<Page<Person>>(this.urls.GET_PEOPLE, { params });
   }
 
 }
