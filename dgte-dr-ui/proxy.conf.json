@@ -1,6 +1,6 @@
 {
   "/api/v1": {
-    "target": "http://xpay-staging.manila.exist.com",
+    "target": "http://localhost:8080",
     "secure": false
   }
 }

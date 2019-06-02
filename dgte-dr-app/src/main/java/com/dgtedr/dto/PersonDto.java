@@ -28,4 +28,7 @@ public class PersonDto extends AuditableDto {
     private Gender gender;
     private CivilStatus civilStatus;
 
+    public String getFullName() {
+        return lastName + ", " + firstName + " " + middleName;
+    }
 }
