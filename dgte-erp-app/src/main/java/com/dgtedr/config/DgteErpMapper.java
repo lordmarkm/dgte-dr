@@ -26,5 +26,6 @@ public interface DgteErpMapper {
     ProjectDto toDto(Project project);
 
     Account toEntity(AccountDto account);
+    @Mapping(target = "parent.children", ignore = true)
     AccountDto toDto(Account account);
 }
