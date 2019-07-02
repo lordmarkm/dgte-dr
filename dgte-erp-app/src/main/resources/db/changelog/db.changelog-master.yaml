@@ -1,21 +1,5 @@
 databaseChangeLog:
-  - changeSet:
-      id: 1
-      author: mbmartinez
-      changes:
-        - createSequence:
-            sequenceName: hibernate_sequence
-            minValue: 1000
-            startValue: 1000
   - include:
-      file: /db/changelog/1.0-SNAPSHOT/20190519132640-changelog.yaml
-  - changeSet:
-      id: 2
-      author: mbmartinez
-      changes:
-        - loadData:
-            tableName: person
-            file: /db/changelog/1.0-SNAPSHOT/data/person.csv
-            quotchar: '"'
+      file: /db/changelog/1.0-SNAPSHOT/20190702142755-changelog.yaml
   - include:
-      file: /db/changelog/1.0-SNAPSHOT/20190702103945-changelog.yaml
+      file: /db/changelog/1.0-SNAPSHOT/20190702144910-changelog.yaml

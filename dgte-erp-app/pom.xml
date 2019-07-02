@@ -79,7 +79,7 @@
         <artifactId>liquibase-maven-plugin</artifactId>
         <configuration>
           <changeLogFile>src/main/resources/db/changelog/db.changelog-master.yaml</changeLogFile>
-          <url>jdbc:postgresql://localhost:5432/dgte_dr</url>
+          <url>jdbc:postgresql://localhost:5432/dgte_erp</url>
           <username>postgres</username>
           <password>postgres</password>
           <driver>org.postgresql.Driver</driver>

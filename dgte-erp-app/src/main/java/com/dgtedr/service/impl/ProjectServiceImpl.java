@@ -24,4 +24,9 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         return null;
     }
 
+    @Override
+    public ProjectDto save(ProjectDto project) {
+        return mapper.toDto(service.save(mapper.toEntity(project)));
+    }
+
 }

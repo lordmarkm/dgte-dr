@@ -1,0 +1,229 @@
+databaseChangeLog:
+- changeSet:
+    id: 1562077684896-1
+    author: mbmartinez (generated)
+    changes:
+    - createSequence:
+        sequenceName: hibernate_sequence
+- changeSet:
+    id: 1562077684896-2
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: accountPK
+            name: id
+            type: BIGINT
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: acct_code
+            type: VARCHAR(255)
+        - column:
+            name: acct_desc
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: acct_name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: acct_type
+            type: VARCHAR(255)
+        - column:
+            name: parent_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: project_id
+            type: BIGINT
+        tableName: account
+- changeSet:
+    id: 1562077684896-3
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: account_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: children_id
+            type: BIGINT
+        tableName: account_account
+- changeSet:
+    id: 1562077684896-4
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: personPK
+            name: id
+            type: BIGINT
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: civ_status
+            type: VARCHAR(255)
+        - column:
+            name: dob
+            type: date
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: f_name
+            type: VARCHAR(255)
+        - column:
+            name: gender
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: industry
+            type: VARCHAR(255)
+        - column:
+            name: landline
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: l_name
+            type: VARCHAR(255)
+        - column:
+            name: m_name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: mobile
+            type: VARCHAR(255)
+        - column:
+            name: pob
+            type: VARCHAR(255)
+        tableName: person
+- changeSet:
+    id: 1562077684896-5
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: projectPK
+            name: id
+            type: BIGINT
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: proj_name
+            type: VARCHAR(255)
+        tableName: project
+- changeSet:
+    id: 1562077684896-6
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: children_id
+        constraintName: UK_gp4etwcjdqw0fthwwbbm91qrx
+        tableName: account_account
+- changeSet:
+    id: 1562077684896-7
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: project_id
+        baseTableName: account
+        constraintName: FK14lm6w9jdt2h8la4mrd3dagi0
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: project
+        validate: true
+- changeSet:
+    id: 1562077684896-8
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: account_id
+        baseTableName: account_account
+        constraintName: FK225xefjjw9cco0nap1fny518l
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+        validate: true
+- changeSet:
+    id: 1562077684896-9
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: parent_id
+        baseTableName: account
+        constraintName: FKef5lfvm7tliuagpl8wibmrqd0
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+        validate: true
+- changeSet:
+    id: 1562077684896-10
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: children_id
+        baseTableName: account_account
+        constraintName: FKp0ae3bjdv2op9sund65m6penk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+        validate: true
+

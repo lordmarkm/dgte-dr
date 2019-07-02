@@ -2,8 +2,6 @@ package com.dgtedr.dto;
 
 import java.util.List;
 
-import com.dgtedr.domain.Account;
-import com.dgtedr.domain.Project;
 import com.dgtedr.ref.AccountType;
 
 import lombok.Data;
@@ -18,7 +16,6 @@ public class AccountDto extends BaseDto {
     private String description;
     private AccountType type;
     private ProjectDto project;
-    private AccountDto parent;
     private List<AccountDto> children;
 
 }

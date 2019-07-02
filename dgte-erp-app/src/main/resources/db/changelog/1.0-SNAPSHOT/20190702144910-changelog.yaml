@@ -1,0 +1,37 @@
+databaseChangeLog:
+- changeSet:
+    id: 1562078972134-1
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: project_id, acct_code
+        constraintName: UK16natn47uyweve37ns2b5ho89
+        tableName: account
+- changeSet:
+    id: 1562078972134-2
+    author: mbmartinez (generated)
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableName: account_account
+        constraintName: FK225xefjjw9cco0nap1fny518l
+- changeSet:
+    id: 1562078972134-3
+    author: mbmartinez (generated)
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableName: account_account
+        constraintName: FKp0ae3bjdv2op9sund65m6penk
+- changeSet:
+    id: 1562078972134-4
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: UK_gp4etwcjdqw0fthwwbbm91qrx
+        tableName: account_account
+- changeSet:
+    id: 1562078972134-5
+    author: mbmartinez (generated)
+    changes:
+    - dropTable:
+        tableName: account_account
+
