@@ -17,3 +17,5 @@ databaseChangeLog:
             tableName: person
             file: /db/changelog/1.0-SNAPSHOT/data/person.csv
             quotchar: '"'
+  - include:
+      file: /db/changelog/1.0-SNAPSHOT/20190702103945-changelog.yaml
