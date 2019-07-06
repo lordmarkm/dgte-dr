@@ -6,11 +6,13 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import com.dgtedr.domain.Account;
 import com.dgtedr.domain.BaseEntity;
+import com.dgtedr.domain.Entry;
 import com.dgtedr.domain.Person;
 import com.dgtedr.domain.Project;
 import com.dgtedr.domain.Transaction;
 import com.dgtedr.dto.AccountDto;
 import com.dgtedr.dto.BaseDto;
+import com.dgtedr.dto.EntryDto;
 import com.dgtedr.dto.PersonDto;
 import com.dgtedr.dto.ProjectDto;
 import com.dgtedr.dto.TransactionDto;
@@ -33,4 +35,10 @@ public interface DgteErpMapper {
 
     Transaction toEntity(TransactionDto txn);
     TransactionDto toDto(Transaction txn);
+
+    Entry toEntity(EntryDto entry);
+
+    @Mapping(target = "account.parent", ignore = true)
+    @Mapping(target = "account.children", ignore = true)
+    EntryDto toDto(Entry entry);
 }
