@@ -1,21 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LandingComponent } from './landing.component';
-import { LandingPageComponent, DirectoryComponent } from './components';
+import { BookkeepingComponent } from './bookkeeping.component';
+import { TransactionListComponent } from './components';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'transactions', pathMatch: 'full' },
   {
     path: '',
-    component: LandingComponent,
     children: [
       {
-        path: '',
-        component: LandingPageComponent
-      },
-      {
-        path: 'directory',
-        component: DirectoryComponent
+        path: 'transactions',
+        component: TransactionListComponent
       }
     ]
   }
@@ -25,4 +21,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BookKeepingRoutingModule { }
+export class BookkeepingRoutingModule { }

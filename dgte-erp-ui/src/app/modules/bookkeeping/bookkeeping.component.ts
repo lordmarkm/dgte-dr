@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
 @Component({
-  selector: 'dgtedr-landing',
-  templateUrl: './landing.component.html'
+  selector: 'dgte-erp-bookkeeping',
+  templateUrl: './bookkeeping.component.html'
 })
-export class LandingComponent implements OnInit {
+export class BookkeepingComponent implements OnInit {
 
   constructor(private router: Router) { }
 

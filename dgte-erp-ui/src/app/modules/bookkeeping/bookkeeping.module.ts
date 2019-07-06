@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@los/shared/shared.module';
-import { LandingRoutingModule } from './landing-routing.module';
+import { BookkeepingRoutingModule } from './bookkeeping-routing.module';
 import { Components, EntryComponents } from './components';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -12,11 +13,12 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     SharedModule,
-    LandingRoutingModule,
+    BookkeepingRoutingModule,
     ReactiveFormsModule,
+    NgxDatatableModule,
   ],
   entryComponents: [
     EntryComponents
   ]
 })
-export class LandingModule { }
+export class BookkeepingModule { }

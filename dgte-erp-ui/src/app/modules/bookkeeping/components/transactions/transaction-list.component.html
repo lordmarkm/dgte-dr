@@ -1,110 +1,39 @@
 <div class="container-fluid">
   <div class="row">
+    <div class="col text-right">
+      <button class="btn btn-primary">Add income</button>
+    </div>
+  </div>
+  <div class="row">
     <div class="col">
       <los-loading-wrapper [isLoading]="isPendingLoading">
         <ngx-datatable
           class="material"
-          [rows]="pendingLoans"
+          [rows]="transactions"
           [columnMode]="'force'"
           [headerHeight]="50"
           [footerHeight]="50"
           [rowHeight]="'80px'"
-          [messages]="{emptyMessage: this.pendingNoRecordsMsg}"
+          [messages]="{ emptyMessage: this.noRecordsMsg }"
           [scrollbarH]="true"
           [externalPaging]="true"
           [externalSorting]="true"
-          [count]="plSearchQuery.totalElements"
-          [offset]="plSearchQuery.page"
-          [limit]="plSearchQuery.size"
-          (sort)="onSort('pending', $event)"
-          [sorts]="[{prop: 'createdDate', dir: 'desc'}]">
+          [count]="searchQuery.totalElements"
+          [offset]="searchQuery.page"
+          [limit]="searchQuery.size"
+          (sort)="onSort($event)"
+          [sorts]="[{prop: 'transactionDate', dir: 'desc'}]">
           <!-- columns -->
-          <ngx-datatable-column name="Loan Reference No." prop="loanReferenceNumber" [minWidth]="150" [width]="150" [maxWidth]="150"></ngx-datatable-column>
-          <ngx-datatable-column name="Borrower" prop="borrower.lastName" [minWidth]="200" [width]="200">
-            <ng-template ngx-datatable-cell-template let-row="row">
-              <div class="borrower-details">
-                <span title="{{ row.borrower.fullName }}">{{ row.borrower.fullName }}</span><br/>
-                <span title="{{ formatValues(row.borrower.employmentDetails.rank) }} {{ row.borrower.employmentDetails.position }}"
-                      class="rank">{{ formatValues(row.borrower.employmentDetails.rank) }} {{ row.borrower.employmentDetails.position }}</span><br/>
-                <span class="tenure">
-              {{ row.borrower.employmentDetails.tenuredYears }}
-              Year<span *ngIf="row.borrower.employmentDetails.tenuredYears > 1">s</span>
-              {{ row.borrower.employmentDetails.tenuredMonths }}
-              Month<span *ngIf="row.borrower.employmentDetails.tenuredMonths > 1">s</span>
-            </span>
-              </div>
+          <ngx-datatable-column [minWidth]="50" [width]="50" [maxWidth]="50">
+            <ng-template let-column="column" ngx-datatable-header-template>
+              <span><input type="checkbox" /></span>
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <span><input type="checkbox" /></span>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column *ngIf="selectedCompany?.name === 'JG Summit'" name="Company"
-                                prop="borrower.employmentDetails.companyName"></ngx-datatable-column>
-          <ngx-datatable-column name="Monthly Salary" prop="borrower.grossSalary"
-                                [minWidth]="165" [width]="165" [maxWidth]="165">
-            <ng-template ngx-datatable-cell-template let-value="value">
-              <!-- currency pipe doesn't seem to have a symbol for PHP -->
-              <!-- so we use php html code and number pipe here -->
-              <span title="&#8369; {{ value | number:'1.2-2' }}">&#8369; {{ value | number:'1.2-2' }}</span>
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Loan Amount" prop="amount" [minWidth]="150" [width]="150" [maxWidth]="150">
-            <ng-template ngx-datatable-cell-template let-value="value">
-              <span title="&#8369; {{ value | number:'1.2-2' }}">&#8369; {{ value | number:'1.2-2' }}</span>
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Term (Months)" prop="termMonths" [minWidth]="130" [width]="130" [maxWidth]="130">
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Date Applied" prop="dateApplied" [minWidth]="120" [width]="120" [maxWidth]="120">
-            <ng-template ngx-datatable-cell-template let-value="value">
-              <span title="{{ value ? (value | readableDate) :  ''}}">{{ value ? (value | readableDate) :  '' }}</span>
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Endorsement Date" prop="endorsementDate" [minWidth]="120" [width]="140" [maxWidth]="140">
-            <ng-template ngx-datatable-cell-template let-value="value">
-              <span title="{{ value ? (value | readableDate) : '' }}">{{ value ? (value | readableDate) : '' }}</span>
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Maturity Date" prop="maturityDate" [minWidth]="120" [width]="140" [maxWidth]="140">
-            <ng-template ngx-datatable-cell-template let-value="value">
-              <span title="{{ value ? (value | readableDate) : '' }}">{{ value ? (value | readableDate) : '' }}</span>
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column prop="previousLoans" [sortable]="false" [minWidth]="130" [width]="130" [maxWidth]="130">
-            <ng-template ngx-datatable-cell-template let-value="value">
-              0
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Co-Maker/s" prop="comakers" [sortable]="false">
-            <ng-template ngx-datatable-cell-template let-value="value">
-              <p class="coMaker" title="{{ comaker.fullName }}" *ngFor="let comaker of value">{{ comaker.fullName }}</p>
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Status" prop="externalStatus" [minWidth]="250" [width]="250">
-            <ng-template ngx-datatable-cell-template let-value="value">
-              <span title="{{ value }}">{{ value }}</span>
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="Actions" [minWidth]="165" [width]="165" [maxWidth]="165" [sortable]="false">
-            <ng-template ngx-datatable-cell-template let-row="row">
-              <div class="action-buttons">
-                <a class="button" title="View Loan" [routerLink]="[row.loanReferenceNumber]" ><i class="fas fa-eye"></i></a>
-                <button *ngIf="verifierRole && row.status == 'FOR_HR_VERIFICATION'"
-                        class="btn btn-link" title="Verify Loan" (click)="verifyLoan(row)">
-                  <i class="fas fa-check-circle"></i>
-                </button>
-                <button *ngIf="endorserRole && row.status == 'FOR_HR_ENDORSEMENT' && canEndorse(row)" class="btn btn-link endorse"
-                        title="Endorse Loan" (click)="endorseLoan(row)">
-                  <i class="fas fa-thumbs-up"></i>
-                </button>
-                <button *ngIf="row.status != 'IN_PROCESS' && row.status != 'HR_REJECTED'
-                            && row.status != 'PENDING_FOR_COMAKER_APPROVAL'
-                            && ((endorserRole && row.status == 'FOR_HR_ENDORSEMENT')
-                            || (verifierRole && row.status == 'FOR_HR_VERIFICATION'))
-                            && canEndorse(row)"
-                        class="btn btn-link decline" title="Decline Loan" (click)="declineLoan(row)">
-                  <i class="fas fa-thumbs-down"></i>
-                </button>
-              </div>
-            </ng-template>
-          </ngx-datatable-column>
+          <ngx-datatable-column name="Txn Date" prop="transactionDate" [minWidth]="150" [width]="150" [maxWidth]="150"></ngx-datatable-column>
+          <ngx-datatable-column name="Description" prop="description"></ngx-datatable-column>
           <!-- footer -->
           <ngx-datatable-footer>
             <ng-template
@@ -129,7 +58,7 @@
                     [pagerRightArrowIcon]="'datatable-icon-right'"
                     [pagerPreviousIcon]="'datatable-icon-prev'"
                     [pagerNextIcon]="'datatable-icon-skip'"
-                    (change)="setPage('pending', $event)">
+                    (change)="setPage($event)">
                   </datatable-pager>
                 </div>
               </div>

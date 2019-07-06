@@ -3,8 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from '@los/shared/components/404/page-not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+  { path: '', redirectTo: 'bookkeeping', pathMatch: 'full' },
   { path: 'welcome', loadChildren: './modules/landing/landing.module#LandingModule' },
+  { path: 'bookkeeping', loadChildren: './modules/bookkeeping/bookkeeping.module#BookkeepingModule' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

@@ -19,11 +19,11 @@ export class TransactionService {
   }
 
   public search(transactionSearch): Observable<any> {
-    return this.httpClient.post(this.urls.SEARCH, transactionSearch);
+    return this.httpClient.get(this.urls.SEARCH, { params: transactionSearch });
   }
 
   public findByCode(code: string) {
-    return this.httpClient.get(this.urls.FIND_BY_CODE, { code });
+    return this.httpClient.get(this.urls.FIND_BY_CODE, { params: { code }});
   }
 
   public save(transaction): Observable<any> {
