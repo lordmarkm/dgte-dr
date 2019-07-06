@@ -1,0 +1,24 @@
+databaseChangeLog:
+- changeSet:
+    id: 1562392383816-7
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: project_id
+            type: int8
+        tableName: transaction
+- changeSet:
+    id: 1562392383816-8
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: project_id
+        baseTableName: transaction
+        constraintName: FKh0tf5dukhwwwiivhdy6jbkp5x
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: project
+        validate: true

@@ -1,0 +1,176 @@
+databaseChangeLog:
+- changeSet:
+    id: 1562384853001-5
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: entryPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: amount
+            type: numeric(19, 2)
+        - column:
+            constraints:
+              nullable: false
+            name: entry_date
+            type: date
+        - column:
+            constraints:
+              nullable: false
+            name: account_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: txn_id
+            type: BIGINT
+        tableName: entry
+- changeSet:
+    id: 1562384853001-6
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: transactionPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: txn_desc
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: txn_date
+            type: date
+        tableName: transaction
+- changeSet:
+    id: 1562384853001-7
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_ENTRYCODE_COL
+        tableName: entry
+- changeSet:
+    id: 1562384853001-8
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_TRANSACTIONCODE_COL
+        tableName: transaction
+- changeSet:
+    id: 1562384853001-9
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: txn_id
+        baseTableName: entry
+        constraintName: FK21d8rf3glgoyw4smju6lsqkin
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: transaction
+        validate: true
+- changeSet:
+    id: 1562384853001-10
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: account_id
+        baseTableName: entry
+        constraintName: FK4co40llmt3yampxxsbfvp9itq
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+        validate: true
+- changeSet:
+    id: 1562384853001-1
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: UC_ACCOUNTCODE_COL
+        tableName: account
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_ACCOUNTCODE_COL
+        tableName: account
+- changeSet:
+    id: 1562384853001-2
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: UC_PERSONCODE_COL
+        tableName: person
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_PERSONCODE_COL
+        tableName: person
+- changeSet:
+    id: 1562384853001-3
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: UC_PROJECTCODE_COL
+        tableName: project
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_PROJECTCODE_COL
+        tableName: project
+- changeSet:
+    id: 1562384853001-4
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: UK16natn47uyweve37ns2b5ho89
+        tableName: account
+    - addUniqueConstraint:
+        columnNames: project_id, acct_code
+        constraintName: UK16natn47uyweve37ns2b5ho89
+        tableName: account
+

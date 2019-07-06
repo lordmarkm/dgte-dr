@@ -8,10 +8,12 @@ import com.dgtedr.domain.Account;
 import com.dgtedr.domain.BaseEntity;
 import com.dgtedr.domain.Person;
 import com.dgtedr.domain.Project;
+import com.dgtedr.domain.Transaction;
 import com.dgtedr.dto.AccountDto;
 import com.dgtedr.dto.BaseDto;
 import com.dgtedr.dto.PersonDto;
 import com.dgtedr.dto.ProjectDto;
+import com.dgtedr.dto.TransactionDto;
 
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface DgteErpMapper {
@@ -28,4 +30,7 @@ public interface DgteErpMapper {
     Account toEntity(AccountDto account);
     @Mapping(target = "parent.children", ignore = true)
     AccountDto toDto(Account account);
+
+    Transaction toEntity(TransactionDto txn);
+    TransactionDto toDto(Transaction txn);
 }
