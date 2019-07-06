@@ -1,0 +1,73 @@
+databaseChangeLog:
+- changeSet:
+    id: 1562374168646-2
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: varchar(255)
+        tableName: account
+- changeSet:
+    id: 1562374168646-3
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: varchar(255)
+        tableName: person
+- changeSet:
+    id: 1562374168646-4
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: varchar(255)
+        tableName: project
+- changeSet:
+    id: 1562374168646-5
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_ACCOUNTCODE_COL
+        tableName: account
+- changeSet:
+    id: 1562374168646-6
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_PERSONCODE_COL
+        tableName: person
+- changeSet:
+    id: 1562374168646-7
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_PROJECTCODE_COL
+        tableName: project
+- changeSet:
+    id: 1562374168646-1
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: UK16natn47uyweve37ns2b5ho89
+        tableName: account
+    - addUniqueConstraint:
+        columnNames: project_id, acct_code
+        constraintName: UK16natn47uyweve37ns2b5ho89
+        tableName: account
+

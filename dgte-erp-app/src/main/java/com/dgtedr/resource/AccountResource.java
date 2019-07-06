@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dgtedr.dto.AccountDto;
@@ -24,9 +25,9 @@ public class AccountResource {
         return ResponseEntity.ok(service.saveInfo(account));
     }
 
-    @GetMapping("/{projectId}/{code}")
-    public ResponseEntity<AccountDto> findByCode(@PathVariable Long projectId, @PathVariable String code) {
-        return service.findByCodeInfo(projectId, code)
+    @GetMapping("/find-by-code")
+    public ResponseEntity<AccountDto> findByCode(@RequestParam String code) {
+        return service.findDtoByCode(code)
                     .map(ResponseEntity::ok)
                     .orElseGet(() -> ResponseEntity.badRequest().build());
     }

@@ -1,6 +1,7 @@
 package com.dgtedr.domain;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
@@ -39,5 +41,13 @@ public class BaseEntity {
     @LastModifiedDate
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
+
+    @Column(name = "code", nullable = false, updatable = false, unique = true)
+    private String code;
+
+    @PrePersist
+    public void setCode() {
+        this.code = UUID.randomUUID().toString();
+    }
 
 }

@@ -9,14 +9,13 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AccountDto extends BaseDto {
+public class ChildAccountDto extends BaseDto {
 
     private String name;
     private String accountCode;
     private String description;
     private AccountType type;
     private ProjectDto project;
-    private AccountDto parent;
     private List<ChildAccountDto> children;
 
 }

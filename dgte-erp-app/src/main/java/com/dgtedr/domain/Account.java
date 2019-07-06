@@ -29,7 +29,7 @@ public class Account extends BaseEntity {
     private String name;
 
     @Column(name = "acct_code", nullable = false)
-    private String code;
+    private String accountCode;
 
     @Column(name = "acct_desc")
     private String description;

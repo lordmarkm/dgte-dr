@@ -20,8 +20,8 @@ public class AccountServiceImpl implements AccountServiceCustom {
     private AccountService service;
 
     @Override
-    public Optional<AccountDto> findByCodeInfo(Long projoectId, String code) {
-        return service.findByProjectIdAndCode(projoectId, code)
+    public Optional<AccountDto> findDtoByCode(String code) {
+        return service.findByCode(code)
                 .map(mapper::toDto);
     }
 

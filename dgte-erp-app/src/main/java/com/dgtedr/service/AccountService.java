@@ -7,6 +7,6 @@ import com.rbank.los.commons.data.repository.BaseJpaRepository;
 
 public interface AccountService extends BaseJpaRepository<Account, Long>, AccountServiceCustom {
 
-    Optional<Account> findByProjectIdAndCode(Long projectId, String code);
+    Optional<Account> findByCode(String code);
 
 }

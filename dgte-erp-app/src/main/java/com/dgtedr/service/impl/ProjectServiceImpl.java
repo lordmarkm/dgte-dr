@@ -1,5 +1,7 @@
 package com.dgtedr.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +22,14 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
 
     @Override
     public Page<ProjectDto> findAll(ProjectSearchDto searchDto, Pageable pageable) {
-        // TODO Auto-generated method stub
-        return null;
+        return service.findAll(searchDto.toQuery(), pageable)
+                    .map(mapper::toDto);
+    }
+
+    @Override
+    public Optional<ProjectDto> findDtoByCode(String code) {
+        return service.findByCode(code)
+                .map(mapper::toDto);
     }
 
     @Override

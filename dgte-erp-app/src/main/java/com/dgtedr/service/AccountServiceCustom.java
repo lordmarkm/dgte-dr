@@ -6,7 +6,7 @@ import com.dgtedr.dto.AccountDto;
 
 public interface AccountServiceCustom {
 
-    Optional<AccountDto> findByCodeInfo(Long projectId, String code);
+    Optional<AccountDto> findDtoByCode(String code);
     AccountDto saveInfo(AccountDto account);
 
 }
