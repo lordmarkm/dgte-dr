@@ -1,0 +1,479 @@
+<los-loading-wrapper [isLoading]="isLoading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <h2 class="mb-4">Loan Reference # {{ loanDetails?.loanReferenceNumber }}</h2>
+        <div class="row">
+          <div *ngIf="showSuccessMessage" class="col-12 message-container mb-4">
+            <i (click)="hideSuccessMessage()" class="fa fa-times close-icon"></i>
+            <h5 *ngIf="changeStatusSuccessMsg" class="success-message">
+              <i class="icon fa fa-check-circle"></i>
+              You have successfully {{ status }} reference number:
+              <span class="referenceNumber">{{ referenceNumber }}</span>
+            </h5>
+            <h5 *ngIf="addNoteSuccessMsg" class="success-message">
+              <i class="icon fa fa-check-circle"></i>
+              Notes have been successfully added!
+            </h5>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="font-weight-bold text-secondary">Loan Information</h6>
+                <hr class="mt-0">
+                <!-- TODO highlight important fields -->
+                <div class="row">
+                  <dt class="col-sm-6 col-12 text-left">Name</dt>
+                  <dd class="col-sm-6 col-12">{{ loanDetails?.borrower.fullName }}</dd>
+
+                  <ng-container *ngIf="loanDetails">
+                    <dt class="col-sm-6 col-12 text-left">Status</dt>
+                    <dd class="col-sm-6 col-12">{{ loanDetails.externalStatus }}</dd>
+                  </ng-container>
+
+                  <dt class="col-sm-6 col-12 text-left">Loan Purpose</dt>
+                  <dd class="col-sm-6 col-12">{{ loanDetails?.loansPurpose }}</dd>
+
+                  <dt class="col-sm-6 col-12 text-left">Monthly Amortization</dt>
+                  <dd class="col-sm-6 col-12">&#8369; {{ computedMonthlyAmortization | number: '1.2-2' }}</dd>
+
+                  <dt class="col-sm-6 col-12 text-left">Monthly Salary</dt>
+                  <dd class="col-sm-6 col-12">&#8369; {{ loanDetails?.borrower.grossSalary | number:'1.2-2' }}</dd>
+
+                  <dt class="col-sm-6 col-12 text-left">Net Monthly Income</dt>
+                  <dd class="col-sm-6 col-12">&#8369; {{ loanDetails?.borrower.netPay | number:'1.2-2' }}</dd>
+
+                  <dt class="col-sm-6 col-12 text-left" *ngIf="!canEditLoadDetails">Loan Amount</dt>
+                  <dd class="col-sm-6 col-12" *ngIf="!canEditLoadDetails">&#8369; {{ loanDetails?.amount | number:'1.2-2' }}</dd>
+                  <dt class="col-sm-6 col-12 text-left" *ngIf="!canEditLoadDetails">Term (Months)</dt>
+                  <dd class="col-sm-6 col-12" *ngIf="!canEditLoadDetails">{{ loanDetails?.termMonths }}</dd>
+
+                  <dt class="col-sm-6 col-12 text-left" *ngIf="canEditLoadDetails">Loan Amount</dt>
+                  <dd class="col-sm-6 col-12" *ngIf="canEditLoadDetails">
+                    <div class="input-group ">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">PHP</span>
+                      </div>
+                      <input OnlyNumbers="true" id="amount" class="form-control" type="text"
+                             aria-label="Loan Amount" autocomplete="off"/>
+                    </div>
+                    <los-form-input-error [showMessage]="loanAmount > loanDetails.originalAmount"
+                                          [message]="'The updated loan amount is higher than the borrower’s applied loan.'">
+                    </los-form-input-error>
+                    <los-form-input-error [showMessage]="loanAmount > companyLoanSettings.maximumLoanAmount"
+                                          [message]="'The updated loan amount is higher than the loanable limit.'">
+                    </los-form-input-error>
+                    <los-form-input-error [showMessage]="loanAmount < companyLoanSettings.minimumLoanAmount"
+                                          [message]="'The updated loan amount is below the loanable limit.'">
+                    </los-form-input-error>
+                  </dd>
+
+                  <dt class="col-sm-6 col-12 text-left" *ngIf="canEditLoadDetails">Term (Months)</dt>
+                  <dd class="col-sm-6 col-12" *ngIf="canEditLoadDetails">
+                    <ng-select
+                      placeholder="Term"
+                      notFoundText="Not allowed"
+                      [searchable]="true"
+                      [selectOnTab]="true"
+                      [clearable]="false"
+                      [(ngModel)]="termMonths">
+                      <ng-option *ngFor="let in of terms; index as i" [value]="terms[i]">{{ terms[i] }}</ng-option>
+                    </ng-select>
+                  </dd>
+
+                  <dt class="col-sm-6 col-12 text-left">Date Applied</dt>
+                  <dd class="col-sm-6 col-12">{{ loanDetails?.dateApplied ? (loanDetails?.dateApplied | readableDate) : '' }}</dd>
+
+                  <dt class="col-sm-6 col-12 text-left">Endorsement Date</dt>
+                  <dd class="col-sm-6 col-12">{{ loanDetails?.endorsementDate ? (loanDetails?.endorsementDate | readableDate) : '' }}</dd>
+
+                  <dt class="col-sm-6 col-12 text-left">Maturity Date</dt>
+                  <dd class="col-sm-6 col-12">{{ loanDetails?.maturityDate ? (loanDetails?.maturityDate | readableDate) : '' }}</dd>
+                </div>
+
+                <div class="d-xs-block d-md-none mt-3">
+                  <h6 class="font-weight-bold">Personal Information</h6>
+                  <hr class="mt-0">
+                  <div class="row">
+                    <div class="col-xl-6">
+                      <dl class="row mb-0 mb-lg-3">
+                        <dt class="col-sm-5 col-12 text-left">First Name</dt>
+                        <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.firstName }}</dd>
+
+                        <dt class="col-sm-5 col-12 text-left">Middle Name</dt>
+                        <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.middleName }}</dd>
+
+                        <dt class="col-sm-5 col-12 text-left">Last Name</dt>
+                        <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.lastName }}</dd>
+
+                        <dt class="col-sm-5 col-12 text-left">Gender</dt>
+                        <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.gender }}</dd>
+
+                        <dt class="col-sm-5 col-12 text-left">Civil Status</dt>
+                        <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.civilStatus }}</dd>
+                      </dl>
+                    </div>
+                    <div class="col-xl-6">
+                      <dl class="row">
+                        <dt class="col-sm-5 col-12 text-left">Date of Birth</dt>
+                        <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.dateOfBirth | readableDate }}</dd>
+
+                        <dt class="col-sm-5 col-12 text-left">Place of Birth</dt>
+                        <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.placeOfBirth }}</dd>
+
+                        <dt class="col-sm-5 col-12 text-left">Email Address</dt>
+                        <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.emailAdd }}</dd>
+
+                        <dt class="col-sm-5 col-12 text-left">Mobile Number</dt>
+                        <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.mobileNumber }}</dd>
+
+                        <dt class="col-sm-5 col-12 text-left">Landline Number (Home/Work)</dt>
+                        <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.landLineAreaCode }} {{ loanDetails?.borrower.landLineNumber }}</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+
+                <h6 class="font-weight-bold mt-md-3 text-secondary">Employment Information</h6>
+                <hr class="mt-0">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <dl class="row mb-0 mb-lg-3">
+                      <dt class="col-sm-5 col-12 text-left">Company Name</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.employmentDetails.companyName }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Employee I.D.</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.employmentDetails.employeeId }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Rank</dt>
+                      <dd class="col-sm-7 col-12">{{ reformattedRank }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Position</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.employmentDetails.position }}</dd>
+                    </dl>
+                  </div>
+                  <div class="col-lg-6">
+                    <dl class="row">
+                      <dt class="col-sm-5 col-12 text-left">Tenure in the Company</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.employmentDetails.tenuredYears }} Year/s and {{ loanDetails?.borrower.employmentDetails.tenuredMonths }} Month/s</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Government I.D.</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.employmentDetails.govtId }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">I.D. No.</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.employmentDetails.govtIdNumber | govIdNumber: loanDetails?.borrower.employmentDetails.govtId }}</dd>
+                    </dl>
+                  </div>
+                </div>
+
+                <h6 class="font-weight-bold text-secondary">Present Address</h6>
+                <hr class="mt-0">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <dl class="row mb-0 mb-lg-3">
+                      <dt class="col-sm-5 col-12 text-left">Home Number</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.presentAddress.homeNumber }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Street Number</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.presentAddress.streetNumber }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Street Name</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.presentAddress.streetName }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">House Ownership</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.presentAddress.houseOwnership }}</dd>
+                    </dl>
+                  </div>
+                  <div class="col-lg-6">
+                    <dl class="row">
+                      <dt class="col-sm-5 col-12 text-left">Province</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.presentAddress.province }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">City</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.presentAddress.city }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Zip Code</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.presentAddress.zipCode }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Length of Stay</dt>
+                      <dd class="col-sm-7 col-12">
+                        {{ loanDetails?.borrower.presentAddress.lengthOfStayYears }} Year/s and {{ loanDetails?.borrower.presentAddress.lengthOfStayMonths }} Month/s
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+
+                <h6 class="font-weight-bold text-secondary">Permanent Address</h6>
+                <hr class="mt-0">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <dl class="row mb-0 mb-lg-3">
+                      <dt class="col-sm-5 col-12 text-left">Home Number</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.permanentAddress.homeNumber }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Street Number</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.permanentAddress.streetNumber }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Street Name</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.permanentAddress.streetName }}</dd>
+                    </dl>
+                  </div>
+                  <div class="col-lg-6">
+                    <dl class="row">
+                      <dt class="col-sm-5 col-12 text-left">Province</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.permanentAddress.province }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">City</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.permanentAddress.city }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Zip Code</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.permanentAddress.zipCode }}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 d-flex flex-column">
+            <div class="card d-xs-none d-md-block">
+              <div class="card-body">
+                <h6 class="font-weight-bold text-secondary">Personal Information</h6>
+                <hr class="mt-0">
+                <div class="row">
+                  <div class="col-xl-6">
+                    <dl class="row mb-0 mb-lg-3">
+                      <dt class="col-sm-5 col-12 text-left">First Name</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.firstName }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Middle Name</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.middleName }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Last Name</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.lastName }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Gender</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.gender }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Civil Status</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.civilStatus }}</dd>
+                    </dl>
+                  </div>
+                  <div class="col-xl-6">
+                    <dl class="row">
+                      <dt class="col-sm-5 col-12 text-left">Date of Birth</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.dateOfBirth | readableDate }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Place of Birth</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.placeOfBirth }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Email Address</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.emailAdd }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Mobile Number</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.mobileNumber }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Landline Number (Home/Work)</dt>
+                      <dd class="col-sm-7 col-12">{{ loanDetails?.borrower.landLineAreaCode }} {{ loanDetails?.borrower.landLineNumber }}</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card card-top-margin">
+              <div class="card-body">
+                <h6 class="font-weight-bold text-secondary">Attachments</h6>
+                <hr class="mt-0">
+                <span class="text-underline view-attachments" (click)="openAttachments()">View Attachments</span>
+              </div>
+            </div>
+            <div class="card card-top-margin flex-grow-1">
+              <div class="card-body">
+                <h6 class="font-weight-bold text-secondary">Notes</h6>
+                <hr class="mt-0">
+                <div *ngIf="loanDetails?.notes.length > 0 && aoRole" class="notes">
+                  <div class="card note" *ngFor="let note of loanDetails.notes" [hidden]="note.status">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span class="font-weight-bold">{{ note.updatedBy }}</span>
+                        <span>{{ moment(note.timeStamp + 'Z').format(READABLE_DATE_TIME_FORMAT) }}</span>
+                      </div>
+                      <span>{{ note.actionLoanStatus }}</span>
+                      <p>{{ note.message }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="loanDetails?.notes.length > 0 && !aoRole" class="notes">
+                  <div class="card note" *ngFor="let note of loanDetails.notes" [hidden]="note.role || note.status">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span class="font-weight-bold">{{ note.updatedBy }}</span>
+                        <span>{{ moment(note.timeStamp + 'Z').format(READABLE_DATE_TIME_FORMAT) }}</span>
+                      </div>
+                      <span>{{ note.actionLoanStatus }}</span>
+                      <p>{{ note.message }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="loanDetails?.comakers.length > 0">
+          <div class="card card-top-margin">
+            <div class="card-body">
+              <h5 class="font-weight-bold">Co Makers</h5>
+              <ng-container *ngFor="let comaker of loanDetails?.comakers">
+                <h6 class="font-weight-bold text-secondary mt-4">{{ comaker.fullName }}</h6>
+                <hr class="mt-0">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <dl class="row mb-0 mb-lg-3">
+                      <dt class="col-sm-5 col-12 text-left">First Name</dt>
+                      <dd class="col-sm-7 col-12">{{ comaker.firstName }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Middle Name</dt>
+                      <dd class="col-sm-7 col-12">{{ comaker.middleName }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Last Name</dt>
+                      <dd class="col-sm-7 col-12">{{ comaker.lastName }}</dd>
+                    </dl>
+                  </div>
+                  <div class="col-lg-3">
+                    <dl class="row">
+                      <dt class="col-sm-5 col-12 text-left">Email Address</dt>
+                      <dd class="col-sm-7 col-12">{{ comaker.emailAdd }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Mobile Number</dt>
+                      <dd class="col-sm-7 col-12">{{ comaker.mobileNumber }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Landline Number (Home/Work)</dt>
+                      <dd class="col-sm-7 col-12">{{ comaker.landLineAreaCode }} {{ comaker.landLineNumber }}</dd>
+                    </dl>
+                  </div>
+                  <div class="col-lg-3">
+                    <dl class="row mb-0 mb-lg-3">
+                      <dt class="col-sm-5 col-12 text-left">Gender</dt>
+                      <dd class="col-sm-7 col-12">{{ comaker.gender }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Civil Status</dt>
+                      <dd class="col-sm-7 col-12">{{ comaker.civilStatus }}</dd>
+                    </dl>
+                  </div>
+                  <div class="col-lg-3">
+                    <dl class="row">
+                      <dt class="col-sm-5 col-12 text-left">Date of Birth</dt>
+                      <dd class="col-sm-7 col-12">{{ comaker.dateOfBirth | readableDate  }}</dd>
+
+                      <dt class="col-sm-5 col-12 text-left">Place of Birth</dt>
+                      <dd class="col-sm-7 col-12">{{ comaker.placeOfBirth }}</dd>
+                    </dl>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="comaker.presentAddress || comaker.permanentAddress">
+                  <div class="col-lg-6">
+                    <h6 class="font-weight-bold text-secondary">Present Address</h6>
+                    <hr class="mt-0">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <dl class="row mb-0 mb-lg-3">
+                          <dt class="col-sm-5 col-12 text-left">Home Number</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.presentAddress?.homeNumber }}</dd>
+
+                          <dt class="col-sm-5 col-12 text-left">Street Number</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.presentAddress?.streetNumber }}</dd>
+
+                          <dt class="col-sm-5 col-12 text-left">Street Name</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.presentAddress?.streetName }}</dd>
+
+                          <dt class="col-sm-5 col-12 text-left">House Ownership</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.presentAddress?.houseOwnership }}</dd>
+                        </dl>
+                      </div>
+                      <div class="col-lg-6">
+                        <dl class="row">
+                          <dt class="col-sm-5 col-12 text-left">Province</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.presentAddress?.province }}</dd>
+
+                          <dt class="col-sm-5 col-12 text-left">City</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.presentAddress?.city }}</dd>
+
+                          <dt class="col-sm-5 col-12 text-left">Zip Code</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.presentAddress?.zipCode }}</dd>
+
+                          <dt class="col-sm-5 col-12 text-left">Length of Stay</dt>
+                          <dd class="col-sm-7 col-12">
+                            {{ comaker.presentAddress?.lengthOfStayYears }} Year/s and {{ comaker.presentAddress?.lengthOfStayMonths }} Month/s
+                          </dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <h6 class="font-weight-bold text-secondary">Permanent Address</h6>
+                    <hr class="mt-0">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <dl class="row mb-0 mb-lg-3">
+                          <dt class="col-sm-5 col-12 text-left">Home Number</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.permanentAddress?.homeNumber }}</dd>
+
+                          <dt class="col-sm-5 col-12 text-left">Street Number</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.permanentAddress?.streetNumber }}</dd>
+
+                          <dt class="col-sm-5 col-12 text-left">Street Name</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.permanentAddress?.streetName }}</dd>
+                        </dl>
+                      </div>
+                      <div class="col-lg-6">
+                        <dl class="row">
+                          <dt class="col-sm-5 col-12 text-left">Province</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.permanentAddress?.province }}</dd>
+
+                          <dt class="col-sm-5 col-12 text-left">City</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.permanentAddress?.city }}</dd>
+
+                          <dt class="col-sm-5 col-12 text-left">Zip Code</dt>
+                          <dd class="col-sm-7 col-12">{{ comaker.permanentAddress?.zipCode }}</dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+
+        <div class="text-right mt-4">
+          <button *ngIf="aoRole && (loanDetails?.status == 'IN_PROCESS' || loanDetails?.status == 'NEW')" class="btn btn-primary mr-2" type="button"
+                  (click)="addNote()">
+            <i class="fas fa-plus-circle"></i> Add Note
+          </button>
+          <button *ngIf="verifierRole && loanDetails?.status == 'FOR_HR_VERIFICATION'"
+                  class="btn btn-secondary mr-2" type="button"
+                  (click)="verifyLoan()">
+            <i class="fas fa-check-circle"></i> Verify
+          </button>
+          <button *ngIf="endorserRole && loanDetails?.status == 'FOR_HR_ENDORSEMENT' && canEndorse"
+                  class="btn btn-secondary mr-2" type="button"
+                  (click)="endorseLoan()"
+                  [disabled]="(loanAmount > loanDetails?.originalAmount)
+                                || (loanAmount > companyLoanSettings?.maximumLoanAmount)
+                                || (loanAmount < companyLoanSettings?.minimumLoanAmount)">
+            <i class="fas fa-thumbs-up"></i> Endorse
+          </button>
+          <button *ngIf="loanDetails?.status != 'IN_PROCESS' && loanDetails?.status != 'HR_REJECTED'
+                          && loanDetails?.status != 'PENDING_FOR_COMAKER_APPROVAL'
+                          && ((endorserRole && loanDetails?.status == 'FOR_HR_ENDORSEMENT')
+                          || (verifierRole && loanDetails?.status == 'FOR_HR_VERIFICATION'))
+                          && canEndorse"
+                  class="btn btn-secondary mr-2" type="button" (click)="declineLoan()">
+            <i class="fas fa-thumbs-down"></i> Decline
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</los-loading-wrapper>

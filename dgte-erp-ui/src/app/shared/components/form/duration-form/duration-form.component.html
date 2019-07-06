@@ -1,0 +1,47 @@
+<form [formGroup]="formGroup">
+  <div class="row">
+    <!-- years -->
+    <div class="col-xs-12 col-md-4 mb-3 mb-md-0">
+      <div class="form-inline">
+        <ng-select
+          formControlName="years"
+          placeholder="Years"
+          notFoundText="Not allowed"
+          [searchable]="true"
+          [selectOnTab]="true"
+          [clearable]="false">
+          <ng-option *ngFor="let in of range(51); index as i" [value]="i">{{ i }}</ng-option>
+        </ng-select>
+        <small>Year<ng-container *ngIf="years.value > 1">s</ng-container></small>
+      </div>
+    </div>
+    <!-- months -->
+    <div class="col-xs-12 col-md-4">
+      <div class="form-inline">
+        <ng-select
+          formControlName="months"
+          placeholder="Months"
+          notFoundText="Not allowed"
+          [searchable]="true"
+          [selectOnTab]="true"
+          [clearable]="false">
+          <ng-option *ngFor="let in of range(12); index as i" [value]="i">{{ i }}</ng-option>
+        </ng-select>
+        <small>Month<ng-container *ngIf="months.value > 1">s</ng-container></small>
+      </div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+  <los-form-input-error [showMessage]="formGroup.errors &&
+                                    ((years.dirty || years.touched ) ||
+                                    (months.dirty || months.touched)) &&
+                                    formGroup.errors.emptyDuration"
+                        [message]="errorMessage?.emptyDuration">
+  </los-form-input-error>
+  <los-form-input-error [showMessage]="formGroup.errors &&
+                                    ((years.dirty || years.touched ) ||
+                                    (months.dirty || months.touched)) &&
+                                    formGroup.errors.min"
+                        [message]="errorMessage?.min">
+  </los-form-input-error>
+</form>

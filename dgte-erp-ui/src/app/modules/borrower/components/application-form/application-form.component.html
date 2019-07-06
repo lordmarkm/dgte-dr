@@ -1,0 +1,291 @@
+<main class="py-4">
+  <los-loading-wrapper [isLoading]="isSubmitting" [fullScreen]="true">
+    <aw-wizard #wizard [navBarLayout]="'large-empty-symbols'" class="container" [navigationMode]="'semi-strict'">
+
+  <!-- employment details -->
+  <aw-wizard-step [stepTitle]="'Employment Details'" (stepExit)="continue(false)" [canExit]="canExitEmploymentDetails">
+    <ng-template awWizardStepSymbol><i class="fa fa-clipboard-list"></i></ng-template>
+    <!-- employment details form -->
+    <los-section-title class="mt-4 d-block" title="Employment Details"></los-section-title>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <los-employment-details-form #employmentDetailsForm
+                                       type="borrower"
+                                       (handleSubmitSuccess)="submitEmploymentDetailsSuccess($event)"
+                                       (handleSubmitFailed)="submitEmploymentDetailsFailed()"
+                                       (isValid)="isEmploymentDetailsValid($event)">
+          </los-employment-details-form>
+          <div class="d-flex flex-row-reverse d-flex justify-content-around mt-5">
+            <button type="button" class="btn btn-secondary" (click)="continue()">
+              Continue &nbsp;<i class="fa fa-arrow-right"></i>  </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aw-wizard-step>
+
+  <!-- borrower details -->
+  <aw-wizard-step [stepTitle]="'Borrower Details'" (stepExit)="continue(false)" [canExit]="canExitBorrowerDetails">
+    <ng-template awWizardStepSymbol><i class="fa fa-user-circle"></i></ng-template>
+    <!-- borrower personal details form -->
+    <los-section-title class="mt-4 d-block" title="Borrower Details"></los-section-title>
+    <div class="container my-4">
+      <div class="row">
+        <div class="col-12">
+          <los-personal-details-form #borrowerPersonalDetailsForm
+                                     [type]="'borrower'"
+                                     (handleSubmitSuccess)="submitBorrowerPersonalDetailsSuccess($event)"
+                                     (handleSubmitFailed)="submitBorrowerPersonalDetailsFailed()"
+                                     (isValid)="isBorrowerPersonalDetailsValid($event)">
+          </los-personal-details-form>
+        </div>
+      </div>
+    </div>
+    <!-- borrower complete address form -->
+    <los-section-title #completeAddressPanel class="mt-4 d-block" title="Complete Address"></los-section-title>
+    <div class="container my-4">
+      <div class="row">
+        <div class="col-12">
+          <los-complete-address-form #borrowerCompleteAddressForm
+                                     (handleSubmitSuccess)="submitBorrowerCompleteAddressSuccess($event)"
+                                     (handleSubmitFailed)="submitBorrowerCompleteAddressFailed()"
+                                     (isValid)="isBorrowerCompleteAddressValid($event)">
+          </los-complete-address-form>
+          <div class="d-flex justify-content-around mt-5">
+            <button type="button" class="btn btn-outline-primary" awPreviousStep>
+              <i class="fa fa-arrow-left"></i>&nbsp; Previous</button>
+            <button type="button" class="btn btn-secondary" (click)="continue()">
+              Continue &nbsp;<i class="fa fa-arrow-right"></i>  </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aw-wizard-step>
+
+  <!-- upload document attachments -->
+  <aw-wizard-step [stepTitle]="'Upload Documents'" (stepExit)="continue(false)" [canExit]="canExitUploadDocuments">
+    <ng-template awWizardStepSymbol><i class="fa fa-upload"></i></ng-template>
+    <los-section-title class="mt-4 d-block" title="Upload Document Attachments"></los-section-title>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <los-upload-document-attachments-form #borrowerUploadDocumentAttachmentsForm
+                                                (handleSubmitSuccess)="submitUploadDocumentAttachmentsSuccess($event)"
+                                                (handleSubmitFailed)="submitUploadDocumentAttachmentsFailed()"
+                                                (isValid)="isUploadDocumentAttachmentsValid($event)">
+          </los-upload-document-attachments-form>
+
+          <div class="d-flex justify-content-around mt-5">
+            <button type="button" class="btn btn-outline-primary" awPreviousStep>
+              <i class="fa fa-arrow-left"></i>&nbsp; Previous</button>
+            <button type="button" class="btn btn-secondary" (click)="continue()">
+              Continue &nbsp;<i class="fa fa-arrow-right"></i>  </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aw-wizard-step>
+
+  <!-- co maker details -->
+  <aw-wizard-step [stepTitle]="'Co Maker Details'" (stepExit)="continue(false)" [canExit]="canExitComakerDetails" *ngIf="showComakerStep">
+    <ng-template awWizardStepSymbol><i class="fa fa-handshake"></i></ng-template>
+    <!-- coMaker personal details form -->
+    <los-section-title class="mt-4 d-block" title="Co Maker Details"></los-section-title>
+    <div class="container my-4">
+      <div class="row">
+        <div class="col-12">
+          <h6>Dear Borrower, you will need to nominate a co-maker and provide the necessary information. In the event the principal borrower defaults on a loan, the co-maker has an obligation to repay the loan.</h6>
+          <hr/>
+          <los-personal-details-form #coMakerPersonalDetailsForm
+                                     [type]="'borrower'"
+                                     (handleSubmitSuccess)="submitCoMakerPersonalDetailsSuccess($event)"
+                                     (handleSubmitFailed)="submitCoMakerPersonalDetailsFailed()"
+                                     (isValid)="isCoMakerPersonalDetailsValid($event)">
+          </los-personal-details-form>
+          <div class="d-flex justify-content-around mt-5" >
+            <button type="button" class="btn btn-outline-primary" awPreviousStep>
+              <i class="fa fa-arrow-left"></i>&nbsp; Previous</button>
+            <button type="button" class="btn btn-secondary" (click)="continue()">
+              Continue &nbsp;<i class="fa fa-arrow-right"></i>  </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aw-wizard-step>
+
+  <!-- summary -->
+  <aw-wizard-step [stepTitle]="'Review'" [canEnter]="isFormComplete()">
+    <ng-template awWizardStepSymbol><i class="fa fa-info-circle"></i></ng-template>
+    <!-- review loan info -->
+    <los-section-title class="mt-4 d-block" title="Review Loan Info"></los-section-title>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <dl id="loan-details" class="row">
+            <!--amount-->
+            <dt class="col-md-6 col-12 text-left text-md-right">
+              You are borrowing an amount of
+            </dt>
+            <dd class="col-md-6 col-12">PhP {{ loanDetails.amount | number: '1.2-2' }}</dd>
+            <!--term-->
+            <dt class="col-md-6 col-12 text-left text-md-right">
+              With a Payment Term of
+            </dt>
+            <dd class="col-md-6 col-12">{{ loanDetails.term | number }} months</dd>
+            <!--purpose-->
+            <dt class="col-md-6 col-12 text-left text-md-right">
+              For the purpose of
+            </dt>
+            <dd class="col-md-6 col-12">{{ loanDetails.purpose }}</dd>
+            <!--salary-->
+            <dt class="col-md-6 col-12 text-left text-md-right">
+              Your Monthly Salary is
+            </dt>
+            <dd class="col-md-6 col-12">PhP {{ loanDetails.grossSalary | number: '1.2-2' }}</dd>
+            <!--salary-->
+            <dt class="col-md-6 col-12 text-left text-md-right">
+              Your estimated monthly amortization is
+            </dt>
+            <dd class="col-md-6 col-12">PhP {{ loanDetails.monthlyAmmortization | number: '1.2-2' }}</dd>
+          </dl>
+
+          <h6 class="mt-4 px-3 small text-center text-muted">
+            Important: All amounts and rates are indicative values and do not represent the final approved loan value.
+          </h6>
+        </div>
+      </div>
+    </div>
+    <!-- review employment details -->
+    <los-section-title class="mt-4 d-block" title="Review Employment Details"></los-section-title>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-lg-6">
+              <dl class="row mb-0 mb-lg-3">
+                <dt class="col-sm-5 col-12 text-left text-sm-right">Company Name</dt>
+                <dd class="col-sm-7 col-12">{{ appState.borrowerEmploymentDetails.companyName }}</dd>
+
+                <dt class="col-sm-5 col-12 text-left text-sm-right">Employee I.D.</dt>
+                <dd class="col-sm-7 col-12">{{ appState.borrowerEmploymentDetails.employeeId }}</dd>
+
+                <dt class="col-sm-5 col-12 text-left text-sm-right">Rank</dt>
+                <dd class="col-sm-7 col-12">{{ formatValues(appState.borrowerEmploymentDetails.rank) }}</dd>
+
+                <dt class="col-sm-5 col-12 text-left text-sm-right">Position</dt>
+                <dd class="col-sm-7 col-12">{{ employmentDetails.position }}</dd>
+              </dl>
+            </div>
+            <div class="col-lg-6">
+              <dl class="row">
+                <dt class="col-sm-5 col-12 text-left text-sm-right">Tenure in the Company</dt>
+                <dd class="col-sm-7 col-12">{{ employmentDetails.tenure?.years }} Year/s and {{ employmentDetails.tenure?.months }} Month/s</dd>
+
+                <dt class="col-sm-5 col-12 text-left text-sm-right">Government I.D.</dt>
+                <dd class="col-sm-7 col-12">{{ appState.borrowerEmploymentDetails.govtId }}</dd>
+
+                <dt class="col-sm-5 col-12 text-left text-sm-right">I.D. No.</dt>
+                <dd class="col-sm-7 col-12">{{ appState.borrowerEmploymentDetails.govtIdNumber | govIdNumber:appState.borrowerEmploymentDetails.govtId }}</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mt-2 mb-4">
+            <button type="button" class="btn btn-secondary" (click)="goBackToStep(0)">
+              <i class="fa fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- review borrower details -->
+    <los-section-title class="d-block" title="Review Borrower Details"></los-section-title>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <los-personal-details-form [readonly]="true" [initialValue]="appState.borrowerPersonalDetails"></los-personal-details-form>
+          <div class="d-flex justify-content-center mt-2 mb-4">
+            <button type="button" class="btn btn-secondary" (click)="goBackToStep(1)">
+              <i class="fa fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- review borrower complete address -->
+    <!-- use awGoToStep directive instead of goBackToStep() because we want to use a finalize function -->
+    <los-section-title class="d-block" title="Review Borrower Complete Address"></los-section-title>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <los-complete-address-form [readonly]="true" [initialValue]="appState.borrowerCompleteAddress"></los-complete-address-form>
+          <div class="d-flex justify-content-center mt-2 mb-4">
+            <button type="button" class="btn btn-secondary" [awGoToStep]="{ stepIndex: 1 }" (postFinalize)="scrollCompleteAddressIntoView()">
+              <i class="fa fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- review attachments -->
+    <los-section-title class="d-block" title="Review Attachments"></los-section-title>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <los-upload-document-attachments-form [readonly]="true"
+                                                [initialValue]="appState.uploadDocumentAttachmentsDetails">
+          </los-upload-document-attachments-form>
+          <div class="d-flex justify-content-center mt-2 mb-4">
+            <button type="button" class="btn btn-secondary" (click)="goBackToStep(2)">
+              <i class="fa fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- review coMaker details -->
+    <los-section-title class="d-block" title="Review Co-maker Details" [readonly]="true"
+                       (goToStep)="goBackToStep(3)" *ngIf="showComakerStep"></los-section-title>
+    <div class="container mt-4" *ngIf="showComakerStep">
+      <div class="row">
+        <div class="col-12">
+          <los-personal-details-form [readonly]="true" [initialValue]="appState.coMakerPersonalDetails"
+                                     ></los-personal-details-form>
+          <div class="d-flex justify-content-center mt-2 mb-4">
+            <button type="button" class="btn btn-secondary" (click)="goBackToStep(3)">
+              <i class="fa fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-secondary py-2">
+      <div class="container d-flex">
+      </div>
+    </div>
+    <div class="d-flex justify-content-center mt-4">
+      <form [formGroup]="aFormGroup">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="isAccepted" [(ngModel)]="isAccepted"
+                 name="isAccepted" formControlName="formCheck">
+          <label class="form-check-label" for="isAccepted">
+            I certify all information are true and correct to the best of my knowledge.
+          </label>
+        </div>
+        <div class="d-flex justify-content-center my-4">
+          <ngx-recaptcha2
+            [siteKey]=siteKey
+            formControlName="recaptcha"></ngx-recaptcha2>
+        </div>
+        <div class="d-flex justify-content-center my-4">
+          <button type="button" class="btn btn-lg btn-secondary px-5 font-weight-bold text-uppercase"
+                  [ngClass]="{'disabled': !isAccepted}" [disabled]="!isAccepted || isSubmitting || aFormGroup.invalid" (click)="submit()">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </aw-wizard-step>
+</aw-wizard>
+  </los-loading-wrapper>
+</main>

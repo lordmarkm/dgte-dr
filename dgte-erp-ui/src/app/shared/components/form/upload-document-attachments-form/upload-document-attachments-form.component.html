@@ -1,0 +1,27 @@
+<form [formGroup]="attachmentsForm">
+  <!--Required documents-->
+  <h5>Required Documents</h5>
+  <hr>
+  <div class="row text-center">
+    <div *ngFor="let attachment of requiredAttachments" class="col-md-6 col-lg-4 mb-4">
+      <div>
+        <los-document-upload-form [label]="attachment.label == 'Payslip' ? 'Latest 1 month Payslip' : attachment.label"
+                                  [control]="getControl(attachment.type)"
+                                  [type]="attachment.type"
+                                  [readonly]="readonly">
+        </los-document-upload-form>
+      </div>
+      <!--government id selection-->
+      <div *ngIf="attachment.type === 'GOVERNMENT_ID'" class="govt-id-input">
+        <small>Government ID Type:</small>
+        <los-government-id-type-input id="govtId" [control]="govtId" *ngIf="!readonly"></los-government-id-type-input>
+        <div *ngIf="readonly">
+          {{ govtId.value }}
+        </div>
+        <los-form-input-error [showMessage]="govtId.invalid && (govtId.dirty || govtId.touched) && govtId.errors.required"
+                              [message]="'Please select Government ID Type'">
+        </los-form-input-error>
+      </div>
+    </div>
+  </div>
+</form>

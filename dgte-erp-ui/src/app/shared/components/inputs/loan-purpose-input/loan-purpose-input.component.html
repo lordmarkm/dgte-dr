@@ -1,0 +1,10 @@
+<ng-select
+  [formControl]="control"
+  placeholder="Select your Purpose"
+  [searchable]="true"
+  [selectOnTab]="true"
+  [clearable]="false">
+  <ng-option *ngFor="let purpose of purposes" [value]="purpose">
+    {{ purpose }}
+  </ng-option>
+</ng-select>

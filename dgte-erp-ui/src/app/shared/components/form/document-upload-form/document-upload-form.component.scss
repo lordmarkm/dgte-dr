@@ -1,0 +1,25 @@
+.upload-file-form {
+  //border: #70c13c 1px solid;
+  //border-radius: 13px;
+  //padding: 5%;
+}
+
+.upload-file-name {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload-file-button {
+  background-color: white;
+  border: gray dashed medium;
+  color: black;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 60%;
+}
+
+.preview-image {
+  max-width: 100%;
+}

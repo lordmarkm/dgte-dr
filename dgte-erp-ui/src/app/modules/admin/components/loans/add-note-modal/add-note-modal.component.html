@@ -1,0 +1,21 @@
+<los-loading-wrapper [isLoading]="isSubmitting">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Note</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body container-fluid">
+    <div class="form-group">
+      <label for="Comment">Notes</label>
+      <textarea class="form-control" id="Comment" rows="3" [(ngModel)]="comment"></textarea>
+      <los-form-input-error [showMessage]="hasError"
+                            [message]="'Required'">
+      </los-form-input-error>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="addNote()">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.dismiss()">Cancel</button>
+  </div>
+</los-loading-wrapper>

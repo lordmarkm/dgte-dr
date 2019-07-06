@@ -1,0 +1,10 @@
+<ng-select
+  [formControl]="control"
+  placeholder="Select your Position"
+  [searchable]="false"
+  [selectOnTab]="true"
+  [clearable]="false">
+  <ng-option *ngFor="let position of positions" [value]="position.value">
+    {{ position.label }}
+  </ng-option>
+</ng-select>

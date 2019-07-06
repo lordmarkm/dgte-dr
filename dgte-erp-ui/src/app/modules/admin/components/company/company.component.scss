@@ -1,0 +1,22 @@
+.company-list {
+  .search-input {
+    width: 200px;
+    display: inline-block;
+  }
+
+  .search-btn {
+    height: 38px;
+    width: 38px;
+    margin-bottom: 3px;
+  }
+
+  .table-container {
+    margin: auto;
+  }
+
+  .action-buttons {
+    button {
+      text-align: center;
+    }
+  }
+}

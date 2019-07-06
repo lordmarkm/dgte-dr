@@ -1,0 +1,32 @@
+<los-loading-wrapper [isLoading]="isSubmitting">
+  <div class="d-flex justify-content-center">
+    <div id="admin-login">
+      <!--login form-->
+      <form autocomplete="off" novalidate (submit)="submit()" [formGroup]="verifyForm" #form="ngForm">
+        <div class="label">
+          Check your Loan Status
+          <los-form-input-error [showMessage]="showInvalidPayloadMessage"
+                                [message]="'Loan Reference Number and Gov\'t ID Number do not match'">
+          </los-form-input-error>
+        </div>
+        <div class="row email-address">
+          <small>Loan Reference Number</small>
+          <input type="text" class="form-control" id="loanReferenceNumber" formControlName="loanReferenceNumber" placeholder="Input Loan Reference Number">
+          <los-form-input-error [showMessage]="(loanReferenceNumber.invalid && form.submitted) && loanReferenceNumber.errors.required"
+                                [message]="'Please enter your Loan Reference Number'">
+          </los-form-input-error>
+        </div>
+        <div class="row password">
+          <small>Government I.D.</small>
+          <input type="password" class="form-control" id="govtIdNumber" formControlName="govtIdNumber" placeholder="Input Government I.D. Number">
+          <los-form-input-error [showMessage]="(govtIdNumber.invalid && form.submitted) && govtIdNumber.errors.required"
+                                [message]="'Please enter your Gov\'t ID'">
+          </los-form-input-error>
+        </div>
+        <div class="row login-btn">
+          <button type="submit" class="btn btn-secondary">Proceed</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</los-loading-wrapper>

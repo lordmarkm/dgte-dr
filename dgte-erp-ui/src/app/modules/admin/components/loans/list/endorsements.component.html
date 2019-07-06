@@ -1,0 +1,514 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="m-0">Loan Endorsements</h2>
+        <ng-container *ngIf="userInfo?.companies.length > 1">
+          <select class="custom-select select-company" placeholder="Select Company" (change)="selectCompany($event.target.value)"
+                  [(ngModel)]="selectedCompanyId">
+            <option *ngFor="let company of userInfo?.companies" [value]="company.id">{{ company.name }}</option>
+          </select>
+        </ng-container>
+      </div>
+      <p *ngIf='companyUrl' title="{{ companyUrl }}" class="small">Company Url: <a href="{{ companyUrl }}">{{ companyUrl }}</a></p>
+      <div *ngIf="showSuccessMessage" class="message-container mb-4">
+        <i (click)="hideSuccessMessage()" class="fa fa-times close-icon"></i>
+        <h5 class="success-message">
+          <i class="icon fa fa-check-circle"></i>
+          You have successfully {{ status }} reference number:
+          <span class="referenceNumber">{{ referenceNumber }}</span>
+        </h5>
+      </div>
+      <!-- tabs -->
+      <div class="mt-4">
+        <ngb-tabset #tabset>
+          <ngb-tab id="pendingList">
+            <ng-template ngbTabTitle>
+              Pending
+              <span class="badge badge-pill badge-danger">{{ plSearchQuery.totalElements }}</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <!-- search -->
+              <div class="d-flex justify-content-end align-items-center mb-3">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="plAdvanceSearch" [(ngModel)]="plAdvanceSearch" (click)="clearSearchPending()">
+                  <label class="form-check-label" for="plAdvanceSearch">Advance Search</label>
+                </div>
+
+                <span class="vertical-rule vertical-rule--md"></span>
+
+                <form (submit)="searchPendingLoans()">
+                  <input type="text" class="form-control search-input mr-2" placeholder="Keyword"
+                         [(ngModel)]="plSearchQuery.search" name="plSearchQuery" [disabled]="plAdvanceSearch ? true : null">
+                  <!--[disabled]="plSearchQuery?.search?.length < 2"-->
+                  <button *ngIf="!plAdvanceSearch" type="submit" class="btn btn-secondary mr-2" [disabled]="plSearchQuery?.search?.length < 2">
+                    <i class="fa fa-search"></i>
+                  </button>
+                  <button *ngIf="plAdvanceSearch" type="submit" class="btn btn-secondary mr-2">
+                    <i class="fa fa-search"></i>
+                  </button>
+                  <button type="button" class="btn btn-secondary" (click)="clearSearchPending()">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </form>
+              </div>
+              <!-- advance search -->
+              <div class="row mb-3" *ngIf="plAdvanceSearch">
+                <!--<div class="col-12 col-md-6 col-xl-3 mb-3">-->
+                  <!--<div class="input-group">-->
+                    <!--<div class="input-group-prepend">-->
+                      <!--<div class="input-group-text">Company Name</div>-->
+                    <!--</div>-->
+                    <!--<ng-select-->
+                      <!--class="form-control p-0 no-border"-->
+                      <!--[searchable]="true"-->
+                      <!--[selectOnTab]="true"-->
+                      <!--[clearable]="false"-->
+                      <!--[(ngModel)]="plSearchQuery.companyId">-->
+                      <!--<ng-option *ngFor="let company of listOfCompanies" [value]="company.id">-->
+                        <!--{{ company.name }}-->
+                      <!--</ng-option>-->
+                    <!--</ng-select>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-12 col-md-6 col-xl-3 mb-3">-->
+                  <!--<div class="input-group">-->
+                    <!--<div class="input-group-prepend">-->
+                      <!--<div class="input-group-text">Status</div>-->
+                    <!--</div>-->
+                    <!--<ng-select-->
+                      <!--class="form-control p-0 no-border"-->
+                      <!--[searchable]="true"-->
+                      <!--[selectOnTab]="true"-->
+                      <!--[clearable]="false"-->
+                      <!--[(ngModel)]="plStatus">-->
+                      <!--<ng-option *ngFor="let status of LIST_APPLICATION_STATUS" [value]="status.value">-->
+                        <!--{{ status.label }}-->
+                      <!--</ng-option>-->
+                    <!--</ng-select>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Amount From</div>
+                    </div>
+                    <input type="text" class="form-control" OnlyNumbers="true" [(ngModel)]="plSearchQuery.amountFrom" name="amountFrom">
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Amount To</div>
+                    </div>
+                    <input type="text" class="form-control" OnlyNumbers="true" [(ngModel)]="plSearchQuery.amountTo" name="amountTo">
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Term Months</div>
+                    </div>
+                    <input type="text" class="form-control" OnlyNumbers="true"
+                           [(ngModel)]="plSearchQuery.termMonths" name="termMonths">
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Application Date</div>
+                    </div>
+                    <input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [selectMode]="'range'" class="date-picker form-control bordered-input"
+                           [(ngModel)]="plApplicationDate" readonly>
+                    <owl-date-time #dt1 [pickerType]="'calendar'"></owl-date-time>
+                  </div>
+                </div>
+              </div>
+              <!-- table -->
+              <los-loading-wrapper [isLoading]="isPendingLoading">
+                <ngx-datatable
+                  class="material"
+                  [rows]="pendingLoans"
+                  [columnMode]="'force'"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [rowHeight]="'80px'"
+                  [messages]="{emptyMessage: this.pendingNoRecordsMsg}"
+                  [scrollbarH]="true"
+                  [externalPaging]="true"
+                  [externalSorting]="true"
+                  [count]="plSearchQuery.totalElements"
+                  [offset]="plSearchQuery.page"
+                  [limit]="plSearchQuery.size"
+                  (sort)="onSort('pending', $event)"
+                  [sorts]="[{prop: 'createdDate', dir: 'desc'}]">
+                  <!-- columns -->
+                  <ngx-datatable-column name="Loan Reference No." prop="loanReferenceNumber"
+                                        [minWidth]="150" [width]="150" [maxWidth]="150">
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Borrower" prop="borrower.lastName" [minWidth]="200" [width]="200">
+                    <ng-template ngx-datatable-cell-template let-row="row">
+                      <div class="borrower-details">
+                        <span title="{{ row.borrower.fullName }}">{{ row.borrower.fullName }}</span><br/>
+                        <span title="{{ formatValues(row.borrower.employmentDetails.rank) }} {{ row.borrower.employmentDetails.position }}"
+                              class="rank">{{ formatValues(row.borrower.employmentDetails.rank) }} {{ row.borrower.employmentDetails.position }}</span><br/>
+                        <span class="tenure">
+                      {{ row.borrower.employmentDetails.tenuredYears }}
+                      Year<span *ngIf="row.borrower.employmentDetails.tenuredYears > 1">s</span>
+                      {{ row.borrower.employmentDetails.tenuredMonths }}
+                      Month<span *ngIf="row.borrower.employmentDetails.tenuredMonths > 1">s</span>
+                    </span>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column *ngIf="selectedCompany?.name === 'JG Summit'" name="Company"
+                                        prop="borrower.employmentDetails.companyName"></ngx-datatable-column>
+                  <ngx-datatable-column name="Monthly Salary" prop="borrower.grossSalary"
+                                        [minWidth]="165" [width]="165" [maxWidth]="165">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <!-- currency pipe doesn't seem to have a symbol for PHP -->
+                      <!-- so we use php html code and number pipe here -->
+                      <span title="&#8369; {{ value | number:'1.2-2' }}">&#8369; {{ value | number:'1.2-2' }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Loan Amount" prop="amount" [minWidth]="150" [width]="150" [maxWidth]="150">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <span title="&#8369; {{ value | number:'1.2-2' }}">&#8369; {{ value | number:'1.2-2' }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Term (Months)" prop="termMonths" [minWidth]="130" [width]="130" [maxWidth]="130">
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Date Applied" prop="dateApplied" [minWidth]="120" [width]="120" [maxWidth]="120">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <span title="{{ value ? (value | readableDate) :  ''}}">{{ value ? (value | readableDate) :  '' }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Endorsement Date" prop="endorsementDate" [minWidth]="120" [width]="140" [maxWidth]="140">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <span title="{{ value ? (value | readableDate) : '' }}">{{ value ? (value | readableDate) : '' }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Maturity Date" prop="maturityDate" [minWidth]="120" [width]="140" [maxWidth]="140">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <span title="{{ value ? (value | readableDate) : '' }}">{{ value ? (value | readableDate) : '' }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column prop="previousLoans" [sortable]="false" [minWidth]="130" [width]="130" [maxWidth]="130">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      0
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Co-Maker/s" prop="comakers" [sortable]="false">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <p class="coMaker" title="{{ comaker.fullName }}" *ngFor="let comaker of value">{{ comaker.fullName }}</p>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Status" prop="externalStatus" [minWidth]="250" [width]="250">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <span title="{{ value }}">{{ value }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Actions" [minWidth]="165" [width]="165" [maxWidth]="165" [sortable]="false">
+                    <ng-template ngx-datatable-cell-template let-row="row">
+                      <div class="action-buttons">
+                        <a class="button" title="View Loan" [routerLink]="[row.loanReferenceNumber]" ><i class="fas fa-eye"></i></a>
+                        <button *ngIf="verifierRole && row.status == 'FOR_HR_VERIFICATION'"
+                                class="btn btn-link" title="Verify Loan" (click)="verifyLoan(row)">
+                          <i class="fas fa-check-circle"></i>
+                        </button>
+                        <button *ngIf="endorserRole && row.status == 'FOR_HR_ENDORSEMENT' && canEndorse(row)" class="btn btn-link endorse"
+                                title="Endorse Loan" (click)="endorseLoan(row)">
+                          <i class="fas fa-thumbs-up"></i>
+                        </button>
+                        <button *ngIf="row.status != 'IN_PROCESS' && row.status != 'HR_REJECTED'
+                                    && row.status != 'PENDING_FOR_COMAKER_APPROVAL'
+                                    && ((endorserRole && row.status == 'FOR_HR_ENDORSEMENT')
+                                    || (verifierRole && row.status == 'FOR_HR_VERIFICATION'))
+                                    && canEndorse(row)"
+                                class="btn btn-link decline" title="Decline Loan" (click)="declineLoan(row)">
+                          <i class="fas fa-thumbs-down"></i>
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <!-- footer -->
+                  <ngx-datatable-footer>
+                    <ng-template
+                      ngx-datatable-footer-template
+                      let-rowCount="rowCount"
+                      let-pageSize="pageSize"
+                      let-curPage="curPage">
+                      <div *ngIf="rowCount > 0" class="footer-wrapper">
+                        <span> Total: {{ rowCount }} </span>
+                        <div>
+                          <!--<span>Items per page:</span>-->
+                          <!--<mat-form-field fxFlexOffset="5px" class="item-per-page">-->
+                          <!--<mat-select [(ngModel)]="itemsPerPage" (selectionChange)="itemsPerPageChanged($event)">-->
+                          <!--<mat-option *ngFor="let item of DATATABLE_ITEMS_PER_PAGE" [value]="item">{{ item }}</mat-option>-->
+                          <!--</mat-select>-->
+                          <!--</mat-form-field>-->
+                          <datatable-pager
+                            [page]="curPage"
+                            [size]="pageSize"
+                            [count]="rowCount"
+                            [pagerLeftArrowIcon]="'datatable-icon-left'"
+                            [pagerRightArrowIcon]="'datatable-icon-right'"
+                            [pagerPreviousIcon]="'datatable-icon-prev'"
+                            [pagerNextIcon]="'datatable-icon-skip'"
+                            (change)="setPage('pending', $event)">
+                          </datatable-pager>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-footer>
+                </ngx-datatable>
+              </los-loading-wrapper>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab id="allList">
+            <ng-template ngbTabTitle>All Applications</ng-template>
+            <ng-template ngbTabContent>
+              <!-- search -->
+              <div class="d-flex justify-content-end align-items-center mb-3">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="allAdvanceSearch" [(ngModel)]="allAdvanceSearch"
+                         (click)="clearSearchAll()">
+                  <label class="form-check-label" for="allAdvanceSearch">Advance Search</label>
+                </div>
+                <span class="vertical-rule vertical-rule--md"></span>
+                <form (submit)="searchAllApplications()">
+                  <input type="text" class="form-control search-input mr-2" placeholder="Keyword"
+                         [(ngModel)]="allSearchQuery.search" name="allQuerySearch" [disabled]="allAdvanceSearch ? true : null">
+                  <button *ngIf="!allAdvanceSearch" type="submit" class="btn btn-secondary" [disabled]="allSearchQuery?.search?.length < 2">
+                    <i class="fa fa-search"></i>
+                  </button>
+                  <button *ngIf="allAdvanceSearch" type="submit" class="btn btn-secondary">
+                    <i class="fa fa-search"></i>
+                  </button>
+                  <button type="button" class="btn btn-secondary ml-2" (click)="clearSearchAll()">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </form>
+              </div>
+              <!-- advance search -->
+              <div class="row mb-3" *ngIf="allAdvanceSearch">
+                <!--<div class="col-12 col-md-6 col-xl-3 mb-3">-->
+                  <!--<div class="input-group">-->
+                    <!--<div class="input-group-prepend">-->
+                      <!--<div class="input-group-text">Company Name</div>-->
+                    <!--</div>-->
+                    <!--<ng-select-->
+                      <!--class="form-control p-0 no-border"-->
+                      <!--[searchable]="true"-->
+                      <!--[selectOnTab]="true"-->
+                      <!--[clearable]="false"-->
+                      <!--[(ngModel)]="allSearchQuery.companyId">-->
+                      <!--<ng-option *ngFor="let company of listOfCompanies" [value]="company.id">-->
+                        <!--{{ company.name }}-->
+                      <!--</ng-option>-->
+                    <!--</ng-select>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Status</div>
+                    </div>
+                    <ng-select
+                      class="form-control p-0 no-border"
+                      [searchable]="true"
+                      [selectOnTab]="true"
+                      [clearable]="false"
+                      [(ngModel)]="allStatus">
+                      <ng-option *ngFor="let status of LIST_EXTERNAL_APPLICATION_STATUS" [value]="status.values">
+                        {{ status.externalLabel }}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Amount From</div>
+                    </div>
+                    <input type="text" class="form-control" OnlyNumbers="true" [(ngModel)]="allSearchQuery.amountFrom" name="amountFrom">
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Amount To</div>
+                    </div>
+                    <input type="text" class="form-control" OnlyNumbers="true" [(ngModel)]="allSearchQuery.amountTo" name="amountTo">
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Term Months</div>
+                    </div>
+                    <input type="text" class="form-control" OnlyNumbers="true"
+                           [(ngModel)]="allSearchQuery.termMonths" name="termMonths">
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-3 mb-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Application Date</div>
+                    </div>
+                    <input [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" [selectMode]="'range'" class="date-picker form-control bordered-input"
+                           [(ngModel)]="allApplicationDate" readonly>
+                    <owl-date-time #dt2 [pickerType]="'calendar'"></owl-date-time>
+                  </div>
+                </div>
+              </div>
+              <!-- table -->
+              <los-loading-wrapper [isLoading]="isAllLoading">
+                <ngx-datatable
+                  class="material"
+                  [rows]="allLoans"
+                  [columnMode]="'force'"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [rowHeight]="'80px'"
+                  [messages]="{emptyMessage: this.allNoRecordsMsg}"
+                  [scrollbarH]="true"
+                  [externalPaging]="true"
+                  [externalSorting]="true"
+                  [count]="allSearchQuery.totalElements"
+                  [offset]="allSearchQuery.page"
+                  [limit]="allSearchQuery.size"
+                  (sort)="onSort('all', $event)"
+                  [sorts]="[{prop: 'createdDate', dir: 'desc'}]">
+                  <!-- columns -->
+                  <ngx-datatable-column name="Loan Reference No." prop="loanReferenceNumber"
+                                        [minWidth]="150" [width]="150" [maxWidth]="150">
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Borrower" prop="borrower.lastName" [minWidth]="200" [width]="200">
+                    <ng-template ngx-datatable-cell-template let-row="row">
+                      <div class="borrower-details">
+                        <span title="{{ row.borrower.fullName }}">{{ row.borrower.fullName }}</span><br/>
+                        <span title="{{ formatValues(row.borrower.employmentDetails.rank) }} {{ row.borrower.employmentDetails.position }}"
+                              class="rank">{{ formatValues(row.borrower.employmentDetails.rank) }} {{ row.borrower.employmentDetails.position }}</span><br/>
+                        <span class="tenure">
+                      {{ row.borrower.employmentDetails.tenuredYears }}
+                      Year<span *ngIf="row.borrower.employmentDetails.tenuredYears > 1">s</span>
+                      {{ row.borrower.employmentDetails.tenuredMonths }}
+                      Month<span *ngIf="row.borrower.employmentDetails.tenuredMonths > 1">s</span>
+                    </span>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column *ngIf="selectedCompany?.name === 'JG Summit'" name="Company"
+                                        prop="borrower.employmentDetails.companyName"></ngx-datatable-column>
+                  <ngx-datatable-column name="Monthly Salary" prop="borrower.grossSalary"
+                                        [minWidth]="165" [width]="165" [maxWidth]="165">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <!-- currency pipe doesn't seem to have a symbol for PHP -->
+                      <!-- so we use php html code and number pipe here -->
+                      <span title="&#8369; {{ value | number:'1.2-2' }}">&#8369; {{ value | number:'1.2-2' }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Loan Amount" prop="amount" [minWidth]="150" [width]="150" [maxWidth]="150">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <span title="&#8369; {{ value | number:'1.2-2' }}">&#8369; {{ value | number:'1.2-2' }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Term (Months)" prop="termMonths" [minWidth]="130" [width]="130" [maxWidth]="130">
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Date Applied" prop="dateApplied" [minWidth]="120" [width]="120" [maxWidth]="120">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <span title="{{ value ? (value | readableDate) :  ''}}">{{ value ? (value | readableDate) :  '' }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Endorsement Date" prop="endorsementDate" [minWidth]="120" [width]="140" [maxWidth]="140">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <span title="{{ value ? (value | readableDate) : '' }}">{{ value ? (value | readableDate) : '' }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Maturity Date" prop="maturityDate" [minWidth]="120" [width]="140" [maxWidth]="140">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <span title="{{ value ? (value | readableDate) : '' }}">{{ value ? (value | readableDate) : '' }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column prop="previousLoans" [sortable]="false" [minWidth]="130" [width]="130" [maxWidth]="130">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      0
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Co-Maker/s" prop="comakers" [sortable]="false">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <p class="coMaker" title="{{ comaker.fullName }}" *ngFor="let comaker of value">{{ comaker.fullName }}</p>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Status" prop="externalStatus" [minWidth]="250" [width]="250">
+                    <ng-template ngx-datatable-cell-template let-value="value">
+                      <span title="{{ value }}">{{ value }}</span>
+                    </ng-template>
+                  </ngx-datatable-column>
+                  <ngx-datatable-column name="Actions" [minWidth]="165" [width]="165" [maxWidth]="165" [sortable]="false">
+                    <ng-template ngx-datatable-cell-template let-row="row">
+                      <div class="action-buttons">
+                        <a class="button" title="View Loan" [routerLink]="[row.loanReferenceNumber]" >
+                          <i class="fas fa-eye"></i>
+                        </a>
+                        <button *ngIf="verifierRole && row.status == 'FOR_HR_VERIFICATION'" class="btn btn-link"
+                                title="Verify Loan" (click)="verifyLoan(row)">
+                          <i class="fas fa-check-circle"></i>
+                        </button>
+                        <button *ngIf="endorserRole && row.status == 'FOR_HR_ENDORSEMENT' && canEndorse(row)"
+                                class="btn btn-link endorse" title="Endorse Loan" (click)="endorseLoan(row)">
+                          <i class="fas fa-thumbs-up"></i>
+                        </button>
+                        <button *ngIf="row.status != 'IN_PROCESS' && row.status != 'HR_REJECTED'
+                                        && row.status != 'PENDING_FOR_COMAKER_APPROVAL'
+                                        && ((endorserRole && row.status == 'FOR_HR_ENDORSEMENT')
+                                        || (verifierRole && row.status == 'FOR_HR_VERIFICATION'))
+                                        && canEndorse(row)" class="btn btn-link decline"
+                                title="Decline Loan" (click)="declineLoan(row)">
+                          <i class="fas fa-thumbs-down"></i>
+                        </button>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <!-- footer -->
+                  <ngx-datatable-footer>
+                    <ng-template
+                      ngx-datatable-footer-template
+                      let-rowCount="rowCount"
+                      let-pageSize="pageSize"
+                      let-curPage="curPage">
+                      <div *ngIf="rowCount > 0" class="footer-wrapper">
+                        <span> Total: {{ rowCount }} </span>
+                        <div>
+                          <!--<span>Items per page:</span>-->
+                          <!--<mat-form-field fxFlexOffset="5px" class="item-per-page">-->
+                          <!--<mat-select [(ngModel)]="itemsPerPage" (selectionChange)="itemsPerPageChanged($event)">-->
+                          <!--<mat-option *ngFor="let item of DATATABLE_ITEMS_PER_PAGE" [value]="item">{{ item }}</mat-option>-->
+                          <!--</mat-select>-->
+                          <!--</mat-form-field>-->
+                          <datatable-pager
+                            [page]="curPage"
+                            [size]="pageSize"
+                            [count]="rowCount"
+                            [pagerLeftArrowIcon]="'datatable-icon-left'"
+                            [pagerRightArrowIcon]="'datatable-icon-right'"
+                            [pagerPreviousIcon]="'datatable-icon-prev'"
+                            [pagerNextIcon]="'datatable-icon-skip'"
+                            (change)="setPage('all', $event)">
+                          </datatable-pager>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-footer>
+                </ngx-datatable>
+              </los-loading-wrapper>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+  </div>
+</div>
