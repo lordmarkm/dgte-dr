@@ -9,3 +9,5 @@ databaseChangeLog:
       file: /db/changelog/1.0-SNAPSHOT/20190706034718-changelog.yaml
   - include:
       file: /db/changelog/1.0-SNAPSHOT/20190706055245-changelog.yaml
+  - include:
+      file: /db/changelog/1.0-SNAPSHOT/20190706235905-changelog.yaml

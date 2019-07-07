@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'transactions', pathMatch: 'full' },
   {
     path: '',
+    component: BookkeepingComponent,
     children: [
       {
         path: 'transactions',

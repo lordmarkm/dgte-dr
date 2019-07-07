@@ -5,7 +5,7 @@ import { flatMap, takeUntil } from 'rxjs/operators';
 import { NgbModal, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 const moment = require('moment');
 
-import { TransactionService, AdminService } from '@los/core/services';
+import { TransactionService, AdminService, ProjectService } from '@los/core/services';
 import { LoanSearch, Company, AdminUserInfo } from '@los/shared/models';
 import { ROLE, APPLICATION_STATUS, APPLICATION_STATUS_LABEL, LIST_EXTERNAL_APPLICATION_STATUS, API_DATE_FORMAT } from '@los/shared/constants';
 
@@ -17,16 +17,21 @@ import { ROLE, APPLICATION_STATUS, APPLICATION_STATUS_LABEL, LIST_EXTERNAL_APPLI
 export class TransactionListComponent implements OnInit {
   public searchQuery: LoanSearch = new LoanSearch();
   public isPendingLoading: boolean = false;
+  public projects: any[] = [];
   public transactions: any[] = [];
   public noRecordsMsg: string = 'No records message';
 
   constructor(private modalService: NgbModal,
               private transactionService: TransactionService,
+              private projectService: ProjectService,
               private adminService: AdminService) { }
 
   ngOnInit() {
     this.searchQuery.sort = 'createdDate,desc';
     this.getTransactions();
+    this.projectService.search({ size: 9999 }).subscribe(page => {
+        this.projects = page.content;
+    });
   }
 
   getTransactions() {

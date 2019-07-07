@@ -1,0 +1,29 @@
+<div class="sidenav">
+  <ul class="links">
+    <li>
+      <a routerLink="/admin/loans" routerLinkActive="active">
+        <i class="fas fa-home"></i>
+      </a>
+    </li>
+    <li *ngIf="isAo">
+      <a routerLink="/admin/company" routerLinkActive="active">
+        <i class="fas fa-building"></i>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/a" routerLinkActive="active">
+        <i class="fas fa-chart-bar"></i>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/b" routerLinkActive="active">
+        <i class="fas fa-cloud-upload-alt"></i>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin/user" routerLinkActive="active">
+        <i class="fas fa-user-circle"></i>
+      </a>
+    </li>
+  </ul>
+</div>

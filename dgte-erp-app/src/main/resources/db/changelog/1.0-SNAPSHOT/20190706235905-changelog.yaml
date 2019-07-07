@@ -1,0 +1,22 @@
+databaseChangeLog:
+- changeSet:
+    id: 1562457661905-8
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: amount
+            type: numeric(19, 2)
+        tableName: transaction
+- changeSet:
+    id: 1562457661905-1
+    author: mbmartinez (generated)
+    changes:
+    - addNotNullConstraint:
+        columnDataType: bigint
+        columnName: project_id
+        tableName: transaction

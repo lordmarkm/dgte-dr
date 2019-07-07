@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col text-right">
-      <button class="btn btn-primary">Add income</button>
+      <button class="btn btn-primary"><i class="fa fa-plus"></i> Create Transaction</button>
     </div>
   </div>
   <div class="row">
@@ -33,7 +33,12 @@
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Txn Date" prop="transactionDate" [minWidth]="150" [width]="150" [maxWidth]="150"></ngx-datatable-column>
-          <ngx-datatable-column name="Description" prop="description"></ngx-datatable-column>
+          <ngx-datatable-column name="Description" prop="description" [sortable]="false"></ngx-datatable-column>
+          <ngx-datatable-column name="Amount (₱)" [sortable]="false">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <span>{{row.amount | number}}</span>
+            </ng-template>
+          </ngx-datatable-column>
           <!-- footer -->
           <ngx-datatable-footer>
             <ng-template

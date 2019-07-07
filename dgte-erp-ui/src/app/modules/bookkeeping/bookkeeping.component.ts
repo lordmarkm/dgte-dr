@@ -3,7 +3,8 @@ import { Router } from "@angular/router";
 
 @Component({
   selector: 'dgte-erp-bookkeeping',
-  templateUrl: './bookkeeping.component.html'
+  templateUrl: './bookkeeping.component.html',
+  styleUrls: ['./bookkeeping.component.scss']
 })
 export class BookkeepingComponent implements OnInit {
 

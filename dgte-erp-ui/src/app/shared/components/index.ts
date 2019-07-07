@@ -28,6 +28,7 @@ import { UploadDocumentAttachmentsFormComponent } from './form/upload-document-a
 
 //Dgtedr
 import { NavbarComponent } from './layout/navbar/navbar.component';
+import { ErpSidenavComponent } from './layout/sidenav/sidenav.component';
 
 export const Components = [
   HeaderComponent,
@@ -55,6 +56,7 @@ export const Components = [
   LoadingWrapperComponent,
   GovernmentIdTypeInputComponent,
   AttachmentsModalComponent,
+  ErpSidenavComponent,
 ];
 
 export const EntryComponents = [
@@ -87,4 +89,5 @@ export {
   LoadingWrapperComponent,
   GovernmentIdTypeInputComponent,
   AttachmentsModalComponent,
+  ErpSidenavComponent,
 };
