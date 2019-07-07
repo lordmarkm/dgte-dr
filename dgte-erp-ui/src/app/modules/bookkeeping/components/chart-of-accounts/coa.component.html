@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <div class="row mt-1">
+    <div class="col">
+      <los-loading-wrapper [isLoading]="isLoading">
+        <pre *ngIf="parentAccount">{{ parentAccount | json}}</pre>
+        <pre *ngIf="!parentAccount">Error! Parent account could not be found.</pre>
+      </los-loading-wrapper>
+    </div>
+  </div>
+</div>

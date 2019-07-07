@@ -32,4 +32,11 @@ public class AccountResource {
                     .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
+    @GetMapping("/find-root-by-project-code")
+    public ResponseEntity<AccountDto> findRootByProjectCode(@RequestParam String projectCode) {
+        return service.findRootByProjectCode(projectCode)
+                    .map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
 }

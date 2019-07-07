@@ -14,7 +14,7 @@ public class ProjectSearchDto implements SearchDto {
     @Override
     public BooleanExpression toQuery() {
         BooleanExpression query = project.deleted.isFalse();
-        if (Strings.isNullOrEmpty(name)) {
+        if (!Strings.isNullOrEmpty(name)) {
             query = query.and(project.name.like(name + LIKE_SUFFIX));
         }
         return query;

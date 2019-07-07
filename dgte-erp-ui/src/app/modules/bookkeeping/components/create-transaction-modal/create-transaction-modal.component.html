@@ -1,0 +1,19 @@
+<los-loading-wrapper [isLoading]="isSubmitting">
+  <div class="modal-header">
+    <h4 class="modal-title">Create Transaction</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close({ msg: 'Cross click' })">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form (submit)="saveTransaction()" ngNativeValidate>
+    <div class="modal-body container-fluid">
+      <div class="form-group">
+        <label for="Comment">Notes</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-secondary">Done</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Cancel</button>
+    </div>
+  </form>
+</los-loading-wrapper>

@@ -15,7 +15,6 @@ public class ChildAccountDto extends BaseDto {
     private String accountCode;
     private String description;
     private AccountType type;
-    private ProjectDto project;
     private List<ChildAccountDto> children;
 
 }

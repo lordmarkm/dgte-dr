@@ -7,7 +7,8 @@ const moment = require('moment');
 
 import { TransactionService, AdminService, ProjectService } from '@los/core/services';
 import { LoanSearch, Company, AdminUserInfo } from '@los/shared/models';
-import { ROLE, APPLICATION_STATUS, APPLICATION_STATUS_LABEL, LIST_EXTERNAL_APPLICATION_STATUS, API_DATE_FORMAT } from '@los/shared/constants';
+import { API_DATE_FORMAT } from '@los/shared/constants';
+import { CreateTransactionModalComponent } from '../create-transaction-modal/create-transaction-modal.component';
 
 @Component({
   selector: 'dgte-erp-txn-list',
@@ -32,6 +33,20 @@ export class TransactionListComponent implements OnInit {
     this.projectService.search({ size: 9999 }).subscribe(page => {
         this.projects = page.content;
     });
+    this.projectService.selectedProject.subscribe(proj => {
+        console.log('A project has been selected');
+        console.log(proj);
+    });
+  }
+
+  createTransaction() {
+      const modalRef = this.modalService.open(CreateTransactionModalComponent, { backdrop: 'static', keyboard: false });
+      modalRef.componentInstance.project = {};
+      modalRef.result.then(this.handleCreateTransactionResponse);
+  }
+
+  handleCreateTransactionResponse(newTransaction) {
+      
   }
 
   getTransactions() {

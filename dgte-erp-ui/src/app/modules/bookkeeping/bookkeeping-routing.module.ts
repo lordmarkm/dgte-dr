@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { BookkeepingComponent } from './bookkeeping.component';
 import { TransactionListComponent } from './components';
+import { CoaComponent } from './components';
 
 const routes: Routes = [
   { path: '', redirectTo: 'transactions', pathMatch: 'full' },
@@ -13,6 +14,9 @@ const routes: Routes = [
       {
         path: 'transactions',
         component: TransactionListComponent
+      },
+      { path: 'chart-of-accounts',
+        component: CoaComponent
       }
     ]
   }

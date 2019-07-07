@@ -1,5 +1,26 @@
 <div class="sidenav">
+  <ng-select
+    [(ngModel)]="selectedProject"
+    (change)="selectProject($event)"
+    id="project" name="project" placeholder="Select a Project"
+    [searchable]="true"
+    [selectOnTab]="true"
+    [clearable]="false">
+    <ng-option *ngFor="let project of projects" [value]="project">
+      {{ project.name }}
+    </ng-option>
+  </ng-select>
   <ul class="links">
+    <li>
+      <a routerLink="/bookkeeping/chart-of-accounts" routerLinkActive="active">
+        <i class="fas fa-home"></i> Chart of Accounts
+      </a>
+    </li>
+    <li>
+      <a routerLink="/bookkeeping/transactions" routerLinkActive="active">
+        <i class="fas fa-home"></i> Transactions
+      </a>
+    </li>
     <li>
       <a routerLink="/admin/loans" routerLinkActive="active">
         <i class="fas fa-home"></i>

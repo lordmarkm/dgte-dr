@@ -1,10 +1,10 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col text-right">
-      <button class="btn btn-primary"><i class="fa fa-plus"></i> Create Transaction</button>
+      <button (click)="createTransaction()" class="btn btn-primary"><i class="fa fa-plus"></i> Create Transaction</button>
     </div>
   </div>
-  <div class="row">
+  <div class="row mt-1">
     <div class="col">
       <los-loading-wrapper [isLoading]="isPendingLoading">
         <ngx-datatable
@@ -15,7 +15,7 @@
           [footerHeight]="50"
           [rowHeight]="'80px'"
           [messages]="{ emptyMessage: this.noRecordsMsg }"
-          [scrollbarH]="true"
+          [scrollbarH]="false"
           [externalPaging]="true"
           [externalSorting]="true"
           [count]="searchQuery.totalElements"
