@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 
 import { Subject, interval, Subscription, combineLatest } from 'rxjs';
 import { flatMap, takeUntil } from 'rxjs/operators';
@@ -15,12 +15,14 @@ import { CreateTransactionModalComponent } from '../create-transaction-modal/cre
   templateUrl: './transaction-list.component.html',
   styleUrls: ['./transaction-list.component.scss']
 })
-export class TransactionListComponent implements OnInit {
+export class TransactionListComponent implements OnInit, OnDestroy {
   public searchQuery: LoanSearch = new LoanSearch();
-  public isPendingLoading: boolean = false;
-  public projects: any[] = [];
+  public isLoading: boolean = false;
   public transactions: any[] = [];
   public noRecordsMsg: string = 'No records message';
+  public project;
+
+  private projectServiceSub;
 
   constructor(private modalService: NgbModal,
               private transactionService: TransactionService,
@@ -29,19 +31,23 @@ export class TransactionListComponent implements OnInit {
 
   ngOnInit() {
     this.searchQuery.sort = 'createdDate,desc';
-    this.getTransactions();
-    this.projectService.search({ size: 9999 }).subscribe(page => {
-        this.projects = page.content;
-    });
-    this.projectService.selectedProject.subscribe(proj => {
-        console.log('A project has been selected');
-        console.log(proj);
+    this.projectServiceSub = this.projectService.selectedProject.subscribe(proj => {
+      this.project = proj;
+      this.getTransactions();
     });
   }
 
+  ngOnDestroy() {
+    this.projectServiceSub.unsubscribe();
+  }
+
   createTransaction() {
+      if (!this.project) {
+        console.error('No project selected!');
+        return;
+      }
       const modalRef = this.modalService.open(CreateTransactionModalComponent, { backdrop: 'static', keyboard: false });
-      modalRef.componentInstance.project = {};
+      modalRef.componentInstance.project = this.project;
       modalRef.result.then(this.handleCreateTransactionResponse);
   }
 
@@ -50,7 +56,7 @@ export class TransactionListComponent implements OnInit {
   }
 
   getTransactions() {
-    this.isPendingLoading = true;
+    this.isLoading = true;
     let transactionSearch = {
         sort: this.searchQuery.sort,
         size: 10
@@ -58,11 +64,11 @@ export class TransactionListComponent implements OnInit {
 
     this.transactionService.search(transactionSearch)
       .subscribe(page => {
-        this.isPendingLoading = false;
+        this.isLoading = false;
         this.transactions = page.content;
         this.searchQuery.totalElements = page.totalElements;
       }, err => {
-        this.isPendingLoading = false;
+        this.isLoading = false;
       });
   }
 

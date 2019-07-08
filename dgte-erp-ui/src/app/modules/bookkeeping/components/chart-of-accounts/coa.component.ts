@@ -17,6 +17,7 @@ import { CreateTransactionModalComponent } from '../create-transaction-modal/cre
 })
 export class CoaComponent implements OnInit, OnDestroy {
   public isLoading: boolean = false;
+  public error: string;
   public parentAccount: any;
   private projectServiceSub;
 
@@ -25,25 +26,31 @@ export class CoaComponent implements OnInit, OnDestroy {
               private accountService: AccountService) { }
 
   ngOnInit() {
-      console.log('ngOnInit');
       this.projectServiceSub = this.projectService.selectedProject.subscribe(proj => {
           if (!proj.code) {
               return;
           }
           this.isLoading = true;
           delete this.parentAccount;
+          delete this.error;
           this.accountService.findRootByProjectCode(proj.code).subscribe(parentAccount => {
               this.parentAccount = parentAccount;
               this.isLoading = false;
           },
           err => {
               this.isLoading = false;
+              switch (err.status) {
+                case 400:
+                  this.error = 'Error! Parent account could not be found.';
+                  break;
+                default:
+                  this.error = 'An unexpected error has occurred! ' + err.error.message;
+              }
           })
       });
   }
 
   ngOnDestroy() {
-      console.log('ngOnDestroy');
       this.projectServiceSub.unsubscribe();
   }
 

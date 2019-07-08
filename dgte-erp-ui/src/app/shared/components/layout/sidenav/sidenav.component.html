@@ -5,7 +5,8 @@
     id="project" name="project" placeholder="Select a Project"
     [searchable]="true"
     [selectOnTab]="true"
-    [clearable]="false">
+    [clearable]="false"
+    [ngStyle]="{ 'width' : '200px' }">
     <ng-option *ngFor="let project of projects" [value]="project">
       {{ project.name }}
     </ng-option>
@@ -13,37 +14,12 @@
   <ul class="links">
     <li>
       <a routerLink="/bookkeeping/chart-of-accounts" routerLinkActive="active">
-        <i class="fas fa-home"></i> Chart of Accounts
+        <i class="fas fa-balance-scale"></i> Chart of Accounts
       </a>
     </li>
     <li>
       <a routerLink="/bookkeeping/transactions" routerLinkActive="active">
-        <i class="fas fa-home"></i> Transactions
-      </a>
-    </li>
-    <li>
-      <a routerLink="/admin/loans" routerLinkActive="active">
-        <i class="fas fa-home"></i>
-      </a>
-    </li>
-    <li *ngIf="isAo">
-      <a routerLink="/admin/company" routerLinkActive="active">
-        <i class="fas fa-building"></i>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/admin/a" routerLinkActive="active">
-        <i class="fas fa-chart-bar"></i>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/admin/b" routerLinkActive="active">
-        <i class="fas fa-cloud-upload-alt"></i>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/admin/user" routerLinkActive="active">
-        <i class="fas fa-user-circle"></i>
+        <i class="fas fa-balance-scale"></i> Transactions
       </a>
     </li>
   </ul>

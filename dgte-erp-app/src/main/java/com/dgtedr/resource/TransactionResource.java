@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dgtedr.dto.TransactionDto;
 import com.dgtedr.dto.TransactionSearchDto;
+import com.dgtedr.dto.TransactionWithEntriesDto;
 import com.dgtedr.service.TransactionService;
 
 @RestController
@@ -31,6 +32,11 @@ public class TransactionResource {
 
     @PostMapping
     public ResponseEntity<TransactionDto> save(@Valid @RequestBody TransactionDto txn) {
+        return ResponseEntity.ok(service.save(txn));
+    }
+
+    @PostMapping("/with-entries")
+    public ResponseEntity<TransactionDto> save(@Valid @RequestBody TransactionWithEntriesDto txn) {
         return ResponseEntity.ok(service.save(txn));
     }
 

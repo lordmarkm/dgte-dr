@@ -1,19 +1,60 @@
-<los-loading-wrapper [isLoading]="isSubmitting">
+<los-loading-wrapper [isLoading]="isLoading">
   <div class="modal-header">
-    <h4 class="modal-title">Create Transaction</h4>
+    <h4 class="modal-title">{{ project.name }}
+      <br><small class="text-muted">Create Transaction</small>
+    </h4>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.close({ msg: 'Cross click' })">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <form (submit)="saveTransaction()" ngNativeValidate>
-    <div class="modal-body container-fluid">
-      <div class="form-group">
-        <label for="Comment">Notes</label>
+  <div *ngIf="!accounts.length" class="modal-body container-fluid">There are no available accounts for which to create transactions.</div>
+  <div *ngIf="accounts.length" class="modal-body container-fluid">
+    <div class="row">
+      <div class="col">
+        <form (submit)="saveTransaction()" ngNativeValidate>
+          <table>
+            <thead>
+              <th>Entry Date
+              <th>Account
+              <th>Debit
+              <th>Credit
+            </thead>
+            <tbody>
+              <tr *ngFor="let entry of entries; let idx = index;" class="mt-1">
+                <td class="entry-date"><input type="date" [(ngModel)]="entry.entryDate" name="entryDate-{{idx}}" class="form-control" />
+                <td>
+                  <ng-select
+                    [(ngModel)]="entry.account"
+                    name="account-{{idx}}" placeholder="Select an Account"
+                    [searchable]="true"
+                    [selectOnTab]="true"
+                    [clearable]="false"
+                    groupBy="parentAccountName"
+                    [ngStyle]="{ 'width' : '200px' }">
+                      <ng-template ng-optgroup-tmp let-item="item">
+                        <span [title]="item.parentAccountName">{{item.parentAccountName || 'Unnamed group'}}</span>
+                      </ng-template>
+                    <ng-option *ngFor="let account of accounts" [value]="account">
+                      {{ account.name }}
+                    </ng-option>
+                  </ng-select>
+                </td>
+                <td><input type="number" [(ngModel)]="entry.debit" name="debit-{{idx}}" class="form-control" />
+                <td><input type="number" [(ngModel)]="entry.credit" name="credit-{{idx}}" class="form-control" />
+              </tr>
+            </tbody>
+          </table>
+        </form>
       </div>
     </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-secondary">Done</button>
-      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Cancel</button>
+    <div class="row">
+      <div class="col text-right">
+        <button (click)="addEntry()" type="button" class="btn btn-primary">Add entry</button>
+      </div>
     </div>
-  </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-secondary">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Cancel</button>
+  </div>
 </los-loading-wrapper>
