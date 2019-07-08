@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -27,7 +29,12 @@ public class Entry extends BaseEntity {
     @Column(name = "entry_date", nullable = false)
     private LocalDate entryDate;
 
-    @Column(name = "amount", nullable = false)
-    private BigDecimal amount;
+    @Column(name = "debit", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal debit;
+
+    @Column(name = "credit", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal credit;
 
 }

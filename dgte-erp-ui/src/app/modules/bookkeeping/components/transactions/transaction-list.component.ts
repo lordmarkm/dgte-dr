@@ -46,13 +46,13 @@ export class TransactionListComponent implements OnInit, OnDestroy {
         console.error('No project selected!');
         return;
       }
-      const modalRef = this.modalService.open(CreateTransactionModalComponent, { backdrop: 'static', keyboard: false });
+      const modalRef = this.modalService.open(CreateTransactionModalComponent, { size: 'lg', backdrop: 'static', keyboard: false });
       modalRef.componentInstance.project = this.project;
       modalRef.result.then(this.handleCreateTransactionResponse);
   }
 
   handleCreateTransactionResponse(newTransaction) {
-      
+      this.transactions.unshift(newTransaction);
   }
 
   getTransactions() {

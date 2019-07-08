@@ -1,0 +1,35 @@
+databaseChangeLog:
+- changeSet:
+    id: 1562601584759-7
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: credit
+            type: numeric(19, 2)
+        tableName: entry
+- changeSet:
+    id: 1562601584759-8
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: debit
+            type: numeric(19, 2)
+        tableName: entry
+- changeSet:
+    id: 1562601584759-9
+    author: mbmartinez (generated)
+    changes:
+    - dropColumn:
+        columnName: amount
+        tableName: entry
+

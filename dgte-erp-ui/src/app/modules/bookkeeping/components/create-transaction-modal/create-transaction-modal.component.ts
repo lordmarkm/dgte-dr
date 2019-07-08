@@ -2,6 +2,7 @@ import { Component, Input, OnInit} from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalService, TransactionService, AccountService } from '@los/core/services';
+const moment = require('moment');
 
 @Component({
   selector: 'erp-create-transaction-modal',
@@ -13,28 +14,41 @@ export class CreateTransactionModalComponent implements OnInit {
 
   public hasError = false;
   public isLoading = false;
-  public entries: any[] = [{
-    account: null,
-    debit: 0,
-    credit: 0
-  }];
   public accounts: any[] = [];
-
+  public totalDebit: number = 0;
+  public totalCredit: number = 0;
   private FIXED_CODE_ROOT: string = '1'
+
+  public entries: any[] = [];
+  public transaction: any;
 
   constructor(public activeModal: NgbActiveModal,
               private confirmationModalService: ConfirmationModalService,
+              private transactionService: TransactionService,
               private accountService: AccountService) {}
 
   ngOnInit() {
     this.isLoading = true;
     this.accountService.findRootByProjectCode(this.project.code).subscribe(rootAccount => {
       this.addChildlessAccounts(rootAccount);
+      this.entries.push({
+          entryDate: moment().format('YYYY-MM-DD'),
+          account: this.accounts[0],
+          debit: 0,
+          credit: 0
+        });
       this.isLoading = false;
     }, err => {
       console.error(err);
       this.isLoading = false;
     });
+
+    this.transaction = {
+      project: this.project,
+      description: 'Default project description',
+      transactionDate: moment().format('YYYY-MM-DD'),
+      amount: 0
+    };
   }
 
   private addChildlessAccounts(account) {
@@ -50,13 +64,20 @@ export class CreateTransactionModalComponent implements OnInit {
 
   addEntry() {
     this.entries.push({
-      account: null,
+      entryDate: moment().format('YYYY-MM-DD'),
+      account: this.accounts[0],
       credit: 0,
       debit: 0
     });
   }
 
   saveTransaction() {
-      this.activeModal.close({});
+      this.isLoading = true;
+      this.transactionService.saveTransactionWithEntries(this.transaction, this.entries).subscribe(transaction => {
+          this.activeModal.close(transaction);
+      },
+      err => {
+          this.isLoading = false;
+      });
   }
 }

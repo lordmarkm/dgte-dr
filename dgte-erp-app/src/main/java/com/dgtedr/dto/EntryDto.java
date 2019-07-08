@@ -23,6 +23,12 @@ public class EntryDto extends BaseDto {
     @JsonFormat(pattern = DateUtil.DATE_FORMAT)
     private LocalDate entryDate;
 
-    @NotNull @Min(0) private BigDecimal amount;
+    @NotNull
+    @Min(0) 
+    private BigDecimal debit;
+
+    @NotNull
+    @Min(0)
+    private BigDecimal credit;
 
 }
