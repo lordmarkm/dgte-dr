@@ -3,9 +3,8 @@ import { SharedModule } from '@los/shared/shared.module';
 import { BookkeepingRoutingModule } from './bookkeeping-routing.module';
 import { Components, EntryComponents } from './components';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -16,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BookkeepingRoutingModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    NgbModule.forRoot(),
   ],
   entryComponents: [
     EntryComponents

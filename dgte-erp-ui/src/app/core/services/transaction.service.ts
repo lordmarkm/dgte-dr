@@ -9,11 +9,16 @@ const moment = require('moment');
 @Injectable()
 export class TransactionService {
   private serviceUrl = 'txn';
+  private entryUrl = 'entry';
   private urls = {
+    //transactions
     SEARCH: `${environment.apiUrl}/${this.serviceUrl}`,
     FIND_BY_CODE: `${environment.apiUrl}/${this.serviceUrl}/find-by-code`,
     SAVE: `${environment.apiUrl}/${this.serviceUrl}`,
     SAVE_WITH_ENTRIES: `${environment.apiUrl}/${this.serviceUrl}/with-entries`,
+
+    //entries
+    FIND_ENTRIES_BY_TXN_CODE: `${environment.apiUrl}/${this.entryUrl}/find-by-transaction-code`,
   };
 
   constructor(private httpClient: HttpClient) {
@@ -44,6 +49,10 @@ export class TransactionService {
     });
 
     return this.httpClient.post(this.urls.SAVE_WITH_ENTRIES, txnWithEntries);
+  }
+
+  public findEntriesByTransactionCode(transactionCode: string) {
+    return this.httpClient.get(this.urls.FIND_ENTRIES_BY_TXN_CODE, { params: { transactionCode }});
   }
 
 }

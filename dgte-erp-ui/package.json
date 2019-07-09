@@ -26,7 +26,7 @@
     "@angular/router": "~7.2.0",
     "@fortawesome/fontawesome-free": "^5.8.1",
     "@mobiscroll/angular": "file:./src/lib/mobiscroll-package/mobiscroll-angular-4.6.1.tgz",
-    "@ng-bootstrap/ng-bootstrap": "^4.1.0",
+    "@ng-bootstrap/ng-bootstrap": "^4.2.1",
     "@ng-select/ng-select": "^2.18.0",
     "@swimlane/ngx-datatable": "^14.0.0",
     "@w11k/ngx-componentdestroyed": "^4.1.4",

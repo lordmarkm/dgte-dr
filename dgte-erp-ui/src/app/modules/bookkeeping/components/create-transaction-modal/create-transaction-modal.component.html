@@ -4,11 +4,25 @@
       <h4 class="modal-title">{{ project.name }}
         <br><small class="text-muted">Create Transaction</small>
       </h4>
-      <button type="button" class="close" aria-label="Close" (click)="activeModal.close({ msg: 'Cross click' })">
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div *ngIf="!accounts.length" class="modal-body container-fluid">There are no available accounts for which to create transactions.</div>
+    <div *ngIf="accounts.length" class="modal-body container-fluid">
+      <div class="row">
+        <div class="col-4">
+          <label for="txn-date">Transction Date</label>
+          <input type="date" [(ngModel)]="transaction.transactionDate" name="txn-date" class="form-control" required />
+        </div>
+        <div class="col-8">
+          <label for="txn-desc">Description</label>
+          <input type="text" max="255" [(ngModel)]="transaction.description" name="txn-desc" class="form-control" 
+            placeholder="A short description of this transaction" required />
+        </div>
+      </div>
+      <hr />
+    </div>
     <div *ngIf="accounts.length" class="modal-body container-fluid">
       <div class="row">
         <div class="col">
@@ -40,8 +54,12 @@
                     </ng-option>
                   </ng-select>
                 </td>
-                <td><input type="number" [(ngModel)]="entry.debit" (change)="recomputeDebit()" name="debit-{{idx}}" class="form-control" required />
-                <td><input type="number" [(ngModel)]="entry.credit" (change)="recomputeCredit()" name="credit-{{idx}}" class="form-control" required />
+                <td><input type="number" [(ngModel)]="entry.debit" min="0" (change)="recomputeTotalDebit()" name="debit-{{idx}}" class="form-control" required />
+                <td><input type="number" [(ngModel)]="entry.credit" min="0" (change)="recomputeTotalCredit()" name="credit-{{idx}}" class="form-control" required />
+                <td>
+                  <span *ngIf="entries.length > 1" title="Remove entry" (click)="entries.splice(idx, 1)" style="cursor: pointer" class="pl-2"><i class="fa fa-times"></i></span>
+                  <span *ngIf="entries.length === 1" title="Can't remove. A transaction must have at least one entry." style="cursor: pointer" class="pl-2"><i class="text-muted fa fa-times">&nbsp;</i></span>
+                </td>
               </tr>
               <tr>
                 <td>
@@ -60,6 +78,7 @@
       </div>
     </div>
     <div class="modal-footer">
+      <div *ngIf="error" class="text-danger text-center">{{error}}</div>
       <button type="submit" class="btn btn-secondary">Save</button>
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Cancel</button>
     </div>

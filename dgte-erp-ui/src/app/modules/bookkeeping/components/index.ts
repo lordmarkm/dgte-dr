@@ -3,6 +3,7 @@ import { TransactionListComponent } from './transactions/transaction-list.compon
 import { CoaComponent } from './chart-of-accounts/coa.component';
 //modals
 import { CreateTransactionModalComponent } from './create-transaction-modal/create-transaction-modal.component';
+import { ViewTransactionModalComponent } from './view-transaction-modal/view-transaction-modal.component';
 
 export const Components = [
     BookkeepingComponent,
@@ -11,16 +12,19 @@ export const Components = [
 
     //modals
     CreateTransactionModalComponent,
+    ViewTransactionModalComponent,
 ];
 
 export const EntryComponents = [
-    CreateTransactionModalComponent,
+  CreateTransactionModalComponent,
+  ViewTransactionModalComponent,
 ];
 
 export {
-    BookkeepingComponent,
-    TransactionListComponent,
-    CoaComponent,
-    //modals
-    CreateTransactionModalComponent,
+  BookkeepingComponent,
+  TransactionListComponent,
+  CoaComponent,
+  //modals
+  CreateTransactionModalComponent,
+  ViewTransactionModalComponent,
 };

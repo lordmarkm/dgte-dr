@@ -1,5 +1,7 @@
 package com.dgtedr.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,11 @@ public class EntryResource {
         return entries.findDtoByCode(code)
                     .map(ResponseEntity::ok)
                     .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+    @GetMapping("/find-by-transaction-code")
+    public ResponseEntity<List<EntryDto>> findByTransactionCode(@RequestParam String transactionCode) {
+        return ResponseEntity.ok(entries.findDtoByTransactionCode(transactionCode));
     }
 
     @PostMapping

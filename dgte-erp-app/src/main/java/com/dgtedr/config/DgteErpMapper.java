@@ -41,4 +41,9 @@ public interface DgteErpMapper {
     @Mapping(target = "account.parent", ignore = true)
     @Mapping(target = "account.children", ignore = true)
     EntryDto toDto(Entry entry);
+
+    @Mapping(target = "account.parent", ignore = true)
+    @Mapping(target = "account.children", ignore = true)
+    @Mapping(target = "transaction", ignore = true)
+    EntryDto entryLite(Entry entry);
 }

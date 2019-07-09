@@ -9,6 +9,8 @@ import { TransactionService, AdminService, ProjectService } from '@los/core/serv
 import { LoanSearch, Company, AdminUserInfo } from '@los/shared/models';
 import { API_DATE_FORMAT } from '@los/shared/constants';
 import { CreateTransactionModalComponent } from '../create-transaction-modal/create-transaction-modal.component';
+import { ViewTransactionModalComponent } from '../view-transaction-modal/view-transaction-modal.component';
+import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'dgte-erp-txn-list',
@@ -27,7 +29,10 @@ export class TransactionListComponent implements OnInit, OnDestroy {
   constructor(private modalService: NgbModal,
               private transactionService: TransactionService,
               private projectService: ProjectService,
-              private adminService: AdminService) { }
+              private adminService: AdminService,
+              dropdowConfig: NgbDropdownConfig) {
+    dropdowConfig.placement = 'bottom-right';
+  }
 
   ngOnInit() {
     this.searchQuery.sort = 'createdDate,desc';
@@ -48,18 +53,23 @@ export class TransactionListComponent implements OnInit, OnDestroy {
       }
       const modalRef = this.modalService.open(CreateTransactionModalComponent, { size: 'lg', backdrop: 'static', keyboard: false });
       modalRef.componentInstance.project = this.project;
-      modalRef.result.then(this.handleCreateTransactionResponse);
+      modalRef.result.then(txn => this.handleCreateTransactionResponse(txn));
   }
 
   handleCreateTransactionResponse(newTransaction) {
-      this.transactions.unshift(newTransaction);
+      console.log(newTransaction);
+      if (newTransaction) {
+        this.transactions.unshift(newTransaction);
+      }
   }
 
   getTransactions() {
     this.isLoading = true;
     let transactionSearch = {
         sort: this.searchQuery.sort,
-        size: 10
+        size: 10,
+        page: this.searchQuery.page,
+        projectCode: this.project.code
     };
 
     this.transactionService.search(transactionSearch)
@@ -82,6 +92,12 @@ export class TransactionListComponent implements OnInit, OnDestroy {
     const page = pageInfo.page - 1;
     this.searchQuery.setPageNumber(page);
     this.getTransactions();
+  }
+
+  viewTransaction(txn) {
+    const modalRef = this.modalService.open(ViewTransactionModalComponent, { size: 'lg', keyboard: true });
+    modalRef.componentInstance.project = this.project;
+    modalRef.componentInstance.transaction = txn;
   }
 
 }

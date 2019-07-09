@@ -1,0 +1,39 @@
+<los-loading-wrapper [isLoading]="isLoading">
+  <div class="modal-header">
+    <h4 class="modal-title">{{ project.name }}
+      <br><small class="text-muted">View Transaction</small>
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body container-fluid">
+    <dl class="dl-horizontal">
+      <dt>Transaction date
+      <dd>{{transaction.transactionDate}}
+      <dt>Description
+      <dd>{{transaction.description}}
+    </dl>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Entry Date
+          <th>Account
+          <th>Debit (₱)
+          <th>Credit (₱)
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of entries">
+          <td>{{entry.entryDate}}
+          <td>{{entry.account.name}}
+          <td>{{entry.debit | number: '1.2'}}
+          <td>{{entry.credit| number: '1.2'}}
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Close</button>
+  </div>
+</los-loading-wrapper>

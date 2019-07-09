@@ -1,6 +1,8 @@
 package com.dgtedr.service.impl;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,6 +40,15 @@ public class EntryServiceImpl implements EntryServiceCustom {
     @Transactional
     public EntryDto save(EntryDto entry) {
         return mapper.toDto(service.save(mapper.toEntity(entry)));
+    }
+
+    @Override
+    public List<EntryDto> findDtoByTransactionCode(String transactionCode) {
+        return service.findByTransactionCode(transactionCode)
+                .stream()
+                .sorted((e1, e2) -> e1.getEntryDate().compareTo(e2.getEntryDate()))
+                .map(mapper::entryLite)
+                .collect(Collectors.toList());
     }
 
 }

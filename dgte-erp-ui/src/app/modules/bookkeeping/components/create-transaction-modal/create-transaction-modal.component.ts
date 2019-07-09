@@ -21,6 +21,7 @@ export class CreateTransactionModalComponent implements OnInit {
 
   public entries: any[] = [];
   public transaction: any;
+  public error: string = '';
 
   constructor(public activeModal: NgbActiveModal,
               private confirmationModalService: ConfirmationModalService,
@@ -45,7 +46,7 @@ export class CreateTransactionModalComponent implements OnInit {
 
     this.transaction = {
       project: this.project,
-      description: 'Default project description',
+      description: '',
       transactionDate: moment().format('YYYY-MM-DD'),
       amount: 0
     };
@@ -64,19 +65,43 @@ export class CreateTransactionModalComponent implements OnInit {
 
   addEntry() {
     this.entries.push({
-      entryDate: moment().format('YYYY-MM-DD'),
+      entryDate: this.transaction.transactionDate,
       account: this.accounts[0],
       credit: 0,
       debit: 0
     });
   }
 
+  recomputeTotalDebit() {
+    this.totalDebit = this.entries.reduce((totalDebit, entry) => totalDebit + entry.debit, 0);
+    this.transaction.amount = this.totalDebit;
+  }
+  recomputeTotalCredit() {
+    this.totalCredit = this.entries.reduce((totalCredit, entry) => totalCredit + entry.credit, 0);
+  }
+
   saveTransaction() {
+      if (this.totalDebit != this.totalCredit) {
+        this.error = 'Total debit must equal total credit';
+        return;
+      } else if (this.totalDebit === 0) {
+        this.error = 'Amount must be greater than 0';
+        return;
+      }
       this.isLoading = true;
       this.transactionService.saveTransactionWithEntries(this.transaction, this.entries).subscribe(transaction => {
           this.activeModal.close(transaction);
       },
       err => {
+          switch (err.status) {
+            case 400:
+              if (err.error) {
+                this.error = err.error.error;
+              }
+              break;
+            default:
+              this.error = 'Unable to save transaction';
+          }
           this.isLoading = false;
       });
   }
