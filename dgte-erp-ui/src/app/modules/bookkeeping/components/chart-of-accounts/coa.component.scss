@@ -1,72 +1,96 @@
 @import 'app';
 
-.search-input {
-  width: 200px;
-  display: inline-block;
+div.tree div.tree-children::before,
+div.tree::before {
+    content: "";
+    position: absolute;
+    border-left: 1px dotted #23527c;
+    height: 100%;
+    top: -14px;
+    left: 12px
 }
 
-.borrower-details {
-  line-height: 1.2;
-  text-overflow: ellipsis;
-  overflow: hidden;
-
-  .rank,
-  .tenure {
-    font-size: 12px;
-  }
+div.tree {
+    padding-left: 0;
+    margin-left: -5px
 }
 
-.coMaker {
-  text-overflow: ellipsis;
-  overflow: hidden;
+div.tree div.tree-children {
+    position: relative;
+    padding-left: 0;
+    margin-left: 16px
 }
 
-.referenceNumber {
-  text-decoration: underline;
+div.tree div.tree-children::before {
+    left: 5px
 }
 
-.message-container {
-  height: 65px;
-  vertical-align: middle;
-  display: table;
-  width: 100%;
-  border:1px solid $gray-300;
+div.tree tree-node>div>.node-wrapper {
+    margin-left: 24px
 }
 
-.close-icon {
-  position: absolute;
-  right: 20px;
-  top: 65px;
-  font-size: 20px; // fa-2x is too big
-  color: $red;
-  cursor: pointer;
+div.tree tree-node>div>.node-wrapper>.node-content-wrapper {
+    margin-left: 4px
 }
 
-.success-message {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-
-  > .icon {
-    color: $secondary;
-  }
+div.tree tree-node>div.tree-node-leaf>.node-wrapper {
+    margin-left: 0
 }
 
-
-.pendingFilter {
-  display: inline-block;
-  width: 250px;
+div.tree tree-node>div::before {
+    content: "";
+    position: absolute;
+    border-bottom: 1px dotted #23527c;
+    width: 7px;
+    margin-top: 12px;
+    left: 7px
 }
 
-.disabled {
-  opacity: 0.65;
+div.tree tree-node>div .toggle-children-wrapper {
+    width: 13px;
+    height: 13px;
+    border: 1px solid #23527c;
+    position: absolute;
+    left: 15px;
+    margin-top: 5px;
+    margin-left: 0;
+    display: inline-block;
+    background-color: #fff;
+    z-index: 1
 }
 
-.bordered-input {
-  border-top-right-radius: 5px !important;
-  border-bottom-right-radius: 5px !important;
+div.tree tree-node>div .toggle-children-wrapper::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    border-top: 1px solid #23527c;
+    position: absolute;
+    top: 5px;
+    left: 2px
 }
 
-.select-company {
-  width: 150px;
+div.tree tree-node>div .toggle-children-wrapper.toggle-children-wrapper-collapsed::after {
+    content: "";
+    display: inline-block;
+    height: 7px;
+    border-left: 1px solid #23527c;
+    position: absolute;
+    top: 2px;
+    left: 5px
+}
+
+div.tree tree-node>div .toggle-children-wrapper .toggle-children {
+    display: none
+}
+
+div.tree tree-node>div .node-content-wrapper {
+    margin-left: 4px
+}
+
+div.tree>tree-node>div::before {
+    left: 14px
+}
+
+div.tree>tree-node>div>.node-wrapper>tree-node-expander>.toggle-children-wrapper {
+    left: 22px
 }

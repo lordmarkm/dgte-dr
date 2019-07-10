@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, TemplateRef, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { Subject, interval, Subscription, combineLatest } from 'rxjs';
 import { flatMap, takeUntil } from 'rxjs/operators';
@@ -8,18 +8,24 @@ const moment = require('moment');
 import { AccountService, ProjectService } from '@los/core/services';
 import { LoanSearch, Company, AdminUserInfo } from '@los/shared/models';
 import { API_DATE_FORMAT } from '@los/shared/constants';
-import { CreateTransactionModalComponent } from '../create-transaction-modal/create-transaction-modal.component';
+import { CreateAccountModalComponent } from '../create-account-modal/create-account-modal.component';
+import { treeConfig } from './coa.tree-config';
 
 @Component({
   selector: 'dgte-erp-coa',
   templateUrl: './coa.component.html',
   styleUrls: ['./coa.component.scss']
 })
-export class CoaComponent implements OnInit, OnDestroy {
+export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
   public isLoading: boolean = false;
   public error: string;
-  public parentAccount: any;
   private projectServiceSub;
+  private project;
+
+  //treemap
+  public nodes = [];
+  public options = treeConfig;
+  @ViewChild('tree') tree;
 
   constructor(private modalService: NgbModal,
               private projectService: ProjectService,
@@ -31,10 +37,13 @@ export class CoaComponent implements OnInit, OnDestroy {
               return;
           }
           this.isLoading = true;
-          delete this.parentAccount;
+          this.project = proj;
           delete this.error;
           this.accountService.findRootByProjectCode(proj.code).subscribe(parentAccount => {
-              this.parentAccount = parentAccount;
+              this.nodes = parentAccount.children;
+              if (this.tree) {
+                this.tree.treeModel.update();
+              }
               this.isLoading = false;
           },
           err => {
@@ -50,18 +59,32 @@ export class CoaComponent implements OnInit, OnDestroy {
       });
   }
 
+  ngAfterViewInit() {
+    if (this.tree) {
+      this.tree.treeModel.expandAll();
+    }
+  }
+
   ngOnDestroy() {
       this.projectServiceSub.unsubscribe();
   }
 
-  createTransaction() {
-      const modalRef = this.modalService.open(CreateTransactionModalComponent, { backdrop: 'static', keyboard: false });
-      modalRef.componentInstance.project = {};
-      modalRef.result.then(this.handleCreateTransactionResponse);
+  onTreeInitialized(treeComponent, $event) {
+    treeComponent.treeModel.expandAll();
   }
 
-  handleCreateTransactionResponse(newTransaction) {
-      
+  addChild(account) {
+    const modalRef = this.modalService.open(CreateAccountModalComponent, { backdrop: 'static', keyboard: false });
+    modalRef.componentInstance.parentAccount = account;
+    modalRef.componentInstance.project = this.project;
+    modalRef.result.then(newAccount => this.handleCreateAccountResponse(account, newAccount));
+  }
+
+  handleCreateAccountResponse(parentAccount, newAccount) {
+    parentAccount.children.push(newAccount);
+    parentAccount.hasChildren = true;
+    this.tree.treeModel.update();
+    this.tree.treeModel.expandAll();
   }
 
 }

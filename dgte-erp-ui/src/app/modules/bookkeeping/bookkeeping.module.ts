@@ -5,6 +5,7 @@ import { Components, EntryComponents } from './components';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TreeModule } from 'angular-tree-component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     NgxDatatableModule,
     NgbModule.forRoot(),
+    TreeModule.forRoot()
   ],
   entryComponents: [
     EntryComponents
