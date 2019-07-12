@@ -15,5 +15,7 @@ export * from './data-table-resp';
 export * from './data-table-req';
 export * from './new-data-table-resp';
 export * from './loan-search';
-export * from './dgte-dr/person';
 export * from './page';
+
+export * from './dgte-dr/person';
+export * from './dgte-dr/account.model';

@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 1562918483386-7
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: ent_order
+            type: int4
+        tableName: entry
+

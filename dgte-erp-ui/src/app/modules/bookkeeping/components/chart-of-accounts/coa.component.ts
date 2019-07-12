@@ -1,12 +1,11 @@
 import { Component, OnInit, TemplateRef, AfterViewInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { Subject, interval, Subscription, combineLatest } from 'rxjs';
-import { flatMap, takeUntil } from 'rxjs/operators';
 import { NgbModal, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 const moment = require('moment');
 
 import { AccountService, ProjectService } from '@los/core/services';
-import { LoanSearch, Company, AdminUserInfo } from '@los/shared/models';
+import { LoanSearch, Company, AdminUserInfo, Account } from '@los/shared/models';
 import { API_DATE_FORMAT } from '@los/shared/constants';
 import { CreateAccountModalComponent } from '../create-account-modal/create-account-modal.component';
 import { treeConfig } from './coa.tree-config';
@@ -39,10 +38,16 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
           this.isLoading = true;
           this.project = proj;
           delete this.error;
-          this.accountService.findRootByProjectCode(proj.code).subscribe(parentAccount => {
-              this.nodes = parentAccount.children;
-              if (this.tree) {
-                this.tree.treeModel.update();
+          this.accountService.findRootByProjectCode(proj.code).subscribe((parentAccount: Account) => {
+              if (parentAccount) {
+                this.nodes = [parentAccount];
+                if (this.tree) {
+                  this.tree.treeModel.update();
+                  setTimeout(() => {
+                    console.log('A futile attempt to expand the tree');
+                    this.tree.treeModel.expandAll();
+                  }, 200);
+                }
               }
               this.isLoading = false;
           },
@@ -60,9 +65,11 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    if (this.tree) {
-      this.tree.treeModel.expandAll();
-    }
+    setTimeout(() => {
+      if (this.tree) {
+        this.tree.treeModel.expandAll();
+      }
+    }, 200);
   }
 
   ngOnDestroy() {
@@ -81,6 +88,9 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleCreateAccountResponse(parentAccount, newAccount) {
+    if (!parentAccount.children) {
+      parentAccount.children = [];
+    }
     parentAccount.children.push(newAccount);
     parentAccount.hasChildren = true;
     this.tree.treeModel.update();

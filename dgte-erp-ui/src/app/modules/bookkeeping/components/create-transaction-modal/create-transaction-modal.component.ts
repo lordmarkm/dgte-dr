@@ -12,6 +12,7 @@ const moment = require('moment');
 export class CreateTransactionModalComponent implements OnInit {
   @Input() project;
 
+  public modalSubtitle = 'Create Transaction';
   public hasError = false;
   public isLoading = false;
   public accounts: any[] = [];
@@ -19,9 +20,10 @@ export class CreateTransactionModalComponent implements OnInit {
   public totalCredit: number = 0;
   private FIXED_CODE_ROOT: string = '1'
 
-  public entries: any[] = [];
+  public entries: any = [];
   public transaction: any;
   public error: string = '';
+  public bodyError: string = '';
 
   constructor(public activeModal: NgbActiveModal,
               private confirmationModalService: ConfirmationModalService,
@@ -32,6 +34,9 @@ export class CreateTransactionModalComponent implements OnInit {
     this.isLoading = true;
     this.accountService.findRootByProjectCode(this.project.code).subscribe(rootAccount => {
       this.addChildlessAccounts(rootAccount);
+      if (this.accounts.length) {
+        this.bodyError = 'There are no available accounts for which to create transactions.';
+      }
       this.entries.push({
           entryDate: moment().format('YYYY-MM-DD'),
           account: this.accounts[0],
@@ -72,6 +77,11 @@ export class CreateTransactionModalComponent implements OnInit {
     });
   }
 
+  removeEntry(idx) {
+    this.entries.splice(idx, 1);
+    this.recomputeTotalDebit();
+    this.recomputeTotalCredit();
+  }
   recomputeTotalDebit() {
     this.totalDebit = this.entries.reduce((totalDebit, entry) => totalDebit + entry.debit, 0);
     this.transaction.amount = this.totalDebit;
@@ -104,5 +114,9 @@ export class CreateTransactionModalComponent implements OnInit {
           }
           this.isLoading = false;
       });
+  }
+
+  trackByFn(index) {
+    return index;
   }
 }

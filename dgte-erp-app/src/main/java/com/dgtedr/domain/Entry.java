@@ -37,4 +37,10 @@ public class Entry extends BaseEntity {
     @ColumnDefault("0")
     private BigDecimal credit;
 
+    /**
+     * The order in which the entry was added to a transaction
+     */
+    @Column(name = "ent_order")
+    private int order;
+
 }

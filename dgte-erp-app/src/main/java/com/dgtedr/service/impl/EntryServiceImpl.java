@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,7 +47,7 @@ public class EntryServiceImpl implements EntryServiceCustom {
     public List<EntryDto> findDtoByTransactionCode(String transactionCode) {
         return service.findByTransactionCode(transactionCode)
                 .stream()
-                .sorted((e1, e2) -> e1.getEntryDate().compareTo(e2.getEntryDate()))
+                .sorted((e1, e2) -> ObjectUtils.compare(e1.getOrder(), e2.getOrder()))
                 .map(mapper::entryLite)
                 .collect(Collectors.toList());
     }

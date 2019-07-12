@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dgtedr.config.DgteErpMapper;
 import com.dgtedr.domain.Entry;
 import com.dgtedr.domain.Transaction;
+import com.dgtedr.dto.EntryDto;
 import com.dgtedr.dto.TransactionDto;
 import com.dgtedr.dto.TransactionSearchDto;
 import com.dgtedr.dto.TransactionWithEntriesDto;
@@ -40,11 +41,29 @@ public class TransactionServiceImpl implements TransactionServiceCustom {
     @Transactional
     public TransactionDto save(TransactionWithEntriesDto txn) {
         Transaction newTxn = txns.save(mapper.toEntity(txn.getTransaction()));
+
+        //Delete removed entries first
+        List<Entry> oldEntries = entryService.findByTransactionCode(newTxn.getCode());
+        if (oldEntries.size() > 0) {
+            oldEntries.removeIf(oldEntry -> {
+                return txn.getEntries().stream().filter(newEntry -> oldEntry.getCode().equals(newEntry.getCode())).findAny().isPresent();
+            });
+        }
+        entryService.deleteAll(oldEntries);
+
         List<Entry> newEntries = txn.getEntries().stream().map(entryDto -> {
             Entry entryEntity = mapper.toEntity(entryDto);
             entryEntity.setTransaction(newTxn);
             return entryEntity;
         }).collect(Collectors.toList());
+
+        //Set the new indexes
+        int entryOrder = 0;
+        for (Entry newEntry : newEntries) {
+            newEntry.setOrder(entryOrder);
+            entryOrder++;
+        }
+
         entryService.saveAll(newEntries);
         return mapper.toDto(newTxn);
     }

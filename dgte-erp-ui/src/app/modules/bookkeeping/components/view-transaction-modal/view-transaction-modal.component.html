@@ -27,8 +27,8 @@
         <tr *ngFor="let entry of entries">
           <td>{{entry.entryDate}}
           <td>{{entry.account.name}}
-          <td>{{entry.debit | number: '1.2'}}
-          <td>{{entry.credit| number: '1.2'}}
+          <td><span *ngIf="entry.debit">{{entry.debit | number: '1.2'}}</span>
+          <td><span *ngIf="entry.credit">{{entry.credit| number: '1.2'}}</span>
         </tr>
       </tbody>
     </table>

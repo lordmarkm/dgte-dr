@@ -2,13 +2,13 @@
   <form (submit)="saveTransaction()" ngNativeValidate>
     <div class="modal-header">
       <h4 class="modal-title">{{ project.name }}
-        <br><small class="text-muted">Create Transaction</small>
+        <br><small class="text-muted">{{ modalSubtitle }}</small>
       </h4>
       <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div *ngIf="!accounts.length" class="modal-body container-fluid">There are no available accounts for which to create transactions.</div>
+    <div *ngIf="bodyError" class="modal-body container-fluid">{{ bodyError }}</div>
     <div *ngIf="accounts.length" class="modal-body container-fluid">
       <div class="row">
         <div class="col-4">
@@ -34,7 +34,7 @@
               <th>Credit
             </thead>
             <tbody>
-              <tr *ngFor="let entry of entries; let idx = index;" class="mt-1">
+              <tr *ngFor="let entry of entries; let idx = index; trackBy: trackByFn" class="mt-1">
                 <td class="entry-date"><input type="date" [(ngModel)]="entry.entryDate" name="entryDate-{{idx}}" class="form-control" required />
                 <td>
                   <ng-select
@@ -46,9 +46,9 @@
                     groupBy="parentAccountName"
                     [ngStyle]="{ 'width' : '200px' }"
                     [required]="true">
-                      <ng-template ng-optgroup-tmp let-item="item">
-                        <span [title]="item.parentAccountName">{{item.parentAccountName || 'Unnamed group'}}</span>
-                      </ng-template>
+                    <ng-template ng-optgroup-tmp let-item="item">
+                      <span [title]="item.parentAccountName">{{item.parentAccountName || 'Unnamed group'}}</span>
+                    </ng-template>
                     <ng-option *ngFor="let account of accounts" [value]="account">
                       {{ account.name }}
                     </ng-option>
@@ -57,7 +57,7 @@
                 <td><input type="number" [(ngModel)]="entry.debit" min="0" (change)="recomputeTotalDebit()" name="debit-{{idx}}" class="form-control" required />
                 <td><input type="number" [(ngModel)]="entry.credit" min="0" (change)="recomputeTotalCredit()" name="credit-{{idx}}" class="form-control" required />
                 <td>
-                  <span *ngIf="entries.length > 1" title="Remove entry" (click)="entries.splice(idx, 1)" style="cursor: pointer" class="pl-2"><i class="fa fa-times"></i></span>
+                  <span *ngIf="entries.length > 1" title="Remove entry" (click)="removeEntry(idx)" style="cursor: pointer" class="pl-2"><i class="fa fa-times"></i></span>
                   <span *ngIf="entries.length === 1" title="Can't remove. A transaction must have at least one entry." style="cursor: pointer" class="pl-2"><i class="text-muted fa fa-times">&nbsp;</i></span>
                 </td>
               </tr>
