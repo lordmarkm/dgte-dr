@@ -1,6 +1,9 @@
 <div class="container-fluid">
   <los-loading-wrapper [isLoading]="isLoading">
   <div class="row">
+    <div *ngIf="error" class="col text-danger">{{ error }}</div>
+  </div>
+  <div class="row">
     <div *ngIf="nodes?.length" class="col">
       <tree-root #tree [nodes]="nodes" [options]="options" (initialized)="onTreeInitialized(tree)">
         <ng-template #treeNodeWrapperTemplate let-node let-index="index">
@@ -14,7 +17,7 @@
               <span>[{{node.data.accountCode}}] {{node.data.name}}</span>
               <div *ngIf="node.isActive || node.isFocused">
                 <button (click)="addChild(node.data)" class="btn btn-primary btn-xs">Add child</button>&nbsp;
-                <button [disabled]="node.children && node.children.length"
+                <button (click)="deleteAccount(node)" [disabled]="node.children && node.children.length"
                    [title]="node.children && node.children.length ? 'You can\'t delete an account w/ children. That would be cruel.' : 'Delete account'"
                    class="btn btn-danger btn-xs">Delete account</button>
               </div>
@@ -23,8 +26,6 @@
         </ng-template>
       </tree-root>
     </div>
-    <div *ngIf="!nodes?.length">This chart of accounts is empty 🤷</div>
-    <div *ngIf="error" class="col">{{ error }}</div>
   </div>
   </los-loading-wrapper>
 </div>

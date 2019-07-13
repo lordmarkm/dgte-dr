@@ -4,11 +4,12 @@ import { Subject, interval, Subscription, combineLatest } from 'rxjs';
 import { NgbModal, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 const moment = require('moment');
 
-import { AccountService, ProjectService } from '@los/core/services';
+import { ConfirmationModalService,AccountService, ProjectService } from '@los/core/services';
 import { LoanSearch, Company, AdminUserInfo, Account } from '@los/shared/models';
 import { API_DATE_FORMAT } from '@los/shared/constants';
 import { CreateAccountModalComponent } from '../create-account-modal/create-account-modal.component';
 import { treeConfig } from './coa.tree-config';
+import * as _ from 'lodash'
 
 @Component({
   selector: 'dgte-erp-coa',
@@ -27,6 +28,7 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('tree') tree;
 
   constructor(private modalService: NgbModal,
+              private confirmationModalService: ConfirmationModalService,
               private projectService: ProjectService,
               private accountService: AccountService) { }
 
@@ -60,7 +62,7 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
                 default:
                   this.error = 'An unexpected error has occurred! ' + err.error.message;
               }
-          })
+          });
       });
   }
 
@@ -88,6 +90,9 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleCreateAccountResponse(parentAccount, newAccount) {
+    if (!newAccount) {
+        return;
+    }
     if (!parentAccount.children) {
       parentAccount.children = [];
     }
@@ -95,6 +100,29 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
     parentAccount.hasChildren = true;
     this.tree.treeModel.update();
     this.tree.treeModel.expandAll();
+  }
+
+  deleteAccount(node) {
+      this.confirmationModalService.confirm().result.then((result) => {
+          if (result === 'confirm') {
+            this.isLoading = true;
+              this.accountService.delete(node.data.code)
+                .subscribe(resp => {
+                    let parentNode = node.realParent ? node.realParent : node.treeModel.virtualRoot;
+                    _.remove(parentNode.data.children, (child) => {
+                        return child === node.data;
+                    });
+                    if (node.parent.data.children.length === 0) {
+                        node.parent.data.hasChildren = false;
+                    }
+                    this.tree.treeModel.update();
+                    this.isLoading = false;
+                },
+                err => {
+                    this.isLoading = false;
+                });
+          }
+        });
   }
 
 }

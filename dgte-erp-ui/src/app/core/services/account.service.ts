@@ -14,6 +14,7 @@ export class AccountService {
     FIND_ROOT_BY_PROJECT_CODE: `${environment.apiUrl}/${this.serviceUrl}/find-root-by-project-code`,
     FIND_BY_CODE: `${environment.apiUrl}/${this.serviceUrl}/find-by-code`,
     SAVE: `${environment.apiUrl}/${this.serviceUrl}`,
+    DELETE: `${environment.apiUrl}/${this.serviceUrl}`,
   };
 
   constructor(private httpClient: HttpClient) {}
@@ -33,7 +34,11 @@ export class AccountService {
     return this.httpClient.get(this.urls.FIND_BY_CODE, { params: { code }});
   }
 
-  public save(transaction): Observable<any> {
-    return this.httpClient.post(this.urls.SAVE, transaction);
+  public save(account): Observable<any> {
+    return this.httpClient.post(this.urls.SAVE, account);
+  }
+
+  public delete(code): Observable<any> {
+    return this.httpClient.delete(this.urls.DELETE, { params: { code }});
   }
 }

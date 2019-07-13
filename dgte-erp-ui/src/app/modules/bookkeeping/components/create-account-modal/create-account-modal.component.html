@@ -29,7 +29,8 @@
           <div class="form-group">
             <label for="acct-type" class="control-label">Type</label>
             <ng-select [(ngModel)]="account.type" name="acct-type" id="acct-type" placeholder="Account type"
-              [clearable]="false">
+              [clearable]="false"
+              [disabled]="parentAccount.type != 'UNSPECIFIED'">
               <ng-option *ngFor="let accountType of LIST_ACCOUNT_TYPE"
                 [value]="accountType.value" [title]="accountType.description">{{ accountType.label}}</ng-option>
             </ng-select>

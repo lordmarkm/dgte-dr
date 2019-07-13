@@ -17,12 +17,12 @@ export class UpdateTransactionModalComponent implements OnInit {
   public modalSubtitle = 'Update Transaction';
   public hasError = false;
   public isLoading = false;
-  public accounts: any[] = [];
+  public accounts: any = [];
   public totalDebit: number = 0;
   public totalCredit: number = 0;
   private FIXED_CODE_ROOT: string = '1'
 
-  public entries: any[] = [];
+  public entries: any = [];
   public error: string = '';
   public bodyError: string = '';
 

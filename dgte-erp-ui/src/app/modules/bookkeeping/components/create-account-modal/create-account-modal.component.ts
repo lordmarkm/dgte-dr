@@ -28,7 +28,7 @@ export class CreateAccountModalComponent implements OnInit {
       name: '',
       description: '',
       project: this.project,
-      type: 'ASSET'
+      type: this.parentAccount.type
     };
   }
 
