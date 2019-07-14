@@ -10,6 +10,7 @@ import { API_DATE_FORMAT } from '@los/shared/constants';
 import { CreateAccountModalComponent } from '../create-account-modal/create-account-modal.component';
 import { treeConfig } from './coa.tree-config';
 import * as _ from 'lodash'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dgte-erp-coa',
@@ -30,13 +31,23 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private modalService: NgbModal,
               private confirmationModalService: ConfirmationModalService,
               private projectService: ProjectService,
-              private accountService: AccountService) { }
+              private accountService: AccountService,
+              private _router: Router) { }
 
   ngOnInit() {
       this.projectServiceSub = this.projectService.selectedProject.subscribe(proj => {
           if (!proj.code) {
               return;
           }
+
+          //Append the project code to URL
+        this._router.navigate([], {
+          queryParams: {
+            projectCode: proj.code
+          },
+          queryParamsHandling: 'merge'
+        });
+
           this.isLoading = true;
           this.project = proj;
           delete this.error;
@@ -99,10 +110,11 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
     parentAccount.children.push(newAccount);
     parentAccount.hasChildren = true;
     this.tree.treeModel.update();
-    this.tree.treeModel.expandAll();
+    //this.tree.treeModel.expandAll();
   }
 
   deleteAccount(node) {
+      delete this.error;
       this.confirmationModalService.confirm().result.then((result) => {
           if (result === 'confirm') {
             this.isLoading = true;
@@ -119,6 +131,11 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
                     this.isLoading = false;
                 },
                 err => {
+                    switch (err.status) {
+                    case 409:
+                        this.error = 'You can\'t delete this account because there are transactions that involve it. Delete those transactions first, then try again.';
+                        break;
+                    }
                     this.isLoading = false;
                 });
           }

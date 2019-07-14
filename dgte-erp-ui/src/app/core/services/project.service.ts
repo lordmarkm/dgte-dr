@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, BehaviorSubject } from 'rxjs';
-
+import { Observable, of, BehaviorSubject, forkJoin } from 'rxjs';
 import { environment } from '@env/environment';
-
 import { HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class ProjectService {
@@ -18,18 +17,40 @@ export class ProjectService {
   public selectedProject = this.selectedProjectSubject.asObservable();
   private projectsSubject = new BehaviorSubject<any[]>([]);
   public projects = this.projectsSubject.asObservable();
+  private initialized: boolean = false;
 
-  constructor(private httpClient: HttpClient) {
-      const params = {
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute) {
+      const searchParams = {
           size: 9999,
           sort: 'createdDate,desc'
       };
-      this.search(params).subscribe(page => {
-          let projects = page.content;
-          if (projects && projects.length > 0) {
-              this.projectsSubject.next(projects);
-              this.selectedProjectSubject.next(projects[0]);
+
+      this.route.queryParams.subscribe(params => {
+          if (this.initialized) {
+              return;
+          } else {
+              console.log('initializing project service');
+              this.initialized = true;
           }
+
+          this.search(searchParams).subscribe(page => {
+              let projectCode = params['projectCode'];
+              let projects = page.content;
+              if (projects && projects.length > 0) {
+                  this.projectsSubject.next(projects);
+              }
+
+              if (projectCode) {
+                  let project = projects.find(proj => proj.code === projectCode);
+                  if (project) {
+                      this.selectedProjectSubject.next(project);
+                  } else if (projects.length > 0){
+                      this.selectedProjectSubject.next(projects[0]);
+                  }
+              } else if (projects.length > 0){
+                  this.selectedProjectSubject.next(projects[0]);
+              }
+          });
       });
   }
 

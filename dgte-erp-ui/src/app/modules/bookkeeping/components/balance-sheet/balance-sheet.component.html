@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <los-loading-wrapper [isLoading]="isLoading">
+  <div class="row">
+    <div *ngIf="error" class="col text-danger">{{ error }}</div>
+  </div>
+  <div class="row">
+    <div *ngIf="nodes?.length" class="col">
+      <tree-root #tree [nodes]="nodes" [options]="options" (initialized)="onTreeInitialized(tree)">
+        <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+          <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
+            <tree-node-expander [node]="node"></tree-node-expander>
+            <div class="node-content-wrapper"
+              (click)="node.mouseAction('click', $event)"
+              (dblclick)="node.mouseAction('dblClick', $event)"
+              (contextmenu)="node.mouseAction('contextMenu', $event)"
+              (treeDrop)="node.onDrop($event)">
+              <span>[{{node.data.accountCode}}] {{node.data.name}}</span>
+              <div *ngIf="node.isActive || node.isFocused">
+                <button (click)="addChild(node.data)" class="btn btn-primary btn-xs">Add child</button>&nbsp;
+                <button (click)="deleteAccount(node)" [disabled]="node.children && node.children.length"
+                   [title]="node.children && node.children.length ? 'You can\'t delete an account w/ children. That would be cruel.' : 'Delete account'"
+                   class="btn btn-danger btn-xs">Delete account</button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </tree-root>
+    </div>
+  </div>
+  </los-loading-wrapper>
+</div>
