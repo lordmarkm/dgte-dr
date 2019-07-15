@@ -1,0 +1,75 @@
+databaseChangeLog:
+- changeSet:
+    id: 1563165505254-7
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: account_balancePK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: as_of_date
+            type: date
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: balance
+            type: numeric(19, 2)
+        - column:
+            constraints:
+              nullable: false
+            name: account_id
+            type: BIGINT
+        tableName: account_balance
+- changeSet:
+    id: 1563165505254-8
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_ACCOUNT_BALANCECODE_COL
+        tableName: account_balance
+- changeSet:
+    id: 1563165505254-9
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: account_id, as_of_date
+        constraintName: UKjq57ctvju4pw2nmxs2rxr9u9m
+        tableName: account_balance
+- changeSet:
+    id: 1563165505254-10
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: account_id
+        baseTableName: account_balance
+        constraintName: FKlixfd5d2qjux0b3peypcpeol1
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+        validate: true

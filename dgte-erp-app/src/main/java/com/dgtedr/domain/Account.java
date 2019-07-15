@@ -49,4 +49,8 @@ public class Account extends BaseEntity {
     @OneToMany(mappedBy = "parent", cascade = {})
     private List<Account> children;
 
+    public boolean hasChildren() {
+        return null != this.children && this.children.size() > 0;
+    }
+
 }

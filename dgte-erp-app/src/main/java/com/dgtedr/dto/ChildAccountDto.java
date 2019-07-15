@@ -2,19 +2,16 @@ package com.dgtedr.dto;
 
 import java.util.List;
 
-import com.dgtedr.ref.AccountType;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ChildAccountDto extends BaseDto {
+public class ChildAccountDto extends BaseAccountDto {
 
-    private String name;
-    private String accountCode;
-    private String description;
-    private AccountType type;
     private List<ChildAccountDto> children;
 
+    public boolean hasChildren() {
+        return null != this.children && this.children.size() > 0;
+    }
 }
