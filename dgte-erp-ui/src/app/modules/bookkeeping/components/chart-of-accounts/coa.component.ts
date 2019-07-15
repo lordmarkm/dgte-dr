@@ -10,7 +10,6 @@ import { API_DATE_FORMAT } from '@los/shared/constants';
 import { CreateAccountModalComponent } from '../create-account-modal/create-account-modal.component';
 import { treeConfig } from './coa.tree-config';
 import * as _ from 'lodash'
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'dgte-erp-coa',
@@ -31,22 +30,13 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private modalService: NgbModal,
               private confirmationModalService: ConfirmationModalService,
               private projectService: ProjectService,
-              private accountService: AccountService,
-              private _router: Router) { }
+              private accountService: AccountService) { }
 
   ngOnInit() {
       this.projectServiceSub = this.projectService.selectedProject.subscribe(proj => {
           if (!proj.code) {
               return;
           }
-
-          //Append the project code to URL
-        this._router.navigate([], {
-          queryParams: {
-            projectCode: proj.code
-          },
-          queryParamsHandling: 'merge'
-        });
 
           this.isLoading = true;
           this.project = proj;
