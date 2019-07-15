@@ -26,6 +26,9 @@ import com.dgtedr.service.ProjectService;
 import com.google.common.collect.Lists;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 @Transactional
 public class BalanceSheetServiceImpl implements BalanceSheetService {
@@ -141,8 +144,11 @@ public class BalanceSheetServiceImpl implements BalanceSheetService {
                 .and(entry.entryDate.loe(accountBalance.getAsOfDate()));
 
         List<Entry> entries = (List<Entry>) entryService.findAll(query);
+        log.debug("Found entries for query account={}, asOfDate={}. Entry count={}", accountBalance.getAccount().getAccountCode(),
+                accountBalance.getAsOfDate(), entries.size());
         BigDecimal balance = entries.stream()
                 .map(entry -> {
+                    log.debug("Processing entry. debit={}, credit={}", entry.getDebit(), entry.getCredit());
                     switch (entry.getAccount().getType()) {
                     case ASSET:
                         return entry.getDebit().subtract(entry.getCredit());
