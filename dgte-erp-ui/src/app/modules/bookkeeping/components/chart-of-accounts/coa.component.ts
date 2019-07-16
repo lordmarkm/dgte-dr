@@ -41,6 +41,10 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
           this.isLoading = true;
           this.project = proj;
           delete this.error;
+          this.nodes = [];
+          if (this.tree) {
+            this.tree.treeModel.update();
+          }
           this.accountService.findRootByProjectCode(proj.code).subscribe((parentAccount: Account) => {
               if (parentAccount) {
                 this.nodes = [parentAccount];

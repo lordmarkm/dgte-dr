@@ -3,9 +3,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 const moment = require('moment');
 
-import { ConfirmationModalService, AccountService, ProjectService } from '@los/core/services';
+import { ConfirmationModalService, AccountService, ProjectService, BalanceSheetService } from '@los/core/services';
 import { Account } from '@los/shared/models';
 import * as _ from 'lodash'
+import { API_DATE_FORMAT } from '@los/shared/constants';
 
 @Component({
   selector: 'dgte-erp-balance-sheet',
@@ -18,10 +19,13 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
   private projectServiceSub;
   private project;
 
+  public balanceSheet: any = {};
+
   constructor(private modalService: NgbModal,
               private confirmationModalService: ConfirmationModalService,
               private projectService: ProjectService,
-              private accountService: AccountService) { }
+              private accountService: AccountService,
+              private balanceSheetService: BalanceSheetService) { }
 
   ngOnInit() {
       this.projectServiceSub = this.projectService.selectedProject.subscribe(proj => {
@@ -31,23 +35,21 @@ export class BalanceSheetComponent implements OnInit, OnDestroy {
           this.isLoading = true;
           this.project = proj;
           delete this.error;
-          this.accountService.findRootByProjectCode(proj.code).subscribe((parentAccount: Account) => {
+          this.balanceSheetService.findByProjectCodeAndAsOfDate(proj.code, moment().format(API_DATE_FORMAT)).subscribe(balanceSheet => {
+              this.balanceSheet = balanceSheet;
               this.isLoading = false;
           },
           err => {
               this.isLoading = false;
               switch (err.status) {
                 case 400:
-                  this.error = 'Error! Parent account could not be found.';
+                  this.error = 'Error! Project balance sheet could not be generated.';
                   break;
                 default:
                   this.error = 'An unexpected error has occurred! ' + err.error.message;
               }
           });
       });
-  }
-
-  ngAfterViewInit() {
   }
 
   ngOnDestroy() {

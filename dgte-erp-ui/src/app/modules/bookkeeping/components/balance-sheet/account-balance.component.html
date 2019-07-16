@@ -1,0 +1,7 @@
+<div class="row pl-3">
+  <div class="col-6">{{accountBalance?.account?.name}}</div>
+  <div class="col-6 text-right"><span *ngIf="!accountBalance?.children?.length" >{{accountBalance?.balance | number: '1.2'}}</span></div>
+  <div class="col">
+    <dgte-erp-account-balance *ngFor="let child of accountBalance?.children" [accountBalance]="child"></dgte-erp-account-balance>
+  </div>
+</div>

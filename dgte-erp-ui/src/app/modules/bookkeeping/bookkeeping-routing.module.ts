@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BookkeepingComponent } from './bookkeeping.component';
-import { TransactionListComponent } from './components';
-import { CoaComponent } from './components';
+import { TransactionListComponent, CoaComponent, BalanceSheetComponent } from './components';
 
 const routes: Routes = [
   { path: '', redirectTo: 'transactions', pathMatch: 'full' },
@@ -17,6 +16,10 @@ const routes: Routes = [
       },
       { path: 'chart-of-accounts',
         component: CoaComponent
+      },
+      {
+        path: 'balance-sheet',
+        component: BalanceSheetComponent
       }
     ]
   }

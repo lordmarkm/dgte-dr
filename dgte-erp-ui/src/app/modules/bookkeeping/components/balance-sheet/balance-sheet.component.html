@@ -4,7 +4,23 @@
     <div *ngIf="error" class="col text-danger">{{ error }}</div>
   </div>
   <div class="row">
-    <div *ngIf="nodes?.length" class="col">
+    <div class="col-6">
+      <div>Assets</div>
+      <div *ngFor="let accountBalance of balanceSheet.assets">
+        <dgte-erp-account-balance [accountBalance]="accountBalance"></dgte-erp-account-balance>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div>Liabilities</div>
+      <div *ngFor="let accountBalance of balanceSheet.liabilities">
+        <dgte-erp-account-balance [accountBalance]="accountBalance"></dgte-erp-account-balance>
+      </div>
+
+      <div class="mt-3">Equity</div>
+      <div *ngFor="let accountBalance of balanceSheet.equities">
+        <dgte-erp-account-balance [accountBalance]="accountBalance"></dgte-erp-account-balance>
+      </div>
     </div>
   </div>
   </los-loading-wrapper>
