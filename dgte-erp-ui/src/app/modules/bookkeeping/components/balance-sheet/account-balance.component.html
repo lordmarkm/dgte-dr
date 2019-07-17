@@ -1,7 +1,33 @@
-<div class="row pl-3">
-  <div class="col-6">{{accountBalance?.account?.name}}</div>
-  <div class="col-6 text-right"><span *ngIf="!accountBalance?.children?.length" >{{accountBalance?.balance | number: '1.2'}}</span></div>
-  <div class="col">
-    <dgte-erp-account-balance *ngFor="let child of accountBalance?.children" [accountBalance]="child"></dgte-erp-account-balance>
+<div [ngClass]="{ 'pl-3': level > 2 }" class="row no-gutters">
+  <!-- Primary accounts "Assets", "Liabilities", "Equities" etc. -->
+  <div *ngIf="level === 1" class="col-12">
+    <h3>{{accountBalance?.account?.name}}</h3>
+    <hr>
+  </div>
+
+  <ng-container *ngIf="level != 1">
+    <div class="col-9">{{accountBalance?.account?.name}}</div>
+    <div class="col-3 text-right"><span 
+      *ngIf="!accountBalance?.children?.length"
+      [ngClass]="{ 'secondary-total' : onlyChild }">{{accountBalance?.balance | number: '1.2'}}</span></div>
+  </ng-container>
+
+  <div class="container">
+    <dgte-erp-account-balance *ngFor="let child of accountBalance?.children"
+      [accountBalance]="child" [level]="level + 1" [onlyChild]="accountBalance?.children?.length === 1"></dgte-erp-account-balance>
+  </div>
+
+  <div *ngIf="level === 2 && accountBalance?.children?.length > 1" class="container">
+    <div class="row no-gutters">
+      <div class="col-9 secondary-total-label">Total {{accountBalance?.account?.name}}</div>
+      <div class="col-3 text-right"><span class="secondary-total">{{accountBalance?.balance | number: '1.2'}}</span></div>
+    </div>
+  </div>
+
+  <div *ngIf="level === 1" class="container mt-3">
+    <div class="row no-gutters">
+      <div class="col-9">Total {{accountBalance?.account?.name}}</div>
+      <div class="col-3 text-right"><span class="primary-total">₱ {{accountBalance?.balance | number: '1.2'}}</span></div>
+    </div>
   </div>
 </div>

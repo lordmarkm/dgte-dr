@@ -1,3 +1,21 @@
-dgte-erp-account-balance {
+dgte-erp-account-balance .row {
   width: 100%;
+}
+
+dgte-erp-account-balance .container {
+  padding-right: 0;
+}
+
+.primary-total {
+  border-bottom: 2px solid black;
+}
+
+.secondary-total-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.secondary-total {
+  border-bottom: 1px dotted black;
 }

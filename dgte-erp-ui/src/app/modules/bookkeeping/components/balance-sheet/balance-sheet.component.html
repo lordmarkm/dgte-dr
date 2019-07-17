@@ -4,23 +4,24 @@
     <div *ngIf="error" class="col text-danger">{{ error }}</div>
   </div>
   <div class="row">
-    <div class="col-6">
-      <div>Assets</div>
+    <div *ngIf="balanceSheet.assets?.length" class="col-6">
       <div *ngFor="let accountBalance of balanceSheet.assets">
-        <dgte-erp-account-balance [accountBalance]="accountBalance"></dgte-erp-account-balance>
+        <dgte-erp-account-balance [accountBalance]="accountBalance" [level]="1"></dgte-erp-account-balance>
       </div>
     </div>
 
     <div class="col-6">
-      <div>Liabilities</div>
-      <div *ngFor="let accountBalance of balanceSheet.liabilities">
-        <dgte-erp-account-balance [accountBalance]="accountBalance"></dgte-erp-account-balance>
-      </div>
+      <ng-container *ngIf="balanceSheet.liabilities?.length">
+        <div *ngFor="let accountBalance of balanceSheet.liabilities">
+          <dgte-erp-account-balance [accountBalance]="accountBalance" [level]="1"></dgte-erp-account-balance>
+        </div>
+      </ng-container>
 
-      <div class="mt-3">Equity</div>
-      <div *ngFor="let accountBalance of balanceSheet.equities">
-        <dgte-erp-account-balance [accountBalance]="accountBalance"></dgte-erp-account-balance>
-      </div>
+      <ng-container *ngIf="balanceSheet.equities?.length">
+        <div *ngFor="let accountBalance of balanceSheet.equities" [ngClass]="{ 'mt-4': balanceSheet.liabilities?.length }">
+          <dgte-erp-account-balance [accountBalance]="accountBalance" [level]="1"></dgte-erp-account-balance>
+        </div>
+      </ng-container>
     </div>
   </div>
   </los-loading-wrapper>

@@ -7,6 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class AccountBalanceComponent {
   @Input() accountBalance: any;
+  @Input() level: number;
+  @Input() onlyChild: boolean;
 
   constructor() { }
 
