@@ -4,6 +4,13 @@
     <div *ngIf="error" class="col text-danger">{{ error }}</div>
   </div>
   <div class="row">
+    <div class="col text-center">
+      <h3>{{ balanceSheet.project?.name}}</h3>
+      <div>Balance Sheet</div>
+      <div>{{ balanceSheet.asOfDate }}</div>
+    </div>
+  </div>
+  <div class="row mt-3">
     <div *ngIf="balanceSheet.assets?.length" class="col-6">
       <div *ngFor="let accountBalance of balanceSheet.assets">
         <dgte-erp-account-balance [accountBalance]="accountBalance" [level]="1"></dgte-erp-account-balance>

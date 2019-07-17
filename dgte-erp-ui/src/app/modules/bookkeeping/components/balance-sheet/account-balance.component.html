@@ -1,7 +1,7 @@
 <div [ngClass]="{ 'pl-3': level > 2 }" class="row no-gutters">
   <!-- Primary accounts "Assets", "Liabilities", "Equities" etc. -->
   <div *ngIf="level === 1" class="col-12">
-    <h3>{{accountBalance?.account?.name}}</h3>
+    <h5>{{accountBalance?.account?.name}}</h5>
     <hr>
   </div>
 

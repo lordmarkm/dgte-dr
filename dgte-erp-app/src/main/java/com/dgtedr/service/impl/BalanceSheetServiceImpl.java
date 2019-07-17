@@ -71,6 +71,8 @@ public class BalanceSheetServiceImpl implements BalanceSheetService {
         AccountBalance rootAccountBalance = this.calculateBalance(root, asOfDate, forceRecompute);
 
         BalanceSheetDto balanceSheetDto = new BalanceSheetDto();
+        balanceSheetDto.setAsOfDate(asOfDate);
+        balanceSheetDto.setProject(projectOpt.map(mapper::toDto).get());
         for (AccountBalance accountBalance : rootAccountBalance.getChildren()) {
             switch (accountBalance.getAccount().getType()) {
             case ASSET:

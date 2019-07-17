@@ -13,22 +13,22 @@
   </ng-select>
   <ul class="links">
     <li>
-      <a routerLink="/bookkeeping/chart-of-accounts" routerLinkActive="active">
+      <a routerLink="/bookkeeping/chart-of-accounts" [queryParams]="{ projectCode: selectedProject ? selectedProject.code : ''}" routerLinkActive="active">
         <i class="fas fa-fw fa-balance-scale"></i> Chart of Accounts
       </a>
     </li>
     <li>
-      <a routerLink="/bookkeeping/transactions" routerLinkActive="active">
+      <a routerLink="/bookkeeping/transactions" [queryParams]="{ projectCode: selectedProject ? selectedProject.code : ''}" routerLinkActive="active">
         <i class="fas fa-fw fa-balance-scale"></i> Transactions
       </a>
     </li>
     <li>
-      <a routerLink="/bookkeeping/balance-sheet" routerLinkActive="active">
-        <i class="fas fa-fw fa-list-ol"></i> Balance Sheet
+      <a routerLink="/bookkeeping/balance-sheet" [queryParams]="{ projectCode: selectedProject ? selectedProject.code : ''}" routerLinkActive="active">
+        <i class="fas fa-fw fa-list-ol"></i> Balance Sheetzzz    
       </a>
     </li>
     <li>
-      <a routerLink="/notifications" routerLinkActive="active">
+      <a routerLink="/notifications" [queryParams]="{ projectCode: selectedProject ? selectedProject.code : ''}" routerLinkActive="active">
         <i class="fas fa-fw fa-envelope"></i> Notifications
       </a>
     </li>
