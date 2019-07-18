@@ -19,6 +19,7 @@ public class PersistenceConfig {
           if you are using spring security, you can get the currently logged username with following code segment.
           SecurityContextHolder.getContext().getAuthentication().getName()
          */
-        return () -> Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication().getName());
+        return () -> Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
+                .map(auth -> null == auth ? "Anonymous" : auth.getName());
     }
 }

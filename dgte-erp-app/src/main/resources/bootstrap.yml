@@ -29,6 +29,14 @@ spring:
             non_contextual_creation: true
   liquibase:
     enabled: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ampota.dev@gmail.com
+    password: temppwlol1
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
 
 logging:
   level:
