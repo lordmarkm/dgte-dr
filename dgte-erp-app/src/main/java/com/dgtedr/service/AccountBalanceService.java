@@ -7,7 +7,7 @@ import com.dgtedr.domain.Account;
 import com.dgtedr.domain.AccountBalance;
 import com.rbank.los.commons.data.repository.BaseJpaRepository;
 
-public interface AccountBalanceService extends BaseJpaRepository<AccountBalance, Long> {
+public interface AccountBalanceService extends AccountBalanceServiceCustom, BaseJpaRepository<AccountBalance, Long> {
 
     Optional<AccountBalance> findByAccountAndAsOfDate(Account account, LocalDate asOfDate);
 

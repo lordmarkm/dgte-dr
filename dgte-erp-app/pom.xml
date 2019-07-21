@@ -13,14 +13,6 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <!-- this is for image-api -->
-  <repositories>
-        <repository>
-            <id>sonatype-snapshot</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
-
   <dependencies>
     <dependency>
       <groupId>com.rbank.los</groupId>
@@ -73,7 +65,7 @@
 
     <!-- For uploading to imgur -->
     <dependency>
-      <groupId>com.dgtedr</groupId>
+      <groupId>com.dgte</groupId>
       <artifactId>dgte-shared-imgur</artifactId>
       <version>1.0</version>
     </dependency>
