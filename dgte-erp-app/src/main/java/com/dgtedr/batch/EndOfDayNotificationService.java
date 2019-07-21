@@ -42,6 +42,7 @@ import com.dgtedr.service.EntryService;
 import com.dgtedr.service.NotificationSubscriptionService;
 import com.dgtedr.service.ProjectService;
 import com.dgtedr.service.TransactionService;
+import com.dgtedr.util.DateUtil;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
@@ -149,7 +150,9 @@ public class EndOfDayNotificationService {
         String messageText = null;
         Map<String, Object> scope = ImmutableMap.of(
             "newTransactions", newTransactions,
-            "modifiedTransactions", modifiedTransactions
+            "modifiedTransactions", modifiedTransactions,
+            "schedules", schedules,
+            "asOfDate", LocalDate.now().format(DateUtil.DATE_FORMATTER)
         );
 
         try {
@@ -159,6 +162,7 @@ public class EndOfDayNotificationService {
            e.printStackTrace();
            messageText = e.getMessage();
         }
+
         return Optional.ofNullable(messageText);
     }
 
