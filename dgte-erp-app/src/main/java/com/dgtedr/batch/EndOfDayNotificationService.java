@@ -102,13 +102,13 @@ public class EndOfDayNotificationService {
         log.debug("Processing subscription. sub={}", subscription);
 
         Optional<String> transactionsUpdateOpt = this.transactionsUpdate(subscription);
-//        if (transactionsUpdateOpt.isPresent()) {
-//            SimpleMailMessage message =  new SimpleMailMessage();
-//            message.setTo(subscription.getEmail());
-//            message.setSubject("Cool beans");
-//            message.setText(transactionsUpdateOpt.get());
-//            mailSender.send(message);
-//        }
+        if (transactionsUpdateOpt.isPresent()) {
+            SimpleMailMessage message =  new SimpleMailMessage();
+            message.setTo(subscription.getEmail());
+            message.setSubject("Cool beans");
+            message.setText(transactionsUpdateOpt.get());
+            mailSender.send(message);
+        }
 
         subscription.setLastNotification(LocalDateTime.now());
     }
@@ -149,6 +149,7 @@ public class EndOfDayNotificationService {
         StringWriter writer = new StringWriter();
         String messageText = null;
         Map<String, Object> scope = ImmutableMap.of(
+            "projectName", subscription.getProject().getName(),
             "newTransactions", newTransactions,
             "modifiedTransactions", modifiedTransactions,
             "schedules", schedules,

@@ -7,13 +7,13 @@
  </head>
  <!-- Edit the code below this line -->
  <body class="bg-light">
-<preview>Thank you for riding with Lyft!</preview>
+<preview>New transactions in {{projectName}}</preview>
 <div class="container">
   <img class="mx-auto mt-4 mb-3" width="42" height="30" src="https://i.imgur.com/xHYAcVAs.png" />
 
   <div class="card mb-4" style="border-top: 5px solid aquamarine;">
     <div class="card-body">
-      <h4 class="text-center">There are new transactions in your project</h4>
+      <h4 class="text-center">There are new transactions in {{projectName}}</h4>
       <h5 class="text-muted text-center">{{asOfDate}}</h5>
 
       <hr/>
@@ -28,24 +28,62 @@
           </tr>
         </thead>
         <tbody>
+          {{#newTransactions}}
           <tr>
-            <td>2019-July-12</td>
-            <td>Some desc
-            <td class="text-right">₱11.87</td>
+            <td>{{transactionDate}}</td>
+            <td>{{description}}
+            <td class="text-right">₱{{amount}}</td>
           </tr>
+          {{/newTransactions}}
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="card w-100 mb-4">
+  {{^modifiedTransactions.isEmpty}}
+  <div class="card mb-4">
     <div class="card-body">
-      <img width="50" height="50" class="mx-auto" src="https://s3.amazonaws.com/lyft.zimride.com/images/emails/enterprise/briefcase_dark_large.png">
-      <h4 class="text-center">Make expensing business rides easy</h4>
-      <p class="text-center">Enable business profile on Lyft to make expensing rides quick and easy.</p>
-      <a class="btn btn-primary btn-lg mx-auto mt-2" href="https://lyft.com">Get Business Profile</a>
+      <h4 class="text-center">The following transactions have been modified</h4>
+      <hr/>
+
+      <h5 class="text-center"><strong>Transaction Details</strong></h5>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Transaction Date
+            <th>Description
+            <th class="text-right">Amount
+          </tr>
+        </thead>
+        <tbody>
+          {{#modifiedTransactions}}
+          <tr>
+            <td>{{transactionDate}}</td>
+            <td>{{description}}
+            <td class="text-right">₱{{amount}}</td>
+          </tr>
+          {{/modifiedTransactions}}
+        </tbody>
+      </table>
     </div>
   </div>
+  {{/modifiedTransactions.isEmpty}}
+
+  {{^schedules.isEmpty}}
+  <div class="card w-100 mb-4">
+    <div class="card-body">
+      <img width="50" height="50" class="mx-auto" src="https://i.imgur.com/rnc8F8I.png">
+      <h4 class="text-center">Equity Accounts Updated</h4>
+      <p class="text-center">The following Equity accounts have been updated, and the chart(s) reflect the new division of child account balances.</p>
+      {{#schedules}}
+      <div class="mt-3">
+      	<img width="556" height="322" class="img-fluid" src="{{imageLink}}" alt="Imgur may have deleted this image, if this is an old email"/>
+      </div>
+      {{/schedules}}
+      <a class="btn btn-primary btn-lg mx-auto mt-2" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">View Details</a>
+    </div>
+  </div>
+  {{/schedules.isEmpty}}
 
   <div class="text-center text-muted">Pricing FAQ · Help Center</div>
   <div class="text-center text-muted">Receipt #qwertyuiopasdfghjklzxcvbnm</div>
@@ -54,7 +92,7 @@
   <table class="table-unstyled text-muted mb-4">
     <tbody>
       <tr>
-        <td>© Lyft 2017</td>
+        <td>© Mark Martinez 2019</td>
         <td>
           <img class="float-right pl-2" width="20" height="20" src="https://s3.amazonaws.com/lyft.zimride.com/images/emails/social/v2/facebook@2x.png"/>
           <img class="float-right pl-2" width="20" height="20" src="https://s3.amazonaws.com/lyft.zimride.com/images/emails/social/v2/twitter@2x.png"/>
