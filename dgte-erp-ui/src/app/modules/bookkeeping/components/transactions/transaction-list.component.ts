@@ -68,7 +68,7 @@ export class TransactionListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     let transactionSearch = {
         sort: this.searchQuery.sort,
-        size: 10,
+        size: 5,
         page: this.searchQuery.page,
         projectCode: this.project.code
     };
