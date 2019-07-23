@@ -3,7 +3,6 @@ package com.dgtedr.batch;
 import static com.dgtedr.domain.QProject.project;
 import static com.dgtedr.domain.QTransaction.transaction;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
@@ -15,15 +14,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.BitmapEncoder.BitmapFormat;
 import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.PieSeries.PieSeriesRenderStyle;
-import org.knowm.xchart.style.PieStyler.AnnotationType;
-import org.knowm.xchart.style.Styler.ToolTipType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -31,6 +27,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dgte.shared.imgur.Imgur;
+import com.dgte.shared.imgur.dto.ImgurResponse;
+import com.dgte.shared.imgur.dto.UploadResponseData;
 import com.dgtedr.domain.Account;
 import com.dgtedr.domain.AccountBalance;
 import com.dgtedr.domain.NotificationSubscription;
@@ -49,9 +48,6 @@ import com.github.mustachejava.MustacheFactory;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.dgte.shared.imgur.Imgur;
-import com.dgte.shared.imgur.dto.ImgurResponse;
-import com.dgte.shared.imgur.dto.UploadResponseData;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -78,7 +74,7 @@ public class EndOfDayNotificationService {
     private AccountBalanceService accountBalanceService;
 
     @Transactional
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(cron = "${app.notif.eod-schedule}")
     public void run() {
         log.info("Running notification task...");
         List<Project> projects = (List<Project>) projectService.findAll(project.deleted.isFalse());
@@ -86,16 +82,14 @@ public class EndOfDayNotificationService {
     }
 
     private void notifySubscribedUsers(Project project) {
-        log.debug("Running notifications for project. project={}");
-        List<NotificationSubscription> subscriptions = notificationSubscriptionService.findByProjectCodeAndNotify(project.getCode(), true);
-        if (subscriptions.isEmpty()) {
-            log.info("No subscriptions found for project. project={}", project.getName());
-            return;
+        log.debug("Running notifications for project. project={}", project.getName());
+        Optional<NotificationSubscription> subscription = notificationSubscriptionService.findByProjectCode(project.getCode());
+        if (subscription.isPresent() && subscription.get().hasNotifiableMembers()) {
+            notifySubscribedUser(subscription.get());
         } else {
-            log.debug("Found subscriptions. count={}", subscriptions.size());
+            log.info("No subscriptions found");
+            return;
         }
-
-        subscriptions.forEach(this::notifySubscribedUser);
     }
 
     private void notifySubscribedUser(NotificationSubscription subscription) {
@@ -104,8 +98,8 @@ public class EndOfDayNotificationService {
         Optional<String> transactionsUpdateOpt = this.transactionsUpdate(subscription);
         if (transactionsUpdateOpt.isPresent()) {
             SimpleMailMessage message =  new SimpleMailMessage();
-            message.setTo(subscription.getEmail());
-            message.setSubject("Cool beans");
+            message.setTo(subscription.getEnabledEmailsAsStringArray());
+            message.setSubject(subscription.getProject().getName() + " - Updates");
             message.setText(transactionsUpdateOpt.get());
             mailSender.send(message);
         }
@@ -114,11 +108,15 @@ public class EndOfDayNotificationService {
     }
 
     private Optional<String> transactionsUpdate(NotificationSubscription subscription) {
+        Project project = subscription.getProject();
         LocalDateTime lastNotificationDate = subscription.getLastNotification();
-        List<Transaction> newTransactions = (List<Transaction>) transactionService.findAll(transaction.createdDate.after(lastNotificationDate));
+        List<Transaction> newTransactions = (List<Transaction>) transactionService.findAll(
+                transaction.project.eq(project).and(
+                transaction.createdDate.after(lastNotificationDate)));
         List<Transaction> modifiedTransactions = (List<Transaction>) transactionService.findAll(
+                transaction.project.eq(project).and(
                 transaction.createdDate.loe(lastNotificationDate).and(
-                        transaction.updatedDate.after(lastNotificationDate)));
+                        transaction.updatedDate.after(lastNotificationDate))));
 
         if (newTransactions.isEmpty() && modifiedTransactions.isEmpty()) {
             log.debug("No new transactions since last notification. Until next time.");
@@ -149,7 +147,7 @@ public class EndOfDayNotificationService {
         StringWriter writer = new StringWriter();
         String messageText = null;
         Map<String, Object> scope = ImmutableMap.of(
-            "projectName", subscription.getProject().getName(),
+            "projectName", project.getName(),
             "newTransactions", newTransactions,
             "modifiedTransactions", modifiedTransactions,
             "schedules", schedules,

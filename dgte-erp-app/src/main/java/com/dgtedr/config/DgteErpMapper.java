@@ -8,6 +8,7 @@ import com.dgtedr.domain.Account;
 import com.dgtedr.domain.AccountBalance;
 import com.dgtedr.domain.BaseEntity;
 import com.dgtedr.domain.Entry;
+import com.dgtedr.domain.NotificationSubscription;
 import com.dgtedr.domain.Person;
 import com.dgtedr.domain.Project;
 import com.dgtedr.domain.Transaction;
@@ -15,6 +16,7 @@ import com.dgtedr.dto.AccountBalanceDto;
 import com.dgtedr.dto.AccountDto;
 import com.dgtedr.dto.BaseDto;
 import com.dgtedr.dto.EntryDto;
+import com.dgtedr.dto.NotificationSubscriptionDto;
 import com.dgtedr.dto.PersonDto;
 import com.dgtedr.dto.ProjectDto;
 import com.dgtedr.dto.TransactionDto;
@@ -50,4 +52,5 @@ public interface DgteErpMapper {
     EntryDto entryLite(Entry entry);
 
     AccountBalanceDto toDto(AccountBalance accountBalance);
+    NotificationSubscriptionDto toDto(NotificationSubscription notificationSubscription);
 }

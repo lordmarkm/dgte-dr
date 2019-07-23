@@ -3,7 +3,7 @@ import { TransactionListComponent } from './transactions/transaction-list.compon
 import { CoaComponent } from './chart-of-accounts/coa.component';
 import { BalanceSheetComponent } from './balance-sheet/balance-sheet.component';
 import { AccountBalanceComponent } from './balance-sheet/account-balance.component';
-
+import { NotificationsComponent } from './notifications/notifications.component';
 //modals
 import { CreateTransactionModalComponent } from './create-transaction-modal/create-transaction-modal.component';
 import { UpdateTransactionModalComponent } from './create-transaction-modal/update-transaction-modal.component';
@@ -17,6 +17,7 @@ export const Components = [
     CoaComponent,
     BalanceSheetComponent,
     AccountBalanceComponent,
+    NotificationsComponent,
 
     //modals
     CreateTransactionModalComponent,
@@ -38,6 +39,7 @@ export {
   CoaComponent,
   BalanceSheetComponent,
   AccountBalanceComponent,
+  NotificationsComponent,
 
   //modals
   CreateTransactionModalComponent,

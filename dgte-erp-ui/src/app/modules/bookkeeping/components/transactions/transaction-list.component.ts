@@ -60,7 +60,7 @@ export class TransactionListComponent implements OnInit, OnDestroy {
   handleCreateTransactionResponse(newTransaction) {
       console.log(newTransaction);
       if (newTransaction) {
-        this.transactions.unshift(newTransaction);
+        this.getTransactions();
       }
   }
 

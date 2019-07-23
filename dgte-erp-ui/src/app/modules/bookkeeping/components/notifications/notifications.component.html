@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <h5>End of Day Notification</h5>
+  <los-loading-wrapper [isLoading]="isLoading">
+    <ng-container *ngIf="notifications">
+      <div class="row">
+        <div class="col">
+          <table *ngIf="notifications.emails.length" class="table table-striped">
+            <thead>
+              <th>Email
+              <th>Enabled
+            </thead>
+            <tbody>
+              <tr *ngFor="let email of notifications.emails">
+                <td>{{email.email}}
+                <td><span [ngClass]="{ 'text-success': email.enabled, 'text-danger': !email.enabled }">{{email.enabled ? 'Yes' : 'No'}}</span>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="!notifications.emails.length">No emails registered for notification</div>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col">Last notification: {{notifications?.lastNotification | date: 'yyyy-MMM-dd h:mm a'}}</div>
+      </div>
+      <div class="row mt-1">
+        <div class="col">Next notification: {{notifications?.nextNotification | date: 'yyyy-MMM-dd h:mm a'}}</div>
+      </div>
+    </ng-container>
+    <div *ngIf="error" class="row text-danger"><div class="col">{{error}}</div></div>
+  </los-loading-wrapper>
+</div>

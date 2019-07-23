@@ -1,0 +1,79 @@
+databaseChangeLog:
+- changeSet:
+    id: 1563850981297-10
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+            name: notif_subscription_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: Y
+            name: enabled
+            type: CHAR(1)
+        - column:
+            constraints:
+              primaryKey: true
+            name: email_order
+            type: INTEGER
+        tableName: notif_emails
+- changeSet:
+    id: 1563850981297-11
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email, notif_subscription_id
+        constraintName: UKjxjo89tinag1ar3rs1lyil09l
+        tableName: notif_emails
+- changeSet:
+    id: 1563850981297-12
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: project_id
+        constraintName: UKlypcvqlcjt1514gol8u673qj3
+        tableName: notif_subscription
+- changeSet:
+    id: 1563850981297-13
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: notif_subscription_id
+        baseTableName: notif_emails
+        constraintName: FKfxxnhgfon670k5fgao0d1y5ss
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: notif_subscription
+        validate: true
+- changeSet:
+    id: 1563850981297-14
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: UKtcpsnoh7cuqmqpnt6yxc7bone
+        tableName: notif_subscription
+- changeSet:
+    id: 1563850981297-15
+    author: mbmartinez (generated)
+    changes:
+    - dropColumn:
+        columnName: email
+        tableName: notif_subscription
+- changeSet:
+    id: 1563850981297-16
+    author: mbmartinez (generated)
+    changes:
+    - dropColumn:
+        columnName: notify
+        tableName: notif_subscription

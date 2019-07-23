@@ -41,3 +41,8 @@ spring:
 logging:
   level:
     com.dgtedr: DEBUG
+
+app:
+  notif:
+    eod-schedule: 0 * * * * ?
+

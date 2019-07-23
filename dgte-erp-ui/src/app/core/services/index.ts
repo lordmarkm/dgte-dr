@@ -11,6 +11,7 @@ export * from './transaction.service';
 export * from './project.service';
 export * from './account.service';
 export * from './balance-sheet.service';
+export * from './notifications.service';
 
 import { AuthService } from './auth.service';
 import { AdminService } from './admin.service';
@@ -20,6 +21,7 @@ import { TransactionService } from './transaction.service';
 import { ProjectService } from './project.service';
 import { AccountService } from './account.service';
 import { BalanceSheetService } from './balance-sheet.service';
+import { NotificationsService } from './notifications.service';
 
 export const ApiServices = [
   AuthService,
@@ -30,4 +32,5 @@ export const ApiServices = [
   ProjectService,
   AccountService,
   BalanceSheetService,
+  NotificationsService
 ]
