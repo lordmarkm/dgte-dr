@@ -1,0 +1,14 @@
+databaseChangeLog:
+- changeSet:
+    id: 1564013347076-12
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: Y
+            name: permanent
+            type: char(1)
+        tableName: account

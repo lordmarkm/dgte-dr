@@ -1,4 +1,4 @@
-<div class="sidenav">
+<div *ngIf="!smallScreen" class="sidenav">
   <ng-select
     [(ngModel)]="selectedProject"
     (change)="selectProject($event)"
@@ -34,3 +34,10 @@
     </li>
   </ul>
 </div>
+
+<!-- Hamburger navigation menu -->
+<mbsc-hamburger-nav *ngIf="smallScreen">
+    <mbsc-nav-item [selected]="currentNav == 'home'">Home</mbsc-nav-item>
+    <mbsc-nav-item [selected]="currentNav == 'feed'">Feed</mbsc-nav-item>
+    <mbsc-nav-item [selected]="currentNav == 'settings'">Settings</mbsc-nav-item>
+</mbsc-hamburger-nav>

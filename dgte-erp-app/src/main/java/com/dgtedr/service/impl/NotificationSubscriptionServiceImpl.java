@@ -1,6 +1,5 @@
 package com.dgtedr.service.impl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -25,7 +24,7 @@ public class NotificationSubscriptionServiceImpl implements NotificationSubscrip
     @Autowired
     private NotificationSubscriptionService notificationSubscriptionService;
 
-    @Value("${app.notif.eod-schedule}")
+    @Value("${app.notifications.eod-notification-schedule}")
     private String notificationSchedule;
 
     @Override

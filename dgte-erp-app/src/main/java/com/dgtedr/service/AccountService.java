@@ -9,5 +9,6 @@ public interface AccountService extends BaseJpaRepository<Account, Long>, Accoun
 
     Optional<Account> findByCode(String code);
     int deleteByCode(String code);
+    void delete(Account account);
 
 }

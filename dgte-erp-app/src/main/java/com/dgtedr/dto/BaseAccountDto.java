@@ -13,5 +13,6 @@ public class BaseAccountDto extends BaseDto {
     private String accountCode;
     private String description;
     private AccountType type;
+    private boolean permanent;
 
 }

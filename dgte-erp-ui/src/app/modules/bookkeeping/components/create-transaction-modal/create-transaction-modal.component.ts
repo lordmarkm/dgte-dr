@@ -34,7 +34,7 @@ export class CreateTransactionModalComponent implements OnInit {
     this.isLoading = true;
     this.accountService.findRootByProjectCode(this.project.code).subscribe(rootAccount => {
       this.addChildlessAccounts(rootAccount);
-      if (this.accounts.length) {
+      if (!this.accounts.length) {
         this.bodyError = 'There are no available accounts for which to create transactions.';
       }
       this.entries.push({

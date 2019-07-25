@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { forkJoin, combineLatest } from 'rxjs';
+import { forkJoin, combineLatest, pipe, fromEvent, Observable } from 'rxjs';
+import { debounceTime, map, startWith,  } from 'rxjs/operators';
 
 import {AdminUserInfo} from "@los/shared/models";
 import {StoreService} from "@los/core/services";
@@ -15,11 +16,14 @@ export class ErpSidenavComponent implements OnInit {
 
   public projects = [];
   public selectedProject;
+  public smallScreen: boolean;
+  private isScreenSmall$: Observable<boolean>;
 
   constructor(private projectService: ProjectService,
           private _router: Router) { }
 
   ngOnInit() {
+      //Watch the project
       combineLatest(
         this.projectService.projects,
         this.projectService.selectedProject
@@ -39,6 +43,19 @@ export class ErpSidenavComponent implements OnInit {
           });
         }
       });
+
+    // Checks if screen size is less than 1024 pixels
+    const checkScreenSize = () => document.body.offsetWidth < 1024;
+  
+    // Create observable from window resize event throttled so only fires every 500ms
+    const screenSizeChanged$ = fromEvent(window, 'resize').pipe(debounceTime(500)).pipe(map(checkScreenSize));
+  
+    // Start off with the initial value use the isScreenSmall$ | async in the
+    // view to get both the original value and the new value after resize.
+    this.isScreenSmall$ = screenSizeChanged$.pipe(startWith(checkScreenSize()));
+    this.isScreenSmall$.subscribe(s => {
+      this.smallScreen = s;
+    });
   }
 
   selectProject(project) {

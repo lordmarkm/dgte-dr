@@ -1,5 +1,7 @@
 package com.dgtedr.service.impl;
 
+import static com.dgtedr.domain.QAccount.account;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dgtedr.config.DgteErpMapper;
 import com.dgtedr.domain.Account;
 import com.dgtedr.domain.QEntry;
-import com.dgtedr.domain.QTransaction;
 import com.dgtedr.dto.AccountDto;
 import com.dgtedr.dto.StatusedResponse;
 import com.dgtedr.service.AccountService;
 import com.dgtedr.service.AccountServiceCustom;
 import com.dgtedr.service.EntryService;
-import com.dgtedr.service.TransactionService;
 import com.querydsl.core.types.dsl.BooleanExpression;
-
-import static com.dgtedr.domain.QAccount.account;
 
 @Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountServiceCustom {
@@ -28,9 +26,6 @@ public class AccountServiceImpl implements AccountServiceCustom {
 
     @Autowired
     private AccountService service;
-
-    @Autowired
-    private TransactionService transactionService;
 
     @Autowired
     private EntryService entryService;
@@ -57,18 +52,27 @@ public class AccountServiceImpl implements AccountServiceCustom {
     @Override
     public StatusedResponse<AccountDto> delete(String code) {
         StatusedResponse<AccountDto> response = new StatusedResponse<>();
+
+        Optional<Account> account = service.findByCode(code);
+        if (!account.isPresent()) {
+            //Can't delete an account if it doesn't exist
+            response.setStatus(HttpStatus.BAD_REQUEST);
+            return response;
+        } else if (account.get().isPermanent()) {
+            //Can't delete permanent accounts
+            response.setStatus(HttpStatus.NOT_ACCEPTABLE);
+            return response;
+        }
+
+        //Can't delete accounts with entries
         long entryCount = entryService.count(QEntry.entry.account.code.eq(code));
         if (entryCount > 0) {
             response.setStatus(HttpStatus.CONFLICT);
             return response;
         }
 
-        int deleted = service.deleteByCode(code);
-        if (deleted > 0) {
-            response.setStatus(HttpStatus.OK);
-        } else {
-            response.setStatus(HttpStatus.BAD_REQUEST);
-        }
+        service.delete(account.get());
+        response.setStatus(HttpStatus.OK);
 
         return response;
     }

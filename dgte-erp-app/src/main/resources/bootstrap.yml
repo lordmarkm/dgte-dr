@@ -43,6 +43,6 @@ logging:
     com.dgtedr: DEBUG
 
 app:
-  notif:
-    eod-schedule: 0 * * * * ?
-
+  notifications:
+    eod-notification-schedule: 0 * * * * ?
+    default-email: dgte-erp-all-notifs@mailinator.com

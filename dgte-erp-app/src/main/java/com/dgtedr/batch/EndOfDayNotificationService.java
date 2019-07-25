@@ -15,6 +15,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.BitmapEncoder.BitmapFormat;
 import org.knowm.xchart.PieChart;
@@ -23,6 +26,7 @@ import org.knowm.xchart.PieSeries.PieSeriesRenderStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,7 +78,7 @@ public class EndOfDayNotificationService {
     private AccountBalanceService accountBalanceService;
 
     @Transactional
-    @Scheduled(cron = "${app.notif.eod-schedule}")
+    @Scheduled(cron = "${app.notifications.eod-notification-schedule}")
     public void run() {
         log.info("Running notification task...");
         List<Project> projects = (List<Project>) projectService.findAll(project.deleted.isFalse());
@@ -97,11 +101,16 @@ public class EndOfDayNotificationService {
 
         Optional<String> transactionsUpdateOpt = this.transactionsUpdate(subscription);
         if (transactionsUpdateOpt.isPresent()) {
-            SimpleMailMessage message =  new SimpleMailMessage();
-            message.setTo(subscription.getEnabledEmailsAsStringArray());
-            message.setSubject(subscription.getProject().getName() + " - Updates");
-            message.setText(transactionsUpdateOpt.get());
-            mailSender.send(message);
+            MimeMessage message =  mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, "utf-8");
+            try {
+                message.setSubject(subscription.getProject().getName() + " - Updates");
+                helper.setTo(subscription.getEnabledEmailsAsStringArray());
+                helper.setText(transactionsUpdateOpt.get(), true);
+                mailSender.send(message);
+            } catch (MessagingException e) {
+                log.error("Unable to send email.", e);
+            }
         }
 
         subscription.setLastNotification(LocalDateTime.now());
