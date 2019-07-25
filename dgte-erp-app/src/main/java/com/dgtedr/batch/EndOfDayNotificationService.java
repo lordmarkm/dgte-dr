@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -24,6 +25,7 @@ import org.knowm.xchart.PieChart;
 import org.knowm.xchart.PieChartBuilder;
 import org.knowm.xchart.PieSeries.PieSeriesRenderStyle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -34,11 +36,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dgte.shared.imgur.Imgur;
 import com.dgte.shared.imgur.dto.ImgurResponse;
 import com.dgte.shared.imgur.dto.UploadResponseData;
+import com.dgtedr.config.DgteErpMapper;
 import com.dgtedr.domain.Account;
 import com.dgtedr.domain.AccountBalance;
 import com.dgtedr.domain.NotificationSubscription;
 import com.dgtedr.domain.Project;
 import com.dgtedr.domain.Transaction;
+import com.dgtedr.dto.TransactionDto;
 import com.dgtedr.ref.AccountType;
 import com.dgtedr.service.AccountBalanceService;
 import com.dgtedr.service.EntryService;
@@ -58,6 +62,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class EndOfDayNotificationService {
+
+    @Autowired
+    private DgteErpMapper mapper;
 
     @Autowired
     private ProjectService projectService;
@@ -121,11 +128,11 @@ public class EndOfDayNotificationService {
         LocalDateTime lastNotificationDate = subscription.getLastNotification();
         List<Transaction> newTransactions = (List<Transaction>) transactionService.findAll(
                 transaction.project.eq(project).and(
-                transaction.createdDate.after(lastNotificationDate)));
+                transaction.createdDate.after(lastNotificationDate)), new Sort(Sort.Direction.DESC, "transactionDate"));
         List<Transaction> modifiedTransactions = (List<Transaction>) transactionService.findAll(
                 transaction.project.eq(project).and(
                 transaction.createdDate.loe(lastNotificationDate).and(
-                        transaction.updatedDate.after(lastNotificationDate))));
+                        transaction.updatedDate.after(lastNotificationDate))), new Sort(Sort.Direction.DESC, "transactionDate"));
 
         if (newTransactions.isEmpty() && modifiedTransactions.isEmpty()) {
             log.debug("No new transactions since last notification. Until next time.");
@@ -150,6 +157,9 @@ public class EndOfDayNotificationService {
             schedules.add(createSchedule(account));
         });
 
+        List<TransactionDto> newTransactionDtos = newTransactions.stream().map(mapper::toDto).collect(Collectors.toList());
+        List<TransactionDto> modifiedTransactionDtos = modifiedTransactions.stream().map(mapper::toDto).collect(Collectors.toList());
+
         MustacheFactory mf = new DefaultMustacheFactory();
         Mustache mustache = mf.compile("email/transactions-update.mustache");
 
@@ -157,8 +167,8 @@ public class EndOfDayNotificationService {
         String messageText = null;
         Map<String, Object> scope = ImmutableMap.of(
             "projectName", project.getName(),
-            "newTransactions", newTransactions,
-            "modifiedTransactions", modifiedTransactions,
+            "newTransactions", newTransactionDtos,
+            "modifiedTransactions", modifiedTransactionDtos,
             "schedules", schedules,
             "asOfDate", LocalDate.now().format(DateUtil.DATE_FORMATTER)
         );

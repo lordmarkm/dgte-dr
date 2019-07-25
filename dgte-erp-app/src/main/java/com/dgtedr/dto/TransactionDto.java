@@ -7,6 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.dgtedr.util.BigDecimalUtil;
 import com.dgtedr.util.DateUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -30,4 +31,13 @@ public class TransactionDto extends BaseDto {
     @NotNull
     @Min(0)
     private BigDecimal amount;
+
+    public String getFormattedTransactionDate() {
+        return this.transactionDate.format(DateUtil.DATE_FORMATTER);
+    }
+
+    public String getFormattedAmount() {
+        return BigDecimalUtil.format(this.amount);
+    }
+
 }

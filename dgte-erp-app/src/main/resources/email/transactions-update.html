@@ -30,9 +30,9 @@
         <tbody>
           {{#newTransactions}}
           <tr>
-            <td>{{transactionDate}}</td>
+            <td>{{formattedTransactionDate}}</td>
             <td>{{description}}
-            <td class="text-right">₱{{amount}}</td>
+            <td class="text-right">₱{{formattedAmount}}</td>
           </tr>
           {{/newTransactions}}
         </tbody>
@@ -58,7 +58,7 @@
         <tbody>
           {{#modifiedTransactions}}
           <tr>
-            <td>{{transactionDate}}</td>
+            <td>{{formattedTransactionDate}}</td>
             <td>{{description}}
             <td class="text-right">₱{{amount}}</td>
           </tr>
