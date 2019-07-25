@@ -24,21 +24,21 @@ public class ComparativeBalanceSheetDto {
         this.asOfDateA = balanceSheetA.getAsOfDate();
         this.asOfDateB = balanceSheetB.getAsOfDate();
 
-        for (AccountBalanceDto assetA : balanceSheetA.getAssets()) {
-            AccountBalanceDto assetB = balanceSheetB.findAssetAccountBalance(assetA.getAccount().getCode());
-            ComparativeAccountBalanceDto cabd = new ComparativeAccountBalanceDto(assetA, assetB);
+        for (AccountBalanceDto assetAccountBalanceA : balanceSheetA.getAssets()) {
+            AccountBalanceDto assetAccountBalanceB = balanceSheetB.findAssetAccountBalance(assetAccountBalanceA.getAccount().getCode());
+            ComparativeAccountBalanceDto cabd = new ComparativeAccountBalanceDto(asOfDateA, asOfDateB, assetAccountBalanceA, assetAccountBalanceB);
             this.assets.add(cabd);
         }
 
-        for (AccountBalanceDto assetA : balanceSheetA.getLiabilities()) {
-            AccountBalanceDto assetB = balanceSheetB.findLiabilityAccountBalance(assetA.getAccount().getCode());
-            ComparativeAccountBalanceDto cabd = new ComparativeAccountBalanceDto(assetA, assetB);
-            this.liabilities.add(cabd);
+        for (AccountBalanceDto liabilityAccountBalanceA : balanceSheetA.getLiabilities()) {
+            AccountBalanceDto liabilityAccountBalanceB = balanceSheetB.findLiabilityAccountBalance(liabilityAccountBalanceA.getAccount().getCode());
+            ComparativeAccountBalanceDto cabd = new ComparativeAccountBalanceDto(asOfDateA, asOfDateB, liabilityAccountBalanceA, liabilityAccountBalanceB);
+            liabilities.add(cabd);
         }
 
-        for (AccountBalanceDto assetA : balanceSheetA.getEquities()) {
-            AccountBalanceDto assetB = balanceSheetB.findEquityAccountBalance(assetA.getAccount().getCode());
-            ComparativeAccountBalanceDto cabd = new ComparativeAccountBalanceDto(assetA, assetB);
+        for (AccountBalanceDto equityAccountBalanceA : balanceSheetA.getEquities()) {
+            AccountBalanceDto equityAccountBalanceB = balanceSheetB.findEquityAccountBalance(equityAccountBalanceA.getAccount().getCode());
+            ComparativeAccountBalanceDto cabd = new ComparativeAccountBalanceDto(asOfDateA, asOfDateB, equityAccountBalanceA, equityAccountBalanceB);
             this.equities.add(cabd);
         }
     }

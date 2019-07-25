@@ -9,8 +9,8 @@
     <div class="col-12">
       <div class="row">
         <div class="col-6"></div>
-        <div class="col-3 text-center"><div class="year-header"><strong>2019</strong></div></div>
-        <div class="col-3 text-center"><div class="year-header"><strong>2018</strong></div></div>
+        <div class="col-3 text-center comparison-year-left"><div class="year-header"><strong>{{comparativeAccountBalance?.asOfDateA | date: 'yyyy'}}</strong></div></div>
+        <div class="col-3 text-center"><div class="year-header"><strong>{{comparativeAccountBalance?.asOfDateB | date: 'yyyy'}}</strong></div></div>
       </div>
     </div>
   </ng-container>
@@ -25,12 +25,12 @@
       [ngClass]="{ 'secondary-total' : onlyChild }">{{comparativeAccountBalance?.balanceB | number: '1.2'}}</span></div>
   </ng-container>
 
-  <div class="container">
+  <div class="container no-gutters no-padding">
     <dgte-erp-comparative-account-balance *ngFor="let child of comparativeAccountBalance?.children"
       [comparativeAccountBalance]="child" [level]="level + 1" [onlyChild]="comparativeAccountBalance?.children?.length === 1"></dgte-erp-comparative-account-balance>
   </div>
 
-  <div *ngIf="level === 2 && accountBalance?.children?.length > 1" class="container">
+  <div *ngIf="level === 2 && comparativeAccountBalance?.children?.length > 1" class="container no-padding">
     <div class="row no-gutters">
       <div class="col-6 secondary-total-label">Total {{comparativeAccountBalance?.account?.name}}</div>
       <div class="col-3 text-right"><span class="secondary-total">{{comparativeAccountBalance?.balanceA | number: '1.2'}}</span></div>
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div *ngIf="level === 1" class="container mt-3">
+  <div *ngIf="level === 1" class="container mt-3 no-padding">
     <div class="row no-gutters">
       <div class="col-6">Total {{comparativeAccountBalance?.account?.name}}</div>
       <div class="col-3 text-right"><span class="primary-total">₱ {{comparativeAccountBalance?.balanceA | number: '1.2'}}</span></div>

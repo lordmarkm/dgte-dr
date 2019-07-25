@@ -1,10 +1,16 @@
+.no-padding {
+  padding: 0;
+}
+
 dgte-erp-account-balance .row,
 dgte-erp-comparative-account-balance .row, {
   width: 100%;
 }
 
 dgte-erp-account-balance .container,
-dgte-erp-comparative-account-balance .container {
+dgte-erp-comparative-account-balance .container,
+dgte-erp-comparative-account-balance container {
+  padding-left: 0;
   padding-right: 0;
 }
 
@@ -24,4 +30,9 @@ dgte-erp-comparative-account-balance .container {
 
 .year-header {
   border-bottom: 2px solid black;
+}
+
+.comparison-year-left {
+  padding-left: 30px;
+  padding-right: 0px;
 }
