@@ -1,8 +1,10 @@
-dgte-erp-account-balance .row {
+dgte-erp-account-balance .row,
+dgte-erp-comparative-account-balance .row, {
   width: 100%;
 }
 
-dgte-erp-account-balance .container {
+dgte-erp-account-balance .container,
+dgte-erp-comparative-account-balance .container {
   padding-right: 0;
 }
 
@@ -18,4 +20,8 @@ dgte-erp-account-balance .container {
 
 .secondary-total {
   border-bottom: 1px dotted black;
+}
+
+.year-header {
+  border-bottom: 2px solid black;
 }

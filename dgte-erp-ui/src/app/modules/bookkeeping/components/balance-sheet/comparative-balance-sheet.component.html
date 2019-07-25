@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <los-loading-wrapper [isLoading]="isLoading">
+  <div class="row">
+    <div *ngIf="error" class="col text-danger">{{ error }}</div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <h3>{{ balanceSheet.project?.name}}</h3>
+      <div>Comparative Balance Sheet</div>
+      <div>Between {{ balanceSheet.asOfDateA }} and {{ balanceSheet.asOfDateB }}</div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div *ngIf="balanceSheet.assets?.length" class="col-6">
+      <div *ngFor="let comparativeAccountBalance of balanceSheet.assets">
+        <dgte-erp-comparative-account-balance [comparativeAccountBalance]="comparativeAccountBalance" [level]="1"></dgte-erp-comparative-account-balance>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <ng-container *ngIf="balanceSheet.liabilities?.length">
+        <div *ngFor="let comparativeAccountBalance of balanceSheet.liabilities">
+          <dgte-erp-comparative-account-balance [comparativeAccountBalance]="comparativeAccountBalance" [level]="1"></dgte-erp-comparative-account-balance>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="balanceSheet.equities?.length">
+        <div *ngFor="let comparativeAccountBalance of balanceSheet.equities" [ngClass]="{ 'mt-4': balanceSheet.liabilities?.length }">
+          <dgte-erp-comparative-account-balance [comparativeAccountBalance]="comparativeAccountBalance" [level]="1"></dgte-erp-comparative-account-balance>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  </los-loading-wrapper>
+</div>

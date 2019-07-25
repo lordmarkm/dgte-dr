@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dgtedr.dto.BalanceSheetDto;
+import com.dgtedr.dto.ComparativeBalanceSheetDto;
 import com.dgtedr.service.BalanceSheetService;
 
 @RestController
@@ -26,6 +27,15 @@ public class BalanceSheetResource {
         return balanceSheetService.getBalanceSheet(projectCode, asOfDate)
                     .map(ResponseEntity::ok)
                     .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+    @GetMapping("/comparative")
+    public ResponseEntity<ComparativeBalanceSheetDto> getComparativeBalanceSheet(@RequestParam String projectCode,
+            @DateTimeFormat(pattern = "yyyy-MMM-dd") @RequestParam LocalDate asOfDateA,
+            @DateTimeFormat(pattern = "yyyy-MMM-dd") @RequestParam LocalDate asOfDateB) {
+        return balanceSheetService.getComparativeBalanceSheet(projectCode, asOfDateA, asOfDateB)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
 }

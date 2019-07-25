@@ -18,6 +18,7 @@ import com.dgtedr.domain.AccountBalance;
 import com.dgtedr.domain.Entry;
 import com.dgtedr.domain.Project;
 import com.dgtedr.dto.BalanceSheetDto;
+import com.dgtedr.dto.ComparativeBalanceSheetDto;
 import com.dgtedr.service.AccountBalanceService;
 import com.dgtedr.service.AccountService;
 import com.dgtedr.service.BalanceSheetService;
@@ -87,6 +88,23 @@ public class BalanceSheetServiceImpl implements BalanceSheetService {
         }
 
         return Optional.of(balanceSheetDto);
+    }
+
+    @Override
+    public Optional<ComparativeBalanceSheetDto> getComparativeBalanceSheet(String projectCode, LocalDate asOfDateA,
+            LocalDate asOfDateB) {
+
+        Optional<BalanceSheetDto> balanceSheetA = this.getBalanceSheet(projectCode, asOfDateA);
+        if (!balanceSheetA.isPresent()) {
+            return Optional.empty();
+        }
+        Optional<BalanceSheetDto> balanceSheetB = this.getBalanceSheet(projectCode, asOfDateB);
+        if (!balanceSheetB.isPresent()) {
+            return Optional.empty();
+        }
+
+        ComparativeBalanceSheetDto comparativeBalanceSheetDto = new ComparativeBalanceSheetDto(balanceSheetA.get(), balanceSheetB.get());
+        return Optional.of(comparativeBalanceSheetDto);
     }
 
 }

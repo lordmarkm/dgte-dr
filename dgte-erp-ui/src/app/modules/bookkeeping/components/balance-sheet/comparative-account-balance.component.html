@@ -1,0 +1,48 @@
+<div [ngClass]="{ 'pl-3': level > 2 }" class="row no-gutters">
+  <!-- Primary accounts "Assets", "Liabilities", "Equities" etc. -->
+  <ng-container *ngIf="level ===1">
+    <div class="col-12">
+      <h5>{{comparativeAccountBalance?.account?.name}}</h5>
+      <hr>
+    </div>
+
+    <div class="col-12">
+      <div class="row">
+        <div class="col-6"></div>
+        <div class="col-3 text-center"><div class="year-header"><strong>2019</strong></div></div>
+        <div class="col-3 text-center"><div class="year-header"><strong>2018</strong></div></div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="level != 1">
+    <div class="col-6">{{comparativeAccountBalance?.account?.name}}</div>
+    <div class="col-3 text-right"><span 
+      *ngIf="!comparativeAccountBalance?.children?.length"
+      [ngClass]="{ 'secondary-total' : onlyChild }">{{comparativeAccountBalance?.balanceA | number: '1.2'}}</span></div>
+    <div class="col-3 text-right"><span 
+      *ngIf="!comparativeAccountBalance?.children?.length"
+      [ngClass]="{ 'secondary-total' : onlyChild }">{{comparativeAccountBalance?.balanceB | number: '1.2'}}</span></div>
+  </ng-container>
+
+  <div class="container">
+    <dgte-erp-comparative-account-balance *ngFor="let child of comparativeAccountBalance?.children"
+      [comparativeAccountBalance]="child" [level]="level + 1" [onlyChild]="comparativeAccountBalance?.children?.length === 1"></dgte-erp-comparative-account-balance>
+  </div>
+
+  <div *ngIf="level === 2 && accountBalance?.children?.length > 1" class="container">
+    <div class="row no-gutters">
+      <div class="col-6 secondary-total-label">Total {{comparativeAccountBalance?.account?.name}}</div>
+      <div class="col-3 text-right"><span class="secondary-total">{{comparativeAccountBalance?.balanceA | number: '1.2'}}</span></div>
+      <div class="col-3 text-right"><span class="secondary-total">{{comparativeAccountBalance?.balanceB | number: '1.2'}}</span></div>
+    </div>
+  </div>
+
+  <div *ngIf="level === 1" class="container mt-3">
+    <div class="row no-gutters">
+      <div class="col-6">Total {{comparativeAccountBalance?.account?.name}}</div>
+      <div class="col-3 text-right"><span class="primary-total">₱ {{comparativeAccountBalance?.balanceA | number: '1.2'}}</span></div>
+      <div class="col-3 text-right"><span class="primary-total">₱ {{comparativeAccountBalance?.balanceB | number: '1.2'}}</span></div>
+    </div>
+  </div>
+</div>

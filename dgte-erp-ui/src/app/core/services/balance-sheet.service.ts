@@ -12,6 +12,7 @@ export class BalanceSheetService {
   private entryUrl = 'entry';
   private urls = {
     FIND_BY_CODE_AND_AS_OF_DATE: `${environment.apiUrl}/${this.serviceUrl}`,
+    FIND_COMPARATIVE_BY_CODE_AND_AS_OF_DATES: `${environment.apiUrl}/${this.serviceUrl}/comparative`,
   };
 
   constructor(private httpClient: HttpClient) {
@@ -23,6 +24,15 @@ export class BalanceSheetService {
       asOfDate: asOfDate
     };
     return this.httpClient.get(this.urls.FIND_BY_CODE_AND_AS_OF_DATE, { params: params });
+  }
+
+  public findComparativeBalanceSheetByProjectCodeAndAsOfDates(projectCode: string, asOfDateA: string, asOfDateB: string): Observable<any> {
+    const params = {
+      projectCode: projectCode,
+      asOfDateA: asOfDateA,
+      asOfDateB: asOfDateB
+    };
+    return this.httpClient.get(this.urls.FIND_COMPARATIVE_BY_CODE_AND_AS_OF_DATES, { params: params });
   }
 
 }

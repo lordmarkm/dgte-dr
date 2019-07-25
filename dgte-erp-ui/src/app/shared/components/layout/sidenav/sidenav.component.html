@@ -28,6 +28,11 @@
       </a>
     </li>
     <li>
+      <a routerLink="/bookkeeping/comparative-balance-sheet" [queryParams]="{ projectCode: selectedProject ? selectedProject.code : ''}" routerLinkActive="active">
+        <i class="fas fa-fw fa-balance-scale-right"></i> Comparative Balance Sheet
+      </a>
+    </li>
+    <li>
       <a routerLink="/bookkeeping/notifications" [queryParams]="{ projectCode: selectedProject ? selectedProject.code : ''}" routerLinkActive="active">
         <i class="fas fa-fw fa-envelope"></i> Notifications
       </a>
