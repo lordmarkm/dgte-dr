@@ -54,7 +54,6 @@ export class SidebarComponent implements OnInit {
   }
 
   toggleSidebar() {
-    console.log('toggling');
     this.sidebarservice.setSidebarState(!this.sidebarservice.getSidebarState());
   }
 }
