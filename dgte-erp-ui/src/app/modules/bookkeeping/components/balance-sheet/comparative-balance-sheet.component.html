@@ -7,7 +7,7 @@
     <div class="col text-center">
       <h3>{{ balanceSheet.project?.name}}</h3>
       <div>Comparative Balance Sheet</div>
-      <div>Between {{ balanceSheet.asOfDateA | date: 'yyyy-MMM-dd'}} and {{ balanceSheet.asOfDateB | date: 'yyyy-MMM-dd'}}</div>
+      <div><button (click)="selectDates()" placement="bottom" ngbTooltip="Click to select compared dates" class="btn btn-link">Between {{ balanceSheet.asOfDateA | date: 'yyyy-MMM-dd'}} and {{ balanceSheet.asOfDateB | date: 'yyyy-MMM-dd'}}</button></div>
     </div>
   </div>
   <div class="row mt-3">

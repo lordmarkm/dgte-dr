@@ -1,6 +1,8 @@
-<main class="main">
-  <erp-sidenav></erp-sidenav>
-  <div class="content">
-    <router-outlet></router-outlet>
-  </div>
-</main>
+<div class="page-wrapper" [ngClass]="{'toggled' : getSideBarState()}">
+  <app-sidebar></app-sidebar>
+  <main class="page-content">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

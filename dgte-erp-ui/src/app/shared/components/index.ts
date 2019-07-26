@@ -29,6 +29,8 @@ import { UploadDocumentAttachmentsFormComponent } from './form/upload-document-a
 //Dgtedr
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { ErpSidenavComponent } from './layout/sidenav/sidenav.component';
+import { SelectDateRangeModalComponent } from './select-date-range-modal/select-date-range-modal.component';
+import { SidebarComponent } from './layout/app-sidebar/sidebar.component';
 
 export const Components = [
   HeaderComponent,
@@ -57,10 +59,13 @@ export const Components = [
   GovernmentIdTypeInputComponent,
   AttachmentsModalComponent,
   ErpSidenavComponent,
+  SelectDateRangeModalComponent,
+  SidebarComponent,
 ];
 
 export const EntryComponents = [
-  AttachmentsModalComponent
+  AttachmentsModalComponent,
+  SelectDateRangeModalComponent
 ];
 
 export {
@@ -90,4 +95,6 @@ export {
   GovernmentIdTypeInputComponent,
   AttachmentsModalComponent,
   ErpSidenavComponent,
+  SelectDateRangeModalComponent,
+  SidebarComponent,
 };

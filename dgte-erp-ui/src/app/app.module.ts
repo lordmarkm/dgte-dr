@@ -25,7 +25,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     CoreModule,
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

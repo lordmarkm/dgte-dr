@@ -10,11 +10,20 @@ import { NgBusyModule } from 'ng-busy';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
+//Sidebar 
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { SidebarService } from './components/layout/app-sidebar/sidebar.service';
 
 // uncomment when needed
 import { Components, EntryComponents } from './components';
 import { Directives } from './directives';
 import { Pipes } from './pipes';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   imports: [
@@ -29,6 +38,7 @@ import { Pipes } from './pipes';
     NgSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    PerfectScrollbarModule,
   ],
   exports: [
     CommonModule,
@@ -53,5 +63,12 @@ import { Pipes } from './pipes';
   entryComponents: [
     ...EntryComponents,
   ],
+  providers: [
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    },
+    SidebarService
+  ]
 })
 export class SharedModule { }

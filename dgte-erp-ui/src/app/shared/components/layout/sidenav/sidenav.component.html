@@ -14,17 +14,17 @@
   <ul class="links">
     <li>
       <a routerLink="/bookkeeping/chart-of-accounts" [queryParams]="{ projectCode: selectedProject ? selectedProject.code : ''}" routerLinkActive="active">
-        <i class="fas fa-fw fa-balance-scale"></i> Chart of Accounts
+        <i class="fas fa-fw fa-sitemap"></i> Chart of Accounts
       </a>
     </li>
     <li>
       <a routerLink="/bookkeeping/transactions" [queryParams]="{ projectCode: selectedProject ? selectedProject.code : ''}" routerLinkActive="active">
-        <i class="fas fa-fw fa-balance-scale"></i> Transactions
+        <i class="fas fa-fw fa-list-ol"></i> Transactions
       </a>
     </li>
     <li>
       <a routerLink="/bookkeeping/balance-sheet" [queryParams]="{ projectCode: selectedProject ? selectedProject.code : ''}" routerLinkActive="active">
-        <i class="fas fa-fw fa-list-ol"></i> Balance Sheet
+        <i class="fas fa-fw fa-balance-scale"></i> Balance Sheet
       </a>
     </li>
     <li>
