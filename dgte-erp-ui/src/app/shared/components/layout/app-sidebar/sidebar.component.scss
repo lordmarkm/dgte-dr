@@ -222,6 +222,22 @@
             padding-left: 25px;
             font-size: 13px;
 
+            a.active {
+              font-weight: bold;
+              &:before {
+                content: "✓";
+                font-family: "Font Awesome 5 Free";
+                font-weight: 400;
+                font-style: normal;
+                display: inline-block;
+                text-align: center;
+                text-decoration: none;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                margin-right: 10px;
+                font-size: 12px;
+              }
+            }
             a {
               &:before {
                 content: "\f111";
@@ -234,7 +250,7 @@
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
                 margin-right: 10px;
-                font-size: 8px;
+                font-size: 12px;
               }
 
               .badge,

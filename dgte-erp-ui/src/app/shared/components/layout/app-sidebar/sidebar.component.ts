@@ -50,6 +50,11 @@ export class SidebarComponent implements OnInit {
 
   }
 
+  selectProject(project) {
+      this.projectService.selectProject(project);
+  }
+
+  //Sidebar crap
   getSideBarState() {
     return this.sidebarservice.getSidebarState();
   }
