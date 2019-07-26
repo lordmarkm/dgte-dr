@@ -31,18 +31,18 @@ export class SidebarService {
         {
           title: 'Chart of Accounts',
           icon: 'fa fa-fw fa-sitemap',
-          active: false,
           routerLink: '/bookkeeping/chart-of-accounts'
         },
         {
           title: 'Transactions',
           icon: 'fa fa-fw fa-list-ol',
-          active: false,
           routerLink: '/bookkeeping/transactions'
         },
         {
-          title: 'Credit cart'
-        }
+          title: 'Balance Sheet',
+          icon: 'fa fa-fw fa-balance-scale',
+          routerLink: '/bookkeeping/balance-sheet'
+        },
       ]
     },
     {

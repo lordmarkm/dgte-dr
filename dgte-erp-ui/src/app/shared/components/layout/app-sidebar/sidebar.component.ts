@@ -4,6 +4,7 @@ import { SidebarService } from './sidebar.service';
 // import { MenusService } from './menus.service';
 import { ProjectService } from '@los/core/services';
 import { forkJoin, combineLatest, pipe, fromEvent, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,7 +23,8 @@ export class SidebarComponent implements OnInit {
   public selectedProject;
   menus = [];
   constructor(public sidebarservice: SidebarService,
-    private projectService: ProjectService) {
+    private projectService: ProjectService,
+          private _router: Router) {
     this.menus = sidebarservice.getMenuList();
    }
 
