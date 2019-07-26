@@ -15,29 +15,11 @@ export class SidebarService {
       title: 'Dashboard',
       icon: 'fa fa-tachometer-alt',
       active: false,
-      type: 'dropdown',
-      badge: {
-        text: 'New ',
-        class: 'badge-warning'
-      },
-      submenus: [
-        {
-          title: 'Dashboard 1',
-          badge: {
-            text: 'Pro ',
-            class: 'badge-success'
-          }
-        },
-        {
-          title: 'Dashboard 2'
-        },
-        {
-          title: 'Dashboard 3'
-        }
-      ]
+      type: 'simple',
+      routerLink: '/bookkeeping/chart-of-accounts'
     },
     {
-      title: 'E-commerce',
+      title: 'Accounting',
       icon: 'fa fa-shopping-cart',
       active: false,
       type: 'dropdown',
@@ -47,10 +29,16 @@ export class SidebarService {
       },
       submenus: [
         {
-          title: 'Products',
+          title: 'Chart of Accounts',
+          icon: 'fa fa-fw fa-sitemap',
+          active: false,
+          routerLink: '/bookkeeping/chart-of-accounts'
         },
         {
-          title: 'Orders'
+          title: 'Transactions',
+          icon: 'fa fa-fw fa-list-ol',
+          active: false,
+          routerLink: '/bookkeeping/transactions'
         },
         {
           title: 'Credit cart'

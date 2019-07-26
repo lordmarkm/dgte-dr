@@ -36,7 +36,7 @@
         <ul>
           <li *ngFor="let menu of menus" [ngClass]="{'active': menu.active , 'sidebar-dropdown':menu.type === 'dropdown' , 'header-menu':menu.type === 'header'}">
             <span *ngIf="menu.type === 'header'">{{menu.title}}</span>
-            <a *ngIf="menu.type !== 'header'" href="javascript:;" (click)='toggle(menu)'>
+            <a *ngIf="menu.type !== 'header'" [routerLink]="menu.routerLink" routerLinkActive="active" (click)='toggle(menu)'>
               <i class="{{menu.icon}}"></i>
               <span>{{menu.title}}</span>
               <span *ngIf="menu.badge" class="badge badge-pill" [ngClass]="menu.badge.class">{{menu.badge.text}}</span>
@@ -44,7 +44,7 @@
             <div *ngIf="menu.type === 'dropdown'" class="sidebar-submenu" [@slide]="getState(menu)">
               <ul>
                 <li *ngFor="let submenu of menu.submenus">
-                  <a href="javascript:;"> {{submenu.title}}
+                  <a [routerLink]="submenu.routerLink" routerLinkActive="active"> {{submenu.title}}
                     <span *ngIf="submenu.badge" class="badge badge-pill" [ngClass]="submenu.badge.class">{{submenu.badge.text}}</span>
                   </a>
                 </li>
