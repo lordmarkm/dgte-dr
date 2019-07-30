@@ -19,8 +19,8 @@ export class SidebarService {
       routerLink: '/bookkeeping/chart-of-accounts'
     },
     {
-      title: 'Accounting',
-      icon: 'fa fa-shopping-cart',
+      title: 'Bookkeeping',
+      icon: 'fa fa-fw fa-balance-scale',
       active: false,
       type: 'dropdown',
       badge: {
@@ -42,6 +42,16 @@ export class SidebarService {
           title: 'Balance Sheet',
           icon: 'fa fa-fw fa-balance-scale',
           routerLink: '/bookkeeping/balance-sheet'
+        },
+        {
+          title: 'Comparative Balance Sheet',
+          icon: 'fa fa-fw fa-balance-scale-right',
+          routerLink: '/bookkeeping/comparative-balance-sheet'
+        },
+        {
+          title: 'Notifications',
+          icon: 'fa fa-fw fa-envelope',
+          routerLink: '/bookkeeping/notifications'
         },
       ]
     },

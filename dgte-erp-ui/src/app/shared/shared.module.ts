@@ -9,6 +9,7 @@ import { NgBootstrapModule } from './modules/ng-bootstrap.module';
 import { NgBusyModule } from 'ng-busy';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Sidebar 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -39,6 +40,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     PerfectScrollbarModule,
+    NgbModule.forRoot(),
   ],
   exports: [
     CommonModule,

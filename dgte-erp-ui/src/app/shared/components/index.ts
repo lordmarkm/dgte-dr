@@ -31,6 +31,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { ErpSidenavComponent } from './layout/sidenav/sidenav.component';
 import { SelectDateRangeModalComponent } from './select-date-range-modal/select-date-range-modal.component';
 import { SidebarComponent } from './layout/app-sidebar/sidebar.component';
+import { ErpAccountNameComponent } from './erp-account-name/erp-account-name.component';
 
 export const Components = [
   HeaderComponent,
@@ -61,6 +62,7 @@ export const Components = [
   ErpSidenavComponent,
   SelectDateRangeModalComponent,
   SidebarComponent,
+  ErpAccountNameComponent,
 ];
 
 export const EntryComponents = [
@@ -97,4 +99,5 @@ export {
   ErpSidenavComponent,
   SelectDateRangeModalComponent,
   SidebarComponent,
+  ErpAccountNameComponent,
 };

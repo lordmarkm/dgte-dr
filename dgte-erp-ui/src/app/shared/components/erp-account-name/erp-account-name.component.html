@@ -1,0 +1,8 @@
+<ng-template #tooltipContent>
+  <span *ngIf="account.type === 'ASSET'">This is an ASSET account, increased by Debits and decreased by Credits</span>
+  <span *ngIf="account.type === 'LIABILITY'">This is a LIABILITY account, increased by Credits and decreased by Debits</span>
+  <span *ngIf="account.type === 'EQUITY'">This is an EQUITY account, increased by Credits and decreased by Debits</span>
+</ng-template>
+
+<span [ngClass]="{ 'text-success': account.type == 'ASSET', 'text-danger': account.type == 'LIABILITY' }"
+  [ngbTooltip]="tooltipContent" placement="bottom">{{account.name}}</span>
