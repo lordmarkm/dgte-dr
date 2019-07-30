@@ -87,6 +87,7 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         rootAccount.setProject(project);
         rootAccount.setType(AccountType.UNSPECIFIED);
         rootAccount.setAccountCode("1");
+        rootAccount.setPermanent(true);
         rootAccount = accountService.save(rootAccount);
 
         Account assets = new Account();

@@ -47,6 +47,10 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
 
             List<AccountBalance> children = Lists.newArrayList();
             BigDecimal totalBalance = BigDecimal.ZERO;
+
+            //First sort children by code
+            //Update: Sorting was moved to getter
+            //account.getChildren().sort((acctA, acctB) -> acctA.getAccountCode().compareTo(acctB.getAccountCode()));
             for (Account child : account.getChildren()) {
                 AccountBalance childBalance = this.calculateBalance(child, asOfDate, forceRecompute);
                 totalBalance = totalBalance.add(childBalance.getBalance());

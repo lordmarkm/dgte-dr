@@ -16,6 +16,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
 import com.dgtedr.ref.AccountType;
+import com.google.common.collect.Lists;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -62,6 +63,15 @@ public class Account extends BaseEntity {
 
     public boolean hasChildren() {
         return null != this.children && this.children.size() > 0;
+    }
+
+    public List<Account> getChildren() {
+        if (this.hasChildren()) {
+            this.children.sort((acctA, acctB) -> acctA.getAccountCode().compareTo(acctB.getAccountCode()));
+            return this.children;
+        } else {
+            return Lists.newArrayList();
+        }
     }
 
 }

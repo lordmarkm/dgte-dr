@@ -17,6 +17,7 @@
               <span>[{{node.data.accountCode}}] {{node.data.name}}</span>
               <div *ngIf="node.isActive || node.isFocused">
                 <button (click)="addChild(node.data)" class="btn btn-primary btn-xs">Add child</button>&nbsp;
+                <ng-container *ngIf="!node.data.permanent"><button (click)="editAccount(node.data, node.parent.data)" class="btn btn-success btn-xs">Edit account</button>&nbsp;</ng-container>
                 <button (click)="deleteAccount(node)" [disabled]="node.children && node.children.length"
                    [title]="node.children && node.children.length ? 'You can\'t delete an account w/ children. That would be cruel.' : 'Delete account'"
                    class="btn btn-danger btn-xs">Delete account</button>

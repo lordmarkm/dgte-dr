@@ -23,8 +23,9 @@ public class BalanceSheetResource {
 
     @GetMapping
     public ResponseEntity<BalanceSheetDto> getBalanceSheet(@RequestParam String projectCode,
-            @DateTimeFormat(pattern = "yyyy-MMM-dd") @RequestParam LocalDate asOfDate) {
-        return balanceSheetService.getBalanceSheet(projectCode, asOfDate)
+            @DateTimeFormat(pattern = "yyyy-MMM-dd") @RequestParam LocalDate asOfDate,
+            @RequestParam(required = false, defaultValue = "false") boolean forceRecompute) {
+        return balanceSheetService.getBalanceSheet(projectCode, asOfDate, forceRecompute)
                     .map(ResponseEntity::ok)
                     .orElseGet(() -> ResponseEntity.badRequest().build());
     }

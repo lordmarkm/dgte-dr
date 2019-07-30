@@ -8,6 +8,7 @@ import { ConfirmationModalService,AccountService, ProjectService } from '@los/co
 import { LoanSearch, Company, AdminUserInfo, Account } from '@los/shared/models';
 import { API_DATE_FORMAT } from '@los/shared/constants';
 import { CreateAccountModalComponent } from '../create-account-modal/create-account-modal.component';
+import { EditAccountModalComponent } from './edit-account-modal/edit-account-modal.component';
 import { treeConfig } from './coa.tree-config';
 import * as _ from 'lodash'
 
@@ -33,42 +34,46 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
               private accountService: AccountService) { }
 
   ngOnInit() {
+      this.isLoading = true;
       this.projectServiceSub = this.projectService.selectedProject.subscribe(proj => {
-          if (!proj.code) {
-              return;
-          }
-
-          this.isLoading = true;
-          this.project = proj;
-          delete this.error;
-          this.nodes = [];
-          if (this.tree) {
-            this.tree.treeModel.update();
-          }
-          this.accountService.findRootByProjectCode(proj.code).subscribe((parentAccount: Account) => {
-              if (parentAccount) {
-                this.nodes = [parentAccount];
-                if (this.tree) {
-                  this.tree.treeModel.update();
-                  setTimeout(() => {
-                    console.log('A futile attempt to expand the tree');
-                    this.tree.treeModel.expandAll();
-                  }, 200);
-                }
-              }
-              this.isLoading = false;
-          },
-          err => {
-              this.isLoading = false;
-              switch (err.status) {
-                case 400:
-                  this.error = 'Error! Parent account could not be found.';
-                  break;
-                default:
-                  this.error = 'An unexpected error has occurred! ' + err.error.message;
-              }
-          });
+        if (!proj.code) {
+            return;
+        }
+        this.project = proj;
+        this.loadProjectCoa(proj);
       });
+  }
+
+  loadProjectCoa(proj) {
+    this.isLoading = true;
+    delete this.error;
+    this.nodes = [];
+    if (this.tree) {
+      this.tree.treeModel.update();
+    }
+    this.accountService.findRootByProjectCode(proj.code).subscribe((parentAccount: Account) => {
+      if (parentAccount) {
+        this.nodes = [parentAccount];
+        if (this.tree) {
+          this.tree.treeModel.update();
+          setTimeout(() => {
+            console.log('A futile attempt to expand the tree');
+            this.tree.treeModel.expandAll();
+          }, 200);
+        }
+      }
+      this.isLoading = false;
+    },
+    err => {
+      this.isLoading = false;
+      switch (err.status) {
+        case 400:
+          this.error = 'Error! Parent account could not be found.';
+          break;
+        default:
+          this.error = 'An unexpected error has occurred! ' + err.error.message;
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -134,6 +139,21 @@ export class CoaComponent implements OnInit, AfterViewInit, OnDestroy {
                 });
           }
         });
+  }
+
+  editAccount(account, parentAccount) {
+    const modalRef = this.modalService.open(EditAccountModalComponent, { backdrop: 'static', keyboard: false });
+    modalRef.componentInstance.account = account;
+    modalRef.componentInstance.parentAccount = parentAccount;
+    modalRef.componentInstance.rootAccount = this.nodes[0];
+    modalRef.componentInstance.project = this.project;
+    modalRef.result.then(newAccount => this.handleEditAccountResponse(newAccount));
+  }
+
+  handleEditAccountResponse(account) {
+    if (account) {
+      this.loadProjectCoa(this.project);
+    }
   }
 
 }

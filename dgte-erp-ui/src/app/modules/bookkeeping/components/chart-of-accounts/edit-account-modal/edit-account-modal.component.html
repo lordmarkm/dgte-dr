@@ -1,0 +1,59 @@
+<los-loading-wrapper [isLoading]="isLoading">
+  <form (submit)="saveAccount()" ngNativeValidate>
+    <div class="modal-header">
+      <h4 class="modal-title">{{ account.name }}
+        <br><small class="text-muted">Edit Account</small>
+      </h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body container-fluid">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="acct-name" class="control-label">Account Name</label>
+            <input type="text" max="255" [(ngModel)]="tempAccount.name" name="acct-name" id="acct-name" class="form-control" 
+              placeholder="The name of this account" required />
+          </div>
+          <div class="form-group">
+            <label for="acct-desc" class="control-label">Description</label>
+            <input type="text" max="255" [(ngModel)]="tempAccount.description" name="acct-desc" id="acct-desc"class="form-control" 
+              placeholder="A short description of this account" required />
+          </div>
+          <div class="form-group">
+            <label for="acct-code" class="control-label">Code</label>
+            <input type="text" max="20" [(ngModel)]="tempAccount.accountCode" name="acct-code" id="acct-code" class="form-control" 
+              placeholder="Account Code" required />
+          </div>
+          <div class="form-group">
+            <label for="acct-type" class="control-label">Parent</label>
+            <ng-select [(ngModel)]="tempAccount.parent" name="acct-parent" id="acct-parent" placeholder="Account Parent"
+              [clearable]="false"
+              [disabled]="account.children.length"
+              (change)="parentChanged()"
+              ngbTooltip="account.children.length ? 'You can\'t move an account with children' : 'Move account to a different parent'">
+              <ng-option *ngFor="let possibleParent of possibleParents"
+                [value]="possibleParent" [title]="possibleParent.description">{{ possibleParent.name }}</ng-option>
+            </ng-select>
+          </div>
+          <div *ngIf="account.parent" class="form-group">
+            <label for="acct-type" class="control-label">Type</label>
+            <ng-select [(ngModel)]="tempAccount.type" name="acct-type" id="acct-type" placeholder="Account type"
+              [clearable]="false"
+              [disabled]="tempAccount.parent.type != 'UNSPECIFIED'">
+              <ng-option *ngFor="let accountType of LIST_ACCOUNT_TYPE"
+                [value]="accountType.value" [title]="accountType.description">{{ accountType.label}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </div>
+    <div class="modal-footer">
+      <div *ngIf="error" class="text-danger text-center">{{error}}</div>
+      <button type="submit" class="btn btn-secondary">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Cancel</button>
+    </div>
+  </form>
+</los-loading-wrapper>

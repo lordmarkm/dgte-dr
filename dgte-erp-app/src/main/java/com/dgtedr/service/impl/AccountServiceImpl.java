@@ -2,6 +2,7 @@ package com.dgtedr.service.impl;
 
 import static com.dgtedr.domain.QAccount.account;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,16 @@ public class AccountServiceImpl implements AccountServiceCustom {
     @Override
     @Transactional
     public AccountDto saveInfo(AccountDto account) {
+
+        //Handle accounts that have been transferred to a different parent
+        if (Objects.nonNull(account.getParent())) {
+            if (account.getType() != account.getParent().getType() && account.hasChildren()) {
+                throw new IllegalStateException("Attempt to transfer an account with children.");
+            } else if (account.getType() != account.getParent().getType()) {
+                account.setType(account.getParent().getType());
+            }
+        }
+
         return mapper.toDto(service.save(mapper.toEntity(account)));
     }
 

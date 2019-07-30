@@ -11,6 +11,7 @@ import { CreateTransactionModalComponent } from './create-transaction-modal/crea
 import { UpdateTransactionModalComponent } from './create-transaction-modal/update-transaction-modal.component';
 import { ViewTransactionModalComponent } from './view-transaction-modal/view-transaction-modal.component';
 import { CreateAccountModalComponent } from './create-account-modal/create-account-modal.component';
+import { EditAccountModalComponent } from './chart-of-accounts/edit-account-modal/edit-account-modal.component';
 
 
 export const Components = [
@@ -28,6 +29,7 @@ export const Components = [
     UpdateTransactionModalComponent,
     ViewTransactionModalComponent,
     CreateAccountModalComponent,
+    EditAccountModalComponent,
 ];
 
 export const EntryComponents = [
@@ -35,6 +37,7 @@ export const EntryComponents = [
   UpdateTransactionModalComponent,
   ViewTransactionModalComponent,
   CreateAccountModalComponent,
+  EditAccountModalComponent,
 ];
 
 export {
@@ -52,4 +55,5 @@ export {
   UpdateTransactionModalComponent,
   ViewTransactionModalComponent,
   CreateAccountModalComponent,
+  EditAccountModalComponent,
 };
