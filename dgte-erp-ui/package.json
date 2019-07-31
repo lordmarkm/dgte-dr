@@ -31,6 +31,7 @@
     "@swimlane/ngx-datatable": "^14.0.0",
     "@w11k/ngx-componentdestroyed": "^4.1.4",
     "angular-archwizard": "^4.0.0",
+    "angular-google-charts": "^0.1.6",
     "angular-google-recaptcha": "^1.0.3",
     "angular-tree-component": "^8.4.0",
     "bootstrap": "^4.3.1",

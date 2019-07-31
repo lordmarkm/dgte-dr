@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <los-loading-wrapper [isLoading]="isLoading">
+  <div class="row">
+    <div *ngIf="error" class="col text-danger">{{ error }}</div>
+  </div>
+  <div class="row">
+    <div class="col-12">Equities</div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <google-chart #chart
+         [title]="title"
+         [type]="type"
+         [data]="data"
+         [columnNames]="columnNames"
+         [options]="options"
+         [width]="width"
+         [height]="height">
+      </google-chart>
+    </div>
+  </div>
+  </los-loading-wrapper>
+</div>
