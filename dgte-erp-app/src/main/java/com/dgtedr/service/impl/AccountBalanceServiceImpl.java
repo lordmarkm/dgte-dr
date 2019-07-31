@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.dgtedr.domain.Account;
 import com.dgtedr.domain.AccountBalance;
 import com.dgtedr.domain.Entry;
+import com.dgtedr.dto.AccountBalanceDto;
+import com.dgtedr.ref.AccountType;
 import com.dgtedr.service.AccountBalanceService;
 import com.dgtedr.service.AccountBalanceServiceCustom;
 import com.dgtedr.service.EntryService;
@@ -107,6 +109,13 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
                     return subtotal.add(entryBalance);
                 });
         accountBalance.setBalance(balance);
+    }
+
+    @Override
+    public Optional<AccountBalanceDto> findByProjectCodeAndAsOfDateAndType(String projectCode, LocalDate asOfDate,
+            AccountType type, boolean forceRecompute) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
