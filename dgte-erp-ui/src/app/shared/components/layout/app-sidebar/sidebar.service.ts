@@ -16,17 +16,17 @@ export class SidebarService {
       icon: 'fa fa-tachometer-alt',
       active: false,
       type: 'simple',
-      routerLink: '/bookkeeping/chart-of-accounts'
+      routerLink: '/dashboard'
     },
     {
       title: 'Bookkeeping',
       icon: 'fa fa-fw fa-balance-scale',
       active: false,
       type: 'dropdown',
-      badge: {
-        text: '3',
-        class: 'badge-danger'
-      },
+//      badge: {
+//        text: '3',
+//        class: 'badge-danger'
+//      },
       submenus: [
         {
           title: 'Chart of Accounts',
@@ -41,7 +41,8 @@ export class SidebarService {
         {
           title: 'Balance Sheet',
           icon: 'fa fa-fw fa-balance-scale',
-          routerLink: '/bookkeeping/balance-sheet'
+          routerLink: '/bookkeeping/balance-sheet',
+          active: true
         },
         {
           title: 'Comparative Balance Sheet',

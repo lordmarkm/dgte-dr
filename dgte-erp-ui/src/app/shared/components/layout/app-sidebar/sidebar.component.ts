@@ -23,32 +23,45 @@ export class SidebarComponent implements OnInit {
   public selectedProject;
   menus = [];
   constructor(public sidebarservice: SidebarService,
-    private projectService: ProjectService,
-          private _router: Router) {
+                private projectService: ProjectService,
+                private _router: Router) {
     this.menus = sidebarservice.getMenuList();
-   }
+
+    let currentRoute = this._router.url.split('?')[0];
+    for (let menu of this.menus) {
+      if (menu.routerLink && menu.routerLink === currentRoute) {
+        menu.active = true;
+      }
+      if (menu.submenus) {
+        for (let submenu of menu.submenus) {
+          if (submenu.routerLink && submenu.routerLink === currentRoute) {
+            menu.active = true;
+          }
+        }
+      }
+    }
+  }
 
   ngOnInit() {
+    combineLatest(
+      this.projectService.projects,
+      this.projectService.selectedProject
+    ).subscribe(([projects, selectedProject]) => {
+      this.projects = projects;
 
-      combineLatest(
-        this.projectService.projects,
-        this.projectService.selectedProject
-      ).subscribe(([projects, selectedProject]) => {
-        this.projects = projects;
+      if (selectedProject && selectedProject.code) {
+        //Set the selected project in the dropdown
+        this.selectedProject = this.projects.find(proj => proj.code === selectedProject.code);
 
-        if (selectedProject && selectedProject.code) {
-          //Set the selected project in the dropdown
-          this.selectedProject = this.projects.find(proj => proj.code === selectedProject.code);
-  
-          //Append the project code to URL
-          this._router.navigate([], {
-            queryParams: {
-              projectCode: selectedProject.code
-            },
-            queryParamsHandling: 'merge'
-          });
-        }
-      });
+        //Append the project code to URL
+        this._router.navigate([], {
+          queryParams: {
+            projectCode: selectedProject.code
+          },
+          queryParamsHandling: 'merge'
+        });
+      }
+    });
 
   }
 

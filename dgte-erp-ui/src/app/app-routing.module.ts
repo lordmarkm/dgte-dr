@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'bookkeeping', pathMatch: 'full' },
   { path: 'welcome', loadChildren: './modules/landing/landing.module#LandingModule' },
   { path: 'bookkeeping', loadChildren: './modules/bookkeeping/bookkeeping.module#BookkeepingModule' },
+  { path: 'dashboard', loadChildren: './modules/dashboard/dashboard.module#DashboardModule' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

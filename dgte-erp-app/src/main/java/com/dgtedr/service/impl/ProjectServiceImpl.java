@@ -97,6 +97,7 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         assets.setType(AccountType.ASSET);
         assets.setAccountCode("1000");
         assets.setParent(rootAccount);
+        assets = accountService.save(assets);
 
         Account liabilities = new Account();
         liabilities.setName("Liabilities");
@@ -105,7 +106,9 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         liabilities.setType(AccountType.LIABILITY);
         liabilities.setAccountCode("2000");
         liabilities.setParent(rootAccount);
+        liabilities = accountService.save(liabilities);
 
+        //Equities and default children
         Account equities = new Account();
         equities.setName("Equities");
         equities.setProject(project);
@@ -113,7 +116,30 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         equities.setType(AccountType.EQUITY);
         equities.setAccountCode("3000");
         equities.setParent(rootAccount);
+        equities = accountService.save(equities);
 
-        accountService.saveAll(Lists.newArrayList(assets, liabilities, equities));
+        Account contribution = new Account();
+        contribution.setName("Business owner contribution");
+        contribution.setProject(project);
+        contribution.setType(AccountType.EQUITY);
+        contribution.setAccountCode("3010");
+        contribution.setParent(equities);
+        accountService.save(contribution);
+
+        Account income = new Account();
+        income.setName("Income");
+        income.setProject(project);
+        income.setType(AccountType.EQUITY);
+        income.setAccountCode("3020");
+        income.setParent(equities);
+        accountService.save(income);
+
+        Account drawing = new Account();
+        drawing.setName("Business Owner Drawing");
+        drawing.setProject(project);
+        drawing.setType(AccountType.EQUITY);
+        drawing.setAccountCode("3030");
+        drawing.setParent(equities);
+        accountService.save(drawing);
     }
 }
