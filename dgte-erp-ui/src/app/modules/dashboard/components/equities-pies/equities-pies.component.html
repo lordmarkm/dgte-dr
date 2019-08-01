@@ -15,7 +15,9 @@
          [columnNames]="columnNames"
          [options]="options"
          [width]="width"
-         [height]="height">
+         [height]="height"
+         (select)="onSelect($event)"
+         (ready)="onReady()">
       </google-chart>
     </div>
   </div>

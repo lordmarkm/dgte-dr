@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dgtedr.domain.AccountBalance;
+import com.dgtedr.dto.DashboardDto;
 import com.dgtedr.ref.AccountType;
 import com.dgtedr.service.AccountBalanceService;
 
@@ -17,6 +18,7 @@ public class DashboardResource {
 
     @GetMapping
     public ResponseEntity<DashboardDto> findByProjectCode(@RequestParam String projectCode) {
+        return null;
     }
 
 }
