@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'welcome', loadChildren: './modules/landing/landing.module#LandingModule' },
   { path: 'bookkeeping', loadChildren: './modules/bookkeeping/bookkeeping.module#BookkeepingModule' },
   { path: 'dashboard', loadChildren: './modules/dashboard/dashboard.module#DashboardModule' },
+  { path: 'reports', loadChildren: './modules/reports/reports.module#ReportsModule' },
   { path: '**', component: PageNotFoundComponent }
 ];
 
