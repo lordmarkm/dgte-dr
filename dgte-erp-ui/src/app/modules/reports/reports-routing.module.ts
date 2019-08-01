@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { ReportsComponent } from './reports.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'transactions', pathMatch: 'full' },
+  {
+    path: '',
+    component: ReportsComponent,
+    children: [
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ReportsRoutingModule { }

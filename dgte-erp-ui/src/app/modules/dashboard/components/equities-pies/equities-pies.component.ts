@@ -27,14 +27,15 @@ export class EquitiesPiesComponent implements OnInit, OnDestroy {
   public data = [];
   //This will be a parallel to this.data and is used on drilldown
   public accountBalancesInPie = [];
+  public parentAccountBalances = [];
+  private displayedAccountBalance;
 
   public columnNames = ['Account', 'Percentage'];
   public options = {
-   //colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'], is3D: true
   };
 
-  public width = 500;
-  public height = 500;
+  public width = 480;
+  public height = 240;
 
   constructor(private modalService: NgbModal,
               private confirmationModalService: ConfirmationModalService,
@@ -51,7 +52,6 @@ export class EquitiesPiesComponent implements OnInit, OnDestroy {
       this.project = proj;
       delete this.error;
       this.preparePieChart();
-      this.isLoading = false;
     });
   }
 
@@ -60,18 +60,19 @@ export class EquitiesPiesComponent implements OnInit, OnDestroy {
   }
 
   preparePieChart() {
-      this.balanceSheetService.findByProjectCodeAndAsOfDate(this.project.code, moment().format(API_DATE_FORMAT)).subscribe(balanceSheet => {
-          this.balanceSheet = balanceSheet;
-          if (balanceSheet.equities.length) {
-            this.generatePieChart(balanceSheet.equities[0]);
-          }
-          this.isLoading = false;
+    this.isLoading = true;
+    this.balanceSheetService.findByProjectCodeAndAsOfDate(this.project.code, moment().format(API_DATE_FORMAT)).subscribe(balanceSheet => {
+        this.balanceSheet = balanceSheet;
+        if (balanceSheet.equities.length) {
+          this.generatePieChart(balanceSheet.equities[0]);
+        }
+        this.isLoading = false;
       },
       err => {
           this.isLoading = false;
           switch (err.status) {
             case 400:
-              this.error = 'Error! Project balance sheet could not be generated.';
+              this.error = 'Error! Chart could not be generated.';
               break;
             default:
               this.error = 'An unexpected error has occurred! ' + err.error.message;
@@ -80,10 +81,10 @@ export class EquitiesPiesComponent implements OnInit, OnDestroy {
   }
 
   generatePieChart(accountBalance) {
-    this.isLoading = true;
     this.title = accountBalance.account.name;
     this.data = [];
     this.accountBalancesInPie = [];
+    this.displayedAccountBalance = accountBalance;
     accountBalance.children.forEach(childAccountBalance => {
       if (childAccountBalance.balance && childAccountBalance.balance > 0) {
         this.data.push([childAccountBalance.account.name, childAccountBalance.balance]);
@@ -96,13 +97,18 @@ export class EquitiesPiesComponent implements OnInit, OnDestroy {
     if (evt.length) {
       let selectedAccount = this.accountBalancesInPie[evt[0].row];
       if (selectedAccount.children && selectedAccount.children.length) {
+        this.parentAccountBalances.push(this.displayedAccountBalance);
         this.generatePieChart(selectedAccount);
       }
     }
   }
 
   onReady() {
-    this.isLoading = false;
+    //this.isLoading = false;
+  }
+
+  onUpOneStep() {
+    this.generatePieChart(this.parentAccountBalances.pop());
   }
 
 }
