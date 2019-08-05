@@ -30,9 +30,8 @@
             <label for="acct-type" class="control-label">Parent</label>
             <ng-select [(ngModel)]="tempAccount.parent" name="acct-parent" id="acct-parent" placeholder="Account Parent"
               [clearable]="false"
-              [disabled]="account.children.length"
               (change)="parentChanged()"
-              ngbTooltip="account.children.length ? 'You can\'t move an account with children' : 'Move account to a different parent'">
+              ngbTooltip="Move account to a different parent">
               <ng-option *ngFor="let possibleParent of possibleParents"
                 [value]="possibleParent" [title]="possibleParent.description">{{ possibleParent.name }}</ng-option>
             </ng-select>

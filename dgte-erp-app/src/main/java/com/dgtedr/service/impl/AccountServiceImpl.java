@@ -2,18 +2,22 @@ package com.dgtedr.service.impl;
 
 import static com.dgtedr.domain.QAccount.account;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dgtedr.config.DgteErpMapper;
 import com.dgtedr.domain.Account;
+import com.dgtedr.domain.QAccount;
 import com.dgtedr.domain.QEntry;
 import com.dgtedr.dto.AccountDto;
 import com.dgtedr.dto.StatusedResponse;
+import com.dgtedr.ref.AccountType;
 import com.dgtedr.service.AccountService;
 import com.dgtedr.service.AccountServiceCustom;
 import com.dgtedr.service.EntryService;
@@ -40,17 +44,37 @@ public class AccountServiceImpl implements AccountServiceCustom {
     @Override
     @Transactional
     public AccountDto saveInfo(AccountDto account) {
-
         //Handle accounts that have been transferred to a different parent
-        if (Objects.nonNull(account.getParent())) {
-            if (account.getType() != account.getParent().getType() && account.hasChildren()) {
-                throw new IllegalStateException("Attempt to transfer an account with children.");
-            } else if (account.getType() != account.getParent().getType()) {
-                account.setType(account.getParent().getType());
+        if (Objects.nonNull(account.getParent()) && account.getType() != account.getParent().getType()) {
+            //If the parent account type is "Unspecified", retain the selected account type
+            AccountType parentAccountType = account.getParent().getType();
+            if (parentAccountType == AccountType.UNSPECIFIED) {
+                parentAccountType = account.getType();
+            }
+            account.setType(parentAccountType);
+
+            //An account w/o a code is new and won't have any children
+            if (!StringUtils.isEmpty(account.getCode())) {
+                this.setChildrenAccountTypeRecursive(account.getCode(), parentAccountType);
             }
         }
 
         return mapper.toDto(service.save(mapper.toEntity(account)));
+    }
+
+    private void setChildrenAccountTypeRecursive(String parentAccountCode, AccountType parenType) {
+        if (StringUtils.isEmpty(parentAccountCode)) {
+            throw new IllegalStateException("Parent account code can't be empty");
+        }
+
+        BooleanExpression query = QAccount.account.parent.code.eq(parentAccountCode);
+        List<Account> children = (List<Account>) service.findAll(query);
+        children.forEach(childAccount -> {
+            childAccount.setType(parenType);
+            if (childAccount.hasChildren()) {
+                this.setChildrenAccountTypeRecursive(childAccount.getCode(), parenType);
+            }
+        });
     }
 
     @Override

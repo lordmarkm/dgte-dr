@@ -83,7 +83,8 @@ public class BalanceSheetServiceImpl implements BalanceSheetService {
                 balanceSheetDto.getEquities().add(mapper.toDto(accountBalance));
                 break;
             default:
-                throw new IllegalStateException("Unhandled account type: " + accountBalance.getAccount().getType());
+                //throw new IllegalStateException("Unhandled account type: " + accountBalance.getAccount().getType());
+                log.info("Ignoring unhandled account type. type={}", accountBalance.getAccount().getType());
             }
         }
 

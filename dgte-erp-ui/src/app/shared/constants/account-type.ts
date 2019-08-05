@@ -3,4 +3,5 @@ export const LIST_ACCOUNT_TYPE = [
   { value: 'EXPENSE', label: 'Expense', externalLabel: 'Expense description' },
   { value: 'LIABILITY', label: 'Liability', externalLabel: 'Liability description' },
   { value: 'EQUITY', label: 'Equity', externalLabel: 'Equity description' },
+  { value: 'REVENUE', label: 'Income', externalLabel: 'Equity description' },
 ];

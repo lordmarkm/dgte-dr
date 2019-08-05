@@ -100,6 +100,8 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
                         return entry.getDebit().subtract(entry.getCredit());
                     case LIABILITY:
                     case EQUITY:
+                    case EXPENSE:
+                    case REVENUE:
                         return entry.getCredit().subtract(entry.getDebit());
                     default:
                         throw new IllegalStateException("Uncomputeable account balance! type=" + entry.getAccount().getType());

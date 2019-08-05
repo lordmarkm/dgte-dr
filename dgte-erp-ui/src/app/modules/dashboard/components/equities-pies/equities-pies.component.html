@@ -8,6 +8,7 @@
         <div class="col-12">
           <h5 class="card-title">{{title}}</h5>
           <h6 *ngIf="parentAccountBalances.length" (click)="onUpOneStep()" class="card-subtitle mb-2 text-muted cursor-pointer"><i class="fa fa-arrow-up"></i> Back to {{parentAccountBalances[0].account.name}}</h6>
+          <h6 *ngIf="!parentAccountBalances.length" class="card-subtitle mb-2 text-muted">Select a region to view child balances (where applicable)</h6>
         </div>
       </div>
       <div class="row">

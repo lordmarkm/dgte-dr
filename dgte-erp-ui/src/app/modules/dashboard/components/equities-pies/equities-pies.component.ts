@@ -21,7 +21,7 @@ export class EquitiesPiesComponent implements OnInit, OnDestroy {
   private project;
   private balanceSheet;
 
-  public title = 'Browser market shares at a specific website, 2014';
+  public title = '';
   public type='PieChart';
 
   public data = [];
