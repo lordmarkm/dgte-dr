@@ -7,6 +7,6 @@ import com.dgtedr.dto.ProfitAndLossDto;
 
 public interface ProfitAndLossService {
 
-    Optional<ProfitAndLossDto> getBalanceSheet(String projectCode, LocalDate startDate, LocalDate endDate, boolean forceRecompute);
+    Optional<ProfitAndLossDto> getProfitAndLoss(String projectCode, LocalDate startDate, LocalDate endDate, boolean forceRecompute);
 
 }

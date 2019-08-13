@@ -10,5 +10,6 @@ import com.rbank.los.commons.data.repository.BaseJpaRepository;
 public interface AccountBalanceService extends AccountBalanceServiceCustom, BaseJpaRepository<AccountBalance, Long> {
 
     Optional<AccountBalance> findByAccountAndAsOfDate(Account account, LocalDate asOfDate);
+    Optional<AccountBalance> findByAccountAndStartDateAndAsOfDate(Account account, LocalDate startDate, LocalDate asOfDate);
 
 }

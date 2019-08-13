@@ -32,6 +32,11 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
     private EntryService entryService;
 
     @Override
+    public AccountBalance calculateBalance(Account account, LocalDate startDate, LocalDate endDate, boolean forceRecompute) {
+        
+    }
+
+    @Override
     public AccountBalance calculateBalance(Account account, LocalDate asOfDate, boolean forceRecompute) {
         if (account.hasChildren()) {
             //For accounts with children, the balance is the sum of its children's balances
@@ -82,6 +87,10 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
                 return previouslyComputedBalance;
             }
         }
+    }
+
+    private Optional<AccountBalance> findPreviouslyComputedBalance(Account account, LocalDate startDate, LocalDate asOfDate) {
+        
     }
 
     private void recomputeBalance(AccountBalance accountBalance) {

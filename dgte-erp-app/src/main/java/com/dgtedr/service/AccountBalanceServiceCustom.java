@@ -10,7 +10,8 @@ import com.dgtedr.ref.AccountType;
 
 public interface AccountBalanceServiceCustom {
 
-    AccountBalance calculateBalance(Account account, LocalDate asOfDate, boolean forceRecompute); 
+    AccountBalance calculateBalance(Account account, LocalDate asOfDate, boolean forceRecompute);
+    AccountBalance calculateBalance(Account account, LocalDate startDate, LocalDate endDate, boolean forceRecompute);
     Optional<AccountBalanceDto> findByProjectCodeAndAsOfDateAndType(String projectCode, LocalDate asOfDate, AccountType type, boolean forceRecompute);
 
 }

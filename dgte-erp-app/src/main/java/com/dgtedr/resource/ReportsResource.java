@@ -24,7 +24,7 @@ public class ReportsResource {
             @RequestParam LocalDate startDate,
             @RequestParam LocalDate endDate,
             @RequestParam(required = false) boolean forceRecompute) {
-        return profitAndLossService.getBalanceSheet(projectCode, startDate, endDate, forceRecompute)
+        return profitAndLossService.getProfitAndLoss(projectCode, startDate, endDate, forceRecompute)
                     .map(ResponseEntity::ok)
                     .orElseGet(() -> ResponseEntity.badRequest().build());
     }
