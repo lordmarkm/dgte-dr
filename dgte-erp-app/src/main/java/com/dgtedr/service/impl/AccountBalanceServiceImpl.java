@@ -32,19 +32,20 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
     private EntryService entryService;
 
     @Override
-    public AccountBalance calculateBalance(Account account, LocalDate startDate, LocalDate endDate, boolean forceRecompute) {
-        
+    public AccountBalance calculateBalance(Account account, LocalDate endDate, boolean forceRecompute) {
+        return this.calculateBalance(account, null, endDate, forceRecompute);
     }
 
     @Override
-    public AccountBalance calculateBalance(Account account, LocalDate asOfDate, boolean forceRecompute) {
+    public AccountBalance calculateBalance(Account account, LocalDate startDate, LocalDate asOfDate, boolean forceRecompute) {
         if (account.hasChildren()) {
             //For accounts with children, the balance is the sum of its children's balances
-            Optional<AccountBalance> previouslyComputedBalanceOpt = accountBalanceService.findByAccountAndAsOfDate(account, asOfDate);
+            Optional<AccountBalance> previouslyComputedBalanceOpt = this.findPreviouslyComputedBalance(account, startDate, asOfDate);
             AccountBalance accountBalance;
             if (!previouslyComputedBalanceOpt.isPresent()) {
                 accountBalance = new AccountBalance();
                 accountBalance.setAccount(account);
+                accountBalance.setStartDate(startDate);
                 accountBalance.setAsOfDate(asOfDate);
                 accountBalance.setBalance(BigDecimal.ZERO);
                 accountBalance = accountBalanceService.save(accountBalance);
@@ -59,7 +60,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
             //Update: Sorting was moved to getter
             //account.getChildren().sort((acctA, acctB) -> acctA.getAccountCode().compareTo(acctB.getAccountCode()));
             for (Account child : account.getChildren()) {
-                AccountBalance childBalance = this.calculateBalance(child, asOfDate, forceRecompute);
+                AccountBalance childBalance = this.calculateBalance(child, startDate, asOfDate, forceRecompute);
                 totalBalance = totalBalance.add(childBalance.getBalance());
                 children.add(childBalance);
             }
@@ -68,10 +69,11 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
             return accountBalance;
         } else {
             //For accounts without children, compute the balance from its entries
-            Optional<AccountBalance> previouslyComputedBalanceOpt = accountBalanceService.findByAccountAndAsOfDate(account, asOfDate);
+            Optional<AccountBalance> previouslyComputedBalanceOpt = this.findPreviouslyComputedBalance(account, startDate, asOfDate);
             if (!previouslyComputedBalanceOpt.isPresent()) {
                 AccountBalance accountBalance = new AccountBalance();
                 accountBalance.setAccount(account);
+                accountBalance.setStartDate(startDate);
                 accountBalance.setAsOfDate(asOfDate);
                 this.recomputeBalance(accountBalance);
                 return accountBalanceService.save(accountBalance);
@@ -90,7 +92,11 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
     }
 
     private Optional<AccountBalance> findPreviouslyComputedBalance(Account account, LocalDate startDate, LocalDate asOfDate) {
-        
+        if (null == startDate) {
+            return accountBalanceService.findByAccountAndAsOfDate(account, asOfDate);
+        } else {
+            return accountBalanceService.findByAccountAndAsOfDate(account, asOfDate);
+        }
     }
 
     private void recomputeBalance(AccountBalance accountBalance) {
@@ -110,7 +116,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
                     case LIABILITY:
                     case EQUITY:
                     case EXPENSE:
-                    case REVENUE:
+                    case INCOME:
                         return entry.getCredit().subtract(entry.getDebit());
                     default:
                         throw new IllegalStateException("Uncomputeable account balance! type=" + entry.getAccount().getType());

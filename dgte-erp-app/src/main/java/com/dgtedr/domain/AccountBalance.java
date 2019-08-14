@@ -29,6 +29,9 @@ public class AccountBalance extends BaseEntity {
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
     @Column(name = "as_of_date", nullable = false)
     private LocalDate asOfDate;
 

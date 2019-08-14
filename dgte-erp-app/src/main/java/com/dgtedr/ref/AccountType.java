@@ -9,7 +9,7 @@ public enum AccountType {
     EXPENSE,
     LIABILITY,
     EQUITY,
-    REVENUE,
+    INCOME,
     GAIN,
     LOSS
 
