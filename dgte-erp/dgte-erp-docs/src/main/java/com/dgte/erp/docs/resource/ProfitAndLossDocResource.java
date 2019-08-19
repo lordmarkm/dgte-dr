@@ -1,5 +1,8 @@
 package com.dgte.erp.docs.resource;
 
+import java.io.IOException;
+
+import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.jodconverter.office.OfficeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +20,7 @@ public class ProfitAndLossDocResource {
     private ProfitAndLossService profitAndLossService;
 
     @GetMapping
-    public ResponseEntity<String> test() throws OfficeException {
+    public ResponseEntity<String> test() throws OfficeException, InvalidPasswordException, IOException {
         profitAndLossService.test();
         return ResponseEntity.ok("test");
     }
