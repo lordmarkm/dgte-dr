@@ -5,6 +5,7 @@ import javax.annotation.PreDestroy;
 import org.jodconverter.office.LocalOfficeManager;
 import org.jodconverter.office.OfficeException;
 import org.jodconverter.office.OfficeUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Assert;
@@ -13,11 +14,13 @@ import org.springframework.util.Assert;
 public class OpenOfficeConfig {
 
     private LocalOfficeManager officeManager;
-    //private static final String officeHome = "/opt/openoffice4"
-    private static final String officeHome = "C:/Program Files (x86)/OpenOffice 4";
+
+    @Value("${office.home}")
+    private String officeHome = "C:/Program Files (x86)/OpenOffice 4";
 
     @Bean
     public LocalOfficeManager officeManager() throws OfficeException {
+        System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
         LocalOfficeManager officeManager = LocalOfficeManager.builder().officeHome(officeHome).install().build();
         officeManager.start();
         this.officeManager = officeManager;

@@ -1,0 +1,12 @@
+server:
+  port: 8081
+
+office:
+  #home: /opt/openoffice4 #linux
+  home: C:/Program Files (x86)/OpenOffice 4 #windows
+
+minio:
+  domain: http://localhost:9000
+  accessKey: 8IF0YHYC3P2GZ4SPHC8R
+  secretKey: 6Y7JDRrjFbVXiS1E9Vuhf8OOll3EcREno7BlfvIw
+  bucketName: dgte-erp-docs
