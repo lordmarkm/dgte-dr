@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'bookkeeping', loadChildren: './modules/bookkeeping/bookkeeping.module#BookkeepingModule' },
   { path: 'dashboard', loadChildren: './modules/dashboard/dashboard.module#DashboardModule' },
   { path: 'reports', loadChildren: './modules/reports/reports.module#ReportsModule' },
+  { path: 'docs', loadChildren: './modules/docs/docs.module#DocsModule' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

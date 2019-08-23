@@ -6,7 +6,7 @@ import { NgbModal, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 const moment = require('moment');
 
 import { TransactionService, AdminService, ProjectService } from '@los/core/services';
-import { LoanSearch, Company, AdminUserInfo } from '@los/shared/models';
+import { LoanSearch } from '@los/shared/models';
 import { API_DATE_FORMAT } from '@los/shared/constants';
 import { CreateTransactionModalComponent } from '../create-transaction-modal/create-transaction-modal.component';
 import { UpdateTransactionModalComponent } from '../create-transaction-modal/update-transaction-modal.component';

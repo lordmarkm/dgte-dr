@@ -19,3 +19,4 @@ export * from './page';
 
 export * from './dgte-dr/person';
 export * from './dgte-dr/account.model';
+export * from './generic-search';

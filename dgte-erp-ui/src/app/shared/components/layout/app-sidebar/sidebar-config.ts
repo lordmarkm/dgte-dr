@@ -69,6 +69,7 @@ export const SIDEBAR_CONFIG: any = [
       icon: 'fa fa-book',
       active: false,
       type: 'simple',
+      routerLink: '/docs/wizard-list',
       badge: {
         text: 'Beta',
         class: 'badge-primary'
