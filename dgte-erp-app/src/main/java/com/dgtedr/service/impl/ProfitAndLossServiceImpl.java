@@ -7,12 +7,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dgtedr.config.DgteErpMapper;
 import com.dgtedr.domain.Account;
 import com.dgtedr.domain.AccountBalance;
 import com.dgtedr.domain.Project;
-import com.dgtedr.dto.BalanceSheetDto;
 import com.dgtedr.dto.ProfitAndLossDto;
 import com.dgtedr.service.AccountBalanceService;
 import com.dgtedr.service.AccountService;
@@ -24,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 public class ProfitAndLossServiceImpl implements ProfitAndLossService {
 
     @Autowired
@@ -44,6 +45,7 @@ public class ProfitAndLossServiceImpl implements ProfitAndLossService {
 
         Optional<Project> projectOpt = projectService.findByCode(projectCode);
         if (!projectOpt.isPresent()) {
+            log.warn("Unabled to find project with projectCode={}", projectCode);
             return Optional.empty();
         }
 
@@ -51,6 +53,7 @@ public class ProfitAndLossServiceImpl implements ProfitAndLossService {
                 .and(account.parent.isNull());
         Optional<Account> rootOpt = accountService.findOne(rootQuery);
         if (!rootOpt.isPresent()) {
+            log.warn("Unabled to find root account for project with projectCode={}", projectCode);
             return Optional.empty();
         }
 
@@ -64,14 +67,16 @@ public class ProfitAndLossServiceImpl implements ProfitAndLossService {
         for (AccountBalance accountBalance : rootAccountBalance.getChildren()) {
             switch (accountBalance.getAccount().getType()) {
             case EXPENSE:
+                log.info("Adding EXPENSE. account={}", accountBalance.getAccount().getName());
                 plDto.getExpenses().add(mapper.toDto(accountBalance));
                 break;
             case INCOME:
+                log.info("Adding INCOME. account={}", accountBalance.getAccount().getName());
                 plDto.getIncomes().add(mapper.toDto(accountBalance));
                 break;
             default:
                 //throw new IllegalStateException("Unhandled account type: " + accountBalance.getAccount().getType());
-                log.info("Ignoring unhandled account type. type={}", accountBalance.getAccount().getType());
+                log.info("Ignoring unhandled account type. type={}, account={}", accountBalance.getAccount().getType(), accountBalance.getAccount().getName());
             }
         }
 

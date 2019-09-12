@@ -44,5 +44,5 @@ logging:
 
 app:
   notifications:
-    eod-notification-schedule: 0 * * * * ?
+    eod-notification-schedule: 0 */30 * * * ?
     default-email: dgte-erp-all-notifs@mailinator.com

@@ -50,13 +50,13 @@ export class WizardListComponent implements OnInit, OnDestroy {
         projectCode: this.project.code
     };
 
-    this.wizardService.search(wizardSearch)
-      .subscribe(page => {
-        this.isLoading = false;
-        this.wizards = page.content;
-        this.searchQuery.totalElements = page.totalElements;
-      }, err => {
-        this.isLoading = false;
-      });
+//    this.wizardService.search(wizardSearch)
+//      .subscribe(page => {
+//        this.isLoading = false;
+//        this.wizards = page.content;
+//        this.searchQuery.totalElements = page.totalElements;
+//      }, err => {
+//        this.isLoading = false;
+//      });
   }
 }

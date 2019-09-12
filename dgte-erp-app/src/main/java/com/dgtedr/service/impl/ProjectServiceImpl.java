@@ -122,24 +122,75 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         contribution.setName("Business owner contribution");
         contribution.setProject(project);
         contribution.setType(AccountType.EQUITY);
-        contribution.setAccountCode("3010");
+        contribution.setAccountCode("3100");
         contribution.setParent(equities);
         accountService.save(contribution);
-
-        Account income = new Account();
-        income.setName("Income");
-        income.setProject(project);
-        income.setType(AccountType.EQUITY);
-        income.setAccountCode("3020");
-        income.setParent(equities);
-        accountService.save(income);
 
         Account drawing = new Account();
         drawing.setName("Business Owner Drawing");
         drawing.setProject(project);
         drawing.setType(AccountType.EQUITY);
-        drawing.setAccountCode("3030");
+        drawing.setAccountCode("3200");
         drawing.setParent(equities);
         accountService.save(drawing);
+
+        addIncome(equities);
+        addExpenses(equities);
+    }
+
+    private void addIncome(Account equities) {
+        Project project = equities.getProject();
+
+        Account income = new Account();
+        income.setName("Income");
+        income.setProject(project);
+        income.setType(AccountType.INCOME);
+        income.setAccountCode("3300");
+        income.setParent(equities);
+        accountService.save(income);
+
+        Account sales = new Account();
+        sales.setName("Sales");
+        sales.setProject(project);
+        sales.setType(AccountType.INCOME);
+        sales.setAccountCode("3310");
+        sales.setParent(income);
+        accountService.save(sales);
+
+        Account services = new Account();
+        services.setName("Services");
+        services.setProject(project);
+        services.setType(AccountType.INCOME);
+        services.setAccountCode("3320");
+        services.setParent(income);
+        accountService.save(services);
+    }
+
+    private void addExpenses(Account equities) {
+        Project project = equities.getProject();
+
+        Account expenses = new Account();
+        expenses.setName("Expenses");
+        expenses.setProject(project);
+        expenses.setType(AccountType.EXPENSE);
+        expenses.setAccountCode("3400");
+        expenses.setParent(equities);
+        accountService.save(expenses);
+
+        Account sales = new Account();
+        sales.setName("Cost of Goods Sold");
+        sales.setProject(project);
+        sales.setType(AccountType.EXPENSE);
+        sales.setAccountCode("3410");
+        sales.setParent(expenses);
+        accountService.save(sales);
+
+        Account opex = new Account();
+        opex.setName("Operating Expenses");
+        opex.setProject(project);
+        opex.setType(AccountType.EXPENSE);
+        opex.setAccountCode("3420");
+        opex.setParent(expenses);
+        accountService.save(opex);
     }
 }

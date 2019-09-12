@@ -76,6 +76,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
                 accountBalance.setStartDate(startDate);
                 accountBalance.setAsOfDate(asOfDate);
                 this.recomputeBalance(accountBalance);
+                log.debug("Returning new computed balance for account w/o children. acct={}, balance={}", account.getName(), accountBalance.getBalance());
                 return accountBalanceService.save(accountBalance);
             } else {
                 AccountBalance previouslyComputedBalance = previouslyComputedBalanceOpt.get();
@@ -86,6 +87,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
                 if (forceRecompute || hasMoreRecentlyUpdatedEntries) {
                     this.recomputeBalance(previouslyComputedBalance);
                 }
+                log.debug("Returning new computed balance for account w/o children. acct={}, balance={}", account.getName(), previouslyComputedBalance.getBalance());
                 return previouslyComputedBalance;
             }
         }
@@ -101,7 +103,6 @@ public class AccountBalanceServiceImpl implements AccountBalanceServiceCustom {
 
     private void recomputeBalance(AccountBalance accountBalance) {
         BooleanExpression query = entry.account.eq(accountBalance.getAccount())
-                //TODO is this right, or should it be entry.transaction.transactionDate???
                 .and(entry.entryDate.loe(accountBalance.getAsOfDate()));
 
         List<Entry> entries = (List<Entry>) entryService.findAll(query);

@@ -4,7 +4,7 @@ import { Subject, interval, Subscription, combineLatest } from 'rxjs';
 import { NgbModal, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 const moment = require('moment');
 
-import { ConfirmationModalService, AccountService, ProjectService } from '@los/core/services';
+import { ConfirmationModalService, AccountService, ProjectService, ProfitAndLossService } from '@los/core/services';
 import { API_DATE_FORMAT } from '@los/shared/constants';
 import * as _ from 'lodash'
 
@@ -23,7 +23,8 @@ export class ProfitAndLossComponent implements OnInit, OnDestroy {
   constructor(private modalService: NgbModal,
               private confirmationModalService: ConfirmationModalService,
               private projectService: ProjectService,
-              private accountService: AccountService) { }
+              private accountService: AccountService,
+              private profitAndLossService: ProfitAndLossService) { }
 
   ngOnInit() {
     this.projectServiceSub = this.projectService.selectedProject.subscribe(proj => {

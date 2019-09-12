@@ -11,6 +11,7 @@ export * from './transaction.service';
 export * from './project.service';
 export * from './account.service';
 export * from './balance-sheet.service';
+export * from './profit-and-loss.service';
 export * from './notifications.service';
 
 import { AuthService } from './auth.service';
@@ -21,6 +22,7 @@ import { TransactionService } from './transaction.service';
 import { ProjectService } from './project.service';
 import { AccountService } from './account.service';
 import { BalanceSheetService } from './balance-sheet.service';
+import { ProfitAndLossService } from './profit-and-loss.service';
 import { NotificationsService } from './notifications.service';
 
 export const ApiServices = [
@@ -32,5 +34,6 @@ export const ApiServices = [
   ProjectService,
   AccountService,
   BalanceSheetService,
+  ProfitAndLossService,
   NotificationsService
 ]

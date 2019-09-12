@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 1567563188935-12
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: start_date
+            type: date
+        tableName: account_balance
+
