@@ -14,6 +14,7 @@ import com.dgtedr.domain.Account;
 import com.dgtedr.domain.AccountBalance;
 import com.dgtedr.domain.Project;
 import com.dgtedr.dto.ProfitAndLossDto;
+import com.dgtedr.ref.AccountType;
 import com.dgtedr.service.AccountBalanceService;
 import com.dgtedr.service.AccountService;
 import com.dgtedr.service.ProfitAndLossService;
@@ -40,6 +41,7 @@ public class ProfitAndLossServiceImpl implements ProfitAndLossService {
     private AccountBalanceService accountBalanceService;
 
     @Override
+    @Transactional
     public Optional<ProfitAndLossDto> getProfitAndLoss(String projectCode, LocalDate startDate, LocalDate endDate,
             boolean forceRecompute) {
 
@@ -59,12 +61,14 @@ public class ProfitAndLossServiceImpl implements ProfitAndLossService {
 
         Account root = rootOpt.get();
         AccountBalance rootAccountBalance = accountBalanceService.calculateBalance(root, startDate, endDate, forceRecompute);
+        AccountBalance equities = rootAccountBalance.getChildren().stream().filter(a -> AccountType.EQUITY.equals(a.getAccount().getType())).findFirst().get();
 
         ProfitAndLossDto plDto = new ProfitAndLossDto();
         plDto.setStartDate(startDate);
         plDto.setEndDate(endDate);
         plDto.setProject(projectOpt.map(mapper::toDto).get());
-        for (AccountBalance accountBalance : rootAccountBalance.getChildren()) {
+
+        for (AccountBalance accountBalance : equities.getChildren()) {
             switch (accountBalance.getAccount().getType()) {
             case EXPENSE:
                 log.info("Adding EXPENSE. account={}", accountBalance.getAccount().getName());

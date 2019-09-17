@@ -11,4 +11,12 @@ public class BigDecimalUtil {
         return bigDecimal != null ?  new DecimalFormat(CURRENCY_FORMAT).format(bigDecimal) : "";
     }
 
+    public static boolean equals(BigDecimal a, BigDecimal b) {
+        if (null == a || null == b) {
+            return false;
+        } else {
+            return a.compareTo(b) == 0;
+        }
+    }
+
 }

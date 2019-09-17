@@ -18,7 +18,10 @@ export class ProfitAndLossComponent implements OnInit, OnDestroy {
   public error: string;
   private projectServiceSub;
   private project;
-  private asOfDate;
+
+  public profitAndLoss;
+  public startDate = moment().startOf('year');
+  public asOfDate = moment();
 
   constructor(private modalService: NgbModal,
               private confirmationModalService: ConfirmationModalService,
@@ -42,6 +45,21 @@ export class ProfitAndLossComponent implements OnInit, OnDestroy {
   }
 
   loadProjectProfitAndLoss(proj) {
+    delete this.error;
+    this.profitAndLossService.findByProjectCodeAndDateRange(proj.code, this.startDate.format(API_DATE_FORMAT), moment().format(API_DATE_FORMAT), false).subscribe(profitAndLoss => {
+        this.profitAndLoss = profitAndLoss;
+        this.isLoading = false;
+    },
+    err => {
+        this.isLoading = false;
+        switch (err.status) {
+          case 400:
+            this.error = 'Error! Project profit & loss report could not be generated.';
+            break;
+          default:
+            this.error = 'An unexpected error has occurred! ' + err.error.message;
+        }
+    });
   }
 
 }

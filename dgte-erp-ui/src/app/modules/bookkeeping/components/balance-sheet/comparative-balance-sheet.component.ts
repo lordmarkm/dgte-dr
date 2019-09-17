@@ -31,15 +31,14 @@ export class ComparativeBalanceSheetComponent implements OnInit, OnDestroy {
               private balanceSheetService: BalanceSheetService) { }
 
   ngOnInit() {
-      this.projectServiceSub = this.projectService.selectedProject.subscribe(proj => {
+    //Defualt values = end of previous year & end of current year
+    this.dateA = moment().subtract(1, 'year').endOf('year');
+    this.dateB = moment().endOf('year');
+    this.projectServiceSub = this.projectService.selectedProject.subscribe(proj => {
         if (!proj.code) {
           return;
         }
         this.project = proj;
-
-        //Defualt values = end of previous year & end of current year
-        this.dateA = moment().subtract(1, 'year').endOf('year');
-        this.dateB = moment().endOf('year');
         this.getComparativeBalanceSheet();
       });
   }

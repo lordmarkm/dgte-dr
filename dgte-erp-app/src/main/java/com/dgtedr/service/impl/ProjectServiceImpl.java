@@ -147,6 +147,7 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         income.setType(AccountType.INCOME);
         income.setAccountCode("3300");
         income.setParent(equities);
+        income.setPermanent(true);
         accountService.save(income);
 
         Account sales = new Account();
@@ -155,6 +156,7 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         sales.setType(AccountType.INCOME);
         sales.setAccountCode("3310");
         sales.setParent(income);
+        sales.setPermanent(true);
         accountService.save(sales);
 
         Account services = new Account();
@@ -163,6 +165,7 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         services.setType(AccountType.INCOME);
         services.setAccountCode("3320");
         services.setParent(income);
+        services.setPermanent(true);
         accountService.save(services);
     }
 
@@ -175,15 +178,17 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         expenses.setType(AccountType.EXPENSE);
         expenses.setAccountCode("3400");
         expenses.setParent(equities);
+        expenses.setPermanent(true);
         accountService.save(expenses);
 
-        Account sales = new Account();
-        sales.setName("Cost of Goods Sold");
-        sales.setProject(project);
-        sales.setType(AccountType.EXPENSE);
-        sales.setAccountCode("3410");
-        sales.setParent(expenses);
-        accountService.save(sales);
+        Account cogs = new Account();
+        cogs.setName("Cost of Goods Sold");
+        cogs.setProject(project);
+        cogs.setType(AccountType.EXPENSE);
+        cogs.setAccountCode("3410");
+        cogs.setParent(expenses);
+        cogs.setPermanent(true);
+        accountService.save(cogs);
 
         Account opex = new Account();
         opex.setName("Operating Expenses");
@@ -191,6 +196,16 @@ public class ProjectServiceImpl implements ProjectServiceCustom {
         opex.setType(AccountType.EXPENSE);
         opex.setAccountCode("3420");
         opex.setParent(expenses);
+        opex.setPermanent(true);
+        accountService.save(opex);
+
+        Account taxes = new Account();
+        taxes.setName("Provision for Taxes");
+        taxes.setProject(project);
+        taxes.setType(AccountType.EXPENSE);
+        taxes.setAccountCode("3430");
+        taxes.setParent(expenses);
+        taxes.setPermanent(true);
         accountService.save(opex);
     }
 }

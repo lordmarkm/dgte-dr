@@ -7,10 +7,52 @@
     <div class="col text-center">
       <h3>{{ project?.name}}</h3>
       <div>Profit And Loss</div>
-      <div>{{ asOfDate }}</div>
+      <div>{{ asOfDate | date: 'yyyy-MMM-dd' }}</div>
     </div>
   </div>
-  <div class="row mt-3">
+  <div class="row mt-3 mb-5">
+
+    <div class="col-12">
+      <div *ngFor="let accountBalance of profitAndLoss.incomes">
+        <dgte-erp-account-balance [accountBalance]="accountBalance" [level]="1"></dgte-erp-account-balance>
+      </div>
+    </div>
+
+    <div class="col-12 mt-3">
+      <div *ngFor="let accountBalance of profitAndLoss.expenses">
+        <dgte-erp-account-balance [accountBalance]="accountBalance" [level]="1"></dgte-erp-account-balance>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading" class="col-12 mt-3">
+      <h5>Summary</h5>
+      <hr>
+
+      <div class="container">
+
+        <!-- Gross profit -->
+        <div class="row no-gutters">
+          <div class="col-9">Gross Profit</div>
+          <div class="col-3 text-right"><span>{{profitAndLoss.grossProfit | number: '1.2'}}</span></div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-9"><small class="text-muted">As a percentage of total income</small></div>
+          <div class="col-3 text-right"><small class="text-muted">{{profitAndLoss.grossProfitAsAPercentageOfTotalIncome | percent: '1.2'}}</small></div>
+        </div>
+
+        <!-- Net profit -->
+        <div class="row mt-1 no-gutters">
+          <div class="col-9">Net Profit</div>
+          <div class="col-3 text-right"><span>{{profitAndLoss.netProfit | number: '1.2'}}</span></div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-9"><small class="text-muted">As a percentage of total income</small></div>
+          <div class="col-3 text-right"><small class="text-muted">{{profitAndLoss.netProfitAsAPercentageOfTotalIncome | percent: '1.2'}}</small></div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
   </los-loading-wrapper>
 </div>
