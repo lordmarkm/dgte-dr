@@ -9,8 +9,10 @@ import com.dgtedr.util.BigDecimalUtil;
 import com.google.common.collect.Lists;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
+@Slf4j
 public class ProfitAndLossDto {
 
     private LocalDate startDate;
@@ -39,6 +41,7 @@ public class ProfitAndLossDto {
     public BigDecimal getCogs() {
         if (null == cogs) {
             BigDecimal cogs = expenses.stream()
+                .flatMap(expense -> expense.getChildren().stream())
                 .filter(expense -> FixedAccountCodes.EXPENSES_COGS.equals(expense.getAccount().getAccountCode()))
                 .map(AccountBalanceDto::getBalance)
                 .reduce(BigDecimal.ZERO, (subTotal, accountBalance) -> {
