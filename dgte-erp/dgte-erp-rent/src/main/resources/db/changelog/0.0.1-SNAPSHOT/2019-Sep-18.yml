@@ -1,0 +1,120 @@
+databaseChangeLog:
+- changeSet:
+    id: 1568793235852-1
+    author: mbmartinez (generated)
+    changes:
+    - createSequence:
+        sequenceName: hibernate_sequence
+- changeSet:
+    id: 1568793235852-2
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: aptPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: addr
+            type: TEXT
+        - column:
+            constraints:
+              nullable: false
+            name: apt_name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: proj_code
+            type: VARCHAR(255)
+        tableName: apt
+- changeSet:
+    id: 1568793235852-3
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: roomPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: rm_name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: apt_id
+            type: BIGINT
+        tableName: room
+- changeSet:
+    id: 1568793235852-4
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_APTCODE_COL
+        tableName: apt
+- changeSet:
+    id: 1568793235852-5
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_ROOMCODE_COL
+        tableName: room
+- changeSet:
+    id: 1568793235852-6
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: apt_id
+        baseTableName: room
+        constraintName: FKej5qf1elj1844gseoaqehob26
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: apt
+        validate: true
+

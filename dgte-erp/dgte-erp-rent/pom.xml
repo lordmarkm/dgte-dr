@@ -43,8 +43,8 @@
           <username>postgres</username>
           <password>postgres</password>
           <driver>org.postgresql.Driver</driver>
-          <referenceUrl>hibernate:spring:com.dgtedr?dialect=org.hibernate.dialect.PostgreSQL95Dialect</referenceUrl>
-          <diffChangeLogFile>src/main/resources/db/changelog/${project.version}/${timestamp}-changelog.yaml</diffChangeLogFile>
+          <referenceUrl>hibernate:spring:com.dgte.erp.rent.domain?dialect=org.hibernate.dialect.PostgreSQL95Dialect</referenceUrl>
+          <diffChangeLogFile>src/main/resources/db/changelog/${project.version}/${timestamp}.yml</diffChangeLogFile>
         </configuration>
       </plugin>
 
@@ -61,7 +61,6 @@
               <outputDirectory>target/generated-sources/java</outputDirectory>
               <processor>com.querydsl.apt.hibernate.HibernateAnnotationProcessor</processor>
               <includes>
-                <include>com.dgte.shared.jpa.domain</include>
                 <include>com.dgte.erp.rent.domain</include>
               </includes>
             </configuration>

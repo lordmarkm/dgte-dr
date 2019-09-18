@@ -37,10 +37,54 @@
       <version>${liquibase.version}</version>
     </dependency>
 
+    <!-- QueryDSL -->
+    <dependency>
+      <groupId>com.querydsl</groupId>
+      <artifactId>querydsl-jpa</artifactId>
+      </dependency>
+    <dependency>
+      <groupId>com.querydsl</groupId>
+      <artifactId>querydsl-sql</artifactId>
+      <version>${querydsl.version}</version>
+    </dependency>
+
     <!-- Postgres -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <!-- QueryDSL -->
+      <plugin>
+        <groupId>com.mysema.maven</groupId>
+        <artifactId>apt-maven-plugin</artifactId>
+        <version>1.1.3</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <version>4.2.1</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>target/generated-sources/java</outputDirectory>
+              <processor>com.querydsl.apt.hibernate.HibernateAnnotationProcessor</processor>
+              <includes>
+                <include>com.dgte.shared.jpa.domain</include>
+              </includes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
