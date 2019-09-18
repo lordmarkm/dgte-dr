@@ -12,7 +12,14 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
+  <parent>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-parent</artifactId>
+    <version>Greenwich.SR1</version>
+  </parent>
+
   <modules>
     <module>dgte-shared-imgur</module>
+    <module>dgte-shared-jpa</module>
   </modules>
 </project>

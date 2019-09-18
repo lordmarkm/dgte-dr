@@ -91,6 +91,7 @@ export class CreateTransactionModalComponent implements OnInit {
   }
 
   saveTransaction() {
+      /*
       if (this.totalDebit != this.totalCredit) {
         this.error = 'Total debit must equal total credit';
         return;
@@ -98,6 +99,7 @@ export class CreateTransactionModalComponent implements OnInit {
         this.error = 'Amount must be greater than 0';
         return;
       }
+      */
       this.isLoading = true;
       this.transactionService.saveTransactionWithEntries(this.transaction, this.entries).subscribe(transaction => {
           this.activeModal.close(transaction);
