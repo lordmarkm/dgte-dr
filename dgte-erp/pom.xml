@@ -64,8 +64,18 @@
         <artifactId>dgte-shared-jpa</artifactId>
         <version>${dgte-shared.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.dgte</groupId>
+        <artifactId>dgte-shared-app</artifactId>
+        <version>${dgte-shared.version}</version>
+      </dependency>
 
       <!-- Utility Dependencies -->
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+      <version>${mapstruct.version}</version>
+    </dependency>
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>

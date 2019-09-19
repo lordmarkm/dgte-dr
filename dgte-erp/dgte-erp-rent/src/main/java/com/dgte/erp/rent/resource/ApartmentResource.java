@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dgte.erp.rent.domain.Apartment;
+import com.dgte.erp.rent.dto.ApartmentDto;
 import com.dgte.erp.rent.service.ApartmentService;
 
 @RestController
@@ -17,13 +18,8 @@ public class ApartmentResource {
     private ApartmentService apartmentService;
 
     @PostMapping
-    public ResponseEntity<?> saveApartment(/*TODO ApartmentDto apartment*/) {
-        Apartment apt = new Apartment();
-        apt.setAddress("a");
-        apt.setName("Apt name here");
-        apt.setProjectCode("lululu");
-
-        return ResponseEntity.ok(apartmentService.save(apt));
+    public ResponseEntity<?> saveApartment(ApartmentDto apartment) {
+        return ResponseEntity.ok(apartmentService.save(apartment));
     }
 
 }
