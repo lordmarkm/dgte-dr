@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ResourceLoggingAspect {
 
-    @Pointcut("execution(* com.dgte.erp.resource..*.*(..))")
+    @Pointcut("execution(* com.dgte.erp.rent.resource..*.*(..))")
     public void resourceMethod() { }
 
     @Around("resourceMethod()")

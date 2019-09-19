@@ -1,0 +1,28 @@
+databaseChangeLog:
+- changeSet:
+    id: 1568867527376-3
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: Y
+            name: available
+            type: char(1)
+        tableName: room
+- changeSet:
+    id: 1568867527376-4
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: price_monthly
+            type: numeric(19, 2)
+        tableName: room
+

@@ -18,6 +18,10 @@ spring:
   liquibase:
     enabled: true
 
+logging:
+  level:
+    com.dgte: DEBUG
+
 minio:
   domain: http://localhost:9000
   accessKey: 8IF0YHYC3P2GZ4SPHC8R
