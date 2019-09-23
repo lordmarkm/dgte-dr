@@ -1,0 +1,33 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569226041589-6
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: room_code
+            type: varchar(255)
+        tableName: lease
+- changeSet:
+    id: 1569226041589-7
+    author: mbmartinez (generated)
+    changes:
+    - dropColumn:
+        columnName: roomCode
+        tableName: lease
+- changeSet:
+    id: 1569226041589-1
+    author: mbmartinez (generated)
+    changes:
+    - dropNotNullConstraint:
+        columnDataType: char(1)
+        columnName: active
+        tableName: lease
+    - addDefaultValue:
+        columnDataType: char(1)
+        columnName: active
+        defaultValue: N
+        tableName: lease

@@ -15,5 +15,6 @@ public class RoomDto extends BaseDto {
     private String name;
     private boolean available;
     private BigDecimal priceMonthly;
+    private LeaseDto currentLease;
 
 }

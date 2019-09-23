@@ -37,13 +37,18 @@
               <span><input type="checkbox" /></span>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Name" prop="name" [minWidth]="150" [width]="150" [maxWidth]="150"></ngx-datatable-column>
-          <ngx-datatable-column name="Monthly Price (₱)" [sortable]="true" [minWidth]="150" [width]="150" [maxWidth]="150">
+          <ngx-datatable-column name="Name" prop="name" [minWidth]="200" [width]="200" [maxWidth]="200"></ngx-datatable-column>
+          <ngx-datatable-column name="Listed Monthly Price (₱)" [sortable]="true" [minWidth]="150" [width]="150" [maxWidth]="150">
             <ng-template let-row="row" ngx-datatable-cell-template>
               <h6 class="text-success text-right">{{row.priceMonthly | number: '1.2'}}</h6>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Available" [sortable]="true" [minWidth]="150" [width]="150" [maxWidth]="150">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <h6 [ngClass]="{ 'text-success': row.available, 'text-danger': !row.available }">{{row.available ? 'Y' : 'N'}}</h6>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Current Lease" [sortable]="true" [minWidth]="150" [width]="150" [maxWidth]="150">
             <ng-template let-row="row" ngx-datatable-cell-template>
               <h6 [ngClass]="{ 'text-success': row.available, 'text-danger': !row.available }">{{row.available ? 'Y' : 'N'}}</h6>
             </ng-template>
