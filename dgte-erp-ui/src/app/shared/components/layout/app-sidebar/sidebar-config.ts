@@ -61,6 +61,22 @@ export const SIDEBAR_CONFIG: any = [
       ]
     },
     {
+      title: 'Rent',
+      icon: 'fa fa-fw fa-bed',
+      active: 'false',
+      type: 'dropdown',
+      submenus: [
+        {
+          title: 'Apartment Details',
+          routerLink: '/rent/apartment-details'
+        },
+        {
+          title: 'Rooms',
+          routerLink: '/rent/rooms'
+        }
+      ]
+    },
+    {
       title: 'Admin',
       type: 'header'
     },

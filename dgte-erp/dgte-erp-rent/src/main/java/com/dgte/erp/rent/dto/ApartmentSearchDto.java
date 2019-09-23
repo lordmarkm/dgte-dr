@@ -18,6 +18,9 @@ public class ApartmentSearchDto extends ApartmentDto implements SearchDto {
     @Override
     public BooleanExpression toQuery() {
         BooleanExpression query = apartment.deleted.isFalse();
+        if (!Strings.isNullOrEmpty(this.getProjectCode())) {
+            query = query.and(apartment.projectCode.eq(this.getProjectCode()));
+        }
         if (!Strings.isNullOrEmpty(this.getName())) {
             query = query.and(apartment.name.like(this.getName() + LIKE_SUFFIX));
         }

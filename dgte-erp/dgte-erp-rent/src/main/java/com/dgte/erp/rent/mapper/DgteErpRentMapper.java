@@ -20,6 +20,8 @@ public interface DgteErpRentMapper {
 
     ApartmentDto toDto(Apartment apartment);
     Apartment toEntity(ApartmentDto apartment);
+
+    @Mapping(target = "apartmentCode", source = "apartment.code")
     RoomDto toDto(Room room);
     Room toEntity(RoomDto room);
 

@@ -3,11 +3,14 @@ package com.dgte.erp.rent.service.impl;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dgte.erp.rent.domain.Apartment;
 import com.dgte.erp.rent.domain.Room;
 import com.dgte.erp.rent.dto.RoomDto;
+import com.dgte.erp.rent.dto.RoomSearchDto;
 import com.dgte.erp.rent.mapper.DgteErpRentMapper;
 import com.dgte.erp.rent.service.ApartmentService;
 import com.dgte.erp.rent.service.RoomService;
@@ -41,6 +44,12 @@ public class RoomServiceImpl implements RoomServiceCustom {
             log.error("No apartment with code={}", room.getApartmentCode());
             throw new InvalidCodeException("No apartment with code=" + room.getApartmentCode());
         }
+    }
+
+    @Override
+    public Page<RoomDto> findAll(RoomSearchDto searchDto, Pageable pageable) {
+        return roomService.findAll(searchDto.toQuery(), pageable)
+                .map(mapper::toDto);
     }
 
 }

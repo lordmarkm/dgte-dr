@@ -15,7 +15,7 @@ import lombok.EqualsAndHashCode;
 @Entity(name = "apt")
 public class Apartment extends BaseEntity {
 
-    @Column(name = "proj_code", nullable = false)
+    @Column(name = "proj_code", nullable = false, unique = true)
     private String projectCode;
 
     @Column(name = "apt_name", nullable = false)
