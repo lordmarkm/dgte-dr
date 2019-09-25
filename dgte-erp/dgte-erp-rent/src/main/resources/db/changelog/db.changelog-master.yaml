@@ -5,3 +5,9 @@ databaseChangeLog:
       file: /db/changelog/0.0.1-SNAPSHOT/2019-Sep-19.yml
   - include:
       file: /db/changelog/0.0.1-SNAPSHOT/2019-Sep-23.yml
+  - include:
+      file: /db/changelog/0.0.1-SNAPSHOT/2019-Sep-24a.yml
+  - include:
+      file: /db/changelog/0.0.1-SNAPSHOT/2019-Sep-24b.yml
+  - include:
+      file: /db/changelog/0.0.1-SNAPSHOT/2019-Sep-24c.yml

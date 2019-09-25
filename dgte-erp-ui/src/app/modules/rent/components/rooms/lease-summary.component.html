@@ -1,0 +1,25 @@
+<los-loading-wrapper [isLoading]="isLoading">
+<ng-container *ngIf="!error && lease">
+  <h6>
+    <span *ngFor="let tenant of lease?.tenants; let isLast = last">
+      {{tenant.name}}<span *ngIf="!isLast">, </span>
+    </span>
+  </h6>
+  <div>Monthly rent: {{lease?.monthlyRent | number: '1.2'}}</div>
+  <div [title]="lease.nextDueDate">Due {{readableDueDate}}</div>
+</ng-container>
+
+
+
+<!-- Available room -->
+<ng-container *ngIf="!error && available">
+  <h6 class="text-success">No active lease</h6>
+</ng-container>
+
+
+
+<ng-container *ngIf="error">
+  <div class="text-danger">{{error}}</div>
+</ng-container>
+<div class="mb-2"></div>
+</los-loading-wrapper>

@@ -1,1 +1,5 @@
 @import 'app';
+
+:host ::ng-deep datatable-body-cell {
+  overflow: visible !important;
+}

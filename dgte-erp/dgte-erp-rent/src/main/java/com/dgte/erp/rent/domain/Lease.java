@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -31,17 +32,20 @@ public class Lease extends BaseEntity {
     @Column(name = "room_code", nullable = false)
     private String roomCode;
 
-    @Embedded
+    @ElementCollection
     @CollectionTable(name = "lease_tenants", joinColumns = @JoinColumn(name = "lease_id", nullable = false))
     private List<Tenant> tenants;
 
     @Column(name = "monthly_rent", nullable = false)
+    @ColumnDefault("0")
     private BigDecimal monthlyRent;
 
     @Column(name = "sec_dep", nullable = false)
+    @ColumnDefault("0")
     private BigDecimal securityDeposit;
 
     @Column(name = "due_day_of_month", nullable = false)
+    @ColumnDefault("1")
     private int dueDateDayOfMonth;
 
     @Column(name = "start_date", nullable = false)
@@ -53,13 +57,19 @@ public class Lease extends BaseEntity {
     /**
      * Last payment info
      */
-    @Column(name = "last_payment_date")
+    @Column(name = "last_payment_date", nullable = false)
     private LocalDate lastPaymentDate;
 
-    @Column(name = "last_payment_amt")
+    @Column(name = "last_payment_amt", nullable = false)
     private BigDecimal lastPaymentAmount;
 
-    @Column(name = "last_payment_bal")
+    @Column(name = "last_payment_cov_start", nullable = false)
+    private LocalDate lastPaymentCoverageStartDate;
+
+    @Column(name = "last_payment_cov_end", nullable = false)
+    private LocalDate lastPaymentCoverageEndDate;
+
+    @Column(name = "last_payment_bal", nullable = false)
     private BigDecimal balanceAfterLastPayment;
 
     /**

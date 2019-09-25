@@ -4,7 +4,8 @@ import { Subject, interval, Subscription, combineLatest } from 'rxjs';
 import { NgbModal, NgbTabset } from '@ng-bootstrap/ng-bootstrap';
 const moment = require('moment');
 
-import { ConfirmationModalService, ProjectService, ProfitAndLossService } from '@los/core/services';
+import { ConfirmationModalService, ProjectService } from '@los/core/services';
+import { AddRoomModalComponent } from '@rent/components/add-room-modal/add-room-modal.component';
 import { ApartmentService } from '@rent/services';
 import { RoomSearch } from '@rent/models';
 import { API_DATE_FORMAT } from '@los/shared/constants';
@@ -20,6 +21,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
   public error: string;
   private projectServiceSub;
   private project;
+  public apartment;
   public rooms;
   public searchQuery: RoomSearch = new RoomSearch();
 
@@ -29,12 +31,18 @@ export class RoomsComponent implements OnInit, OnDestroy {
               private apartmentService: ApartmentService) { }
 
   ngOnInit() {
+    this.searchQuery.sort = 'name,asc';
     this.projectServiceSub = this.projectService.selectedProject.subscribe(proj => {
       if (!proj.code) {
           return;
       }
+      this.apartmentService.findByProjectCode(proj.code).subscribe(aptPage => {
+        if (aptPage.content && aptPage.content.length) {
+          this.apartment = aptPage.content[0];
+        }
+      });
       this.project = proj;
-      this.loadRooms(proj);
+      this.loadRooms();
     });
   }
 
@@ -42,9 +50,15 @@ export class RoomsComponent implements OnInit, OnDestroy {
       this.projectServiceSub.unsubscribe();
   }
 
-  private loadRooms(proj) {
+  private loadRooms() {
     delete this.error;
-    this.apartmentService.findRoomsByProjectCode(proj.code).subscribe(roomsPage => {
+    let roomSearch = {
+        sort: this.searchQuery.sort,
+        size: 5,
+        page: this.searchQuery.page,
+        projectCode: this.project.code
+    };
+    this.apartmentService.findRoomsByProjectCode(roomSearch).subscribe(roomsPage => {
         this.rooms = roomsPage.content;
         this.searchQuery.totalElements = roomsPage.totalElements;
         this.isLoading = false;
@@ -59,6 +73,33 @@ export class RoomsComponent implements OnInit, OnDestroy {
             this.error = 'An unexpected error has occurred! ' + err.error.message;
         }
     });
+  }
+
+  public onSort(event): void {
+    const column: string = event.column.prop;
+    this.searchQuery.sort = `${column},${event.newValue}`;
+    this.loadRooms();
+  }
+
+  public setPage(pageInfo) {
+    const page = pageInfo.page - 1;
+    this.searchQuery.setPageNumber(page);
+    this.loadRooms();
+  }
+
+  //Add room
+  public addRoom() {
+      if (!this.project) {
+        console.error('No project selected!');
+        return;
+      }
+      const modalRef = this.modalService.open(AddRoomModalComponent, { size: 'md', backdrop: 'static', keyboard: false });
+      modalRef.componentInstance.apartment = this.apartment;
+      modalRef.result.then(room => this.handleAddRoomResponse(room));
+  }
+
+  private handleAddRoomResponse(room) {
+    this.loadRooms();
   }
 
 }

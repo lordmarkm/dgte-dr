@@ -1,5 +1,7 @@
 package com.dgte.erp.rent.resource;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +29,7 @@ public class RoomResource {
     }
 
     @PostMapping
-    public ResponseEntity<RoomDto> saveRoom(@RequestBody RoomDto room) {
+    public ResponseEntity<RoomDto> saveRoom(@Valid @RequestBody RoomDto room) {
         return ResponseEntity.ok(roomService.save(room));
     }
 

@@ -1,0 +1,30 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569298881136-5
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: lease_id
+            type: BIGINT
+        - column:
+            name: tnt_name
+            type: VARCHAR(255)
+        tableName: lease_tenants
+- changeSet:
+    id: 1569298881136-6
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: lease_id
+        baseTableName: lease_tenants
+        constraintName: FKnrnwot56n1bbwjpr1arswn3rc
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: lease
+        validate: true
+

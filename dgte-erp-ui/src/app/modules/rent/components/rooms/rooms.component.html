@@ -1,15 +1,14 @@
 <div class="container-fluid">
-  <los-loading-wrapper [isLoading]="isLoading">
   <div class="row">
     <div *ngIf="error" class="col text-danger">{{ error }}</div>
   </div>
   <div class="row">
     <div class="col text-center">
-      <h3>{{ project?.name}}</h3>
-      <div>Apartment Details</div>
+      <h3>{{ apartment?.name}}</h3>
+      <div>Rooms</div>
     </div>
   </div>
-  <div class="row mt-3 mb-5">
+  <div class="row mt-3">
     <div class="col">
       <los-loading-wrapper [isLoading]="isLoading">
         <ngx-datatable
@@ -27,7 +26,7 @@
           [offset]="searchQuery.page"
           [limit]="searchQuery.size"
           (sort)="onSort($event)"
-          [sorts]="[{prop: 'transactionDate', dir: 'desc'}]">
+          [sorts]="[{prop: 'name', dir: 'asc'}]">
           <!-- columns -->
           <ngx-datatable-column [minWidth]="50" [width]="50" [maxWidth]="50">
             <ng-template let-column="column" ngx-datatable-header-template>
@@ -38,29 +37,30 @@
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Name" prop="name" [minWidth]="200" [width]="200" [maxWidth]="200"></ngx-datatable-column>
-          <ngx-datatable-column name="Listed Monthly Price (₱)" [sortable]="true" [minWidth]="150" [width]="150" [maxWidth]="150">
+          <ngx-datatable-column name="Listed Monthly Price (₱)" [sortable]="true" [minWidth]="200" [width]="200" [maxWidth]="150">
             <ng-template let-row="row" ngx-datatable-cell-template>
               <h6 class="text-success text-right">{{row.priceMonthly | number: '1.2'}}</h6>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Available" [sortable]="true" [minWidth]="150" [width]="150" [maxWidth]="150">
+          <ngx-datatable-column name="Available" [sortable]="true" [minWidth]="100" [width]="100" [maxWidth]="100">
             <ng-template let-row="row" ngx-datatable-cell-template>
               <h6 [ngClass]="{ 'text-success': row.available, 'text-danger': !row.available }">{{row.available ? 'Y' : 'N'}}</h6>
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="Current Lease" [sortable]="true" [minWidth]="150" [width]="150" [maxWidth]="150">
+          <ngx-datatable-column name="Current Lease" [sortable]="true" [minWidth]="300" [width]="300" [maxWidth]="150">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <h6 [ngClass]="{ 'text-success': row.available, 'text-danger': !row.available }">{{row.available ? 'Y' : 'N'}}</h6>
+              <dgte-erp-rent-lease-summary [lease]="row.currentLease" [available]="row.available"></dgte-erp-rent-lease-summary>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="" [minWidth]="200" [width]="200" [maxWidth]="200">
             <ng-template let-row="row" ngx-datatable-cell-template>
               <div class="btn-group">
                 <button (click)="viewTransaction(row)" type="button" class="btn btn-primary btn-xs"><i class="fa fa-search"></i> View</button>
-                <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                <div class="btn-group" ngbDropdown role="group" aria-label="Room options">
                   <button class="btn btn-primary  btn-xs dropdown-toggle-split" ngbDropdownToggle></button>
                   <div class="dropdown-menu" ngbDropdownMenu>
                     <button (click)="updateTransaction(row)" ngbDropdownItem>Edit</button>
+                    <button *ngIf="row.available" (click)="toggleAvailability(row)" ngbDropdownItem>{{row.available ? 'Make unavailable' : 'Make available'}}</button>
                   </div>
                 </div>
               </div>
@@ -100,5 +100,9 @@
       </los-loading-wrapper>
     </div>
   </div>
-  </los-loading-wrapper>
+  <div class="row mt-3 mb-5">
+    <div class="col text-right">
+      <button (click)="addRoom()" ngbTooltip="Click to add a new room" placement="bottom" class="btn btn-primary"><i class="fa fa-plus"></i> Add Room</button>
+    </div>
+  </div>
 </div>

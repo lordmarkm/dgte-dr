@@ -1,0 +1,33 @@
+<los-loading-wrapper [isLoading]="isLoading">
+  <form (submit)="saveRoom()" ngNativeValidate>
+    <div class="modal-header">
+      <h4 class="modal-title">{{ apartment.name }}
+        <br><small class="text-muted">{{ modalSubtitle }}</small>
+      </h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body container-fluid">
+      <div class="row">
+        <div class="col">
+          <label for="txn-date">Name</label>
+          <input type="text" [(ngModel)]="room.name" name="rm-name" class="form-control" required />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="txn-desc">Listed Price</label>
+          <input type="number" [(ngModel)]="room.priceMonthly" name="rm-price-monthly" class="form-control" 
+            placeholder="Listed Monthly Rent" required />
+        </div>
+      </div>
+      <hr />
+    </div>
+    <div class="modal-footer">
+      <div *ngIf="error" class="text-danger text-center">{{error}}</div>
+      <button type="submit" class="btn btn-secondary">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close()">Cancel</button>
+    </div>
+  </form>
+</los-loading-wrapper>

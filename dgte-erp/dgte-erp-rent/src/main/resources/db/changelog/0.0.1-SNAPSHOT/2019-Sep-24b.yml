@@ -1,0 +1,59 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569294302834-9
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: last_payment_cov_end
+            type: date
+        tableName: lease
+- changeSet:
+    id: 1569294302834-10
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: last_payment_cov_start
+            type: date
+        tableName: lease
+- changeSet:
+    id: 1569294302834-1
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: char(1)
+        columnName: active
+        defaultValue: N
+        tableName: lease
+- changeSet:
+    id: 1569294302834-2
+    author: mbmartinez (generated)
+    changes:
+    - addNotNullConstraint:
+        columnDataType: number(19,2)
+        columnName: last_payment_amt
+        tableName: lease
+- changeSet:
+    id: 1569294302834-3
+    author: mbmartinez (generated)
+    changes:
+    - addNotNullConstraint:
+        columnDataType: number(19,2)
+        columnName: last_payment_bal
+        tableName: lease
+- changeSet:
+    id: 1569294302834-4
+    author: mbmartinez (generated)
+    changes:
+    - addNotNullConstraint:
+        columnDataType: date
+        columnName: last_payment_date
+        tableName: lease
+

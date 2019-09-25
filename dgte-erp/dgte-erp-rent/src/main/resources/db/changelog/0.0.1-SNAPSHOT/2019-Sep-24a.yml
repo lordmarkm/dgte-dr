@@ -1,0 +1,38 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569290156879-1
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: char(1)
+        columnName: active
+        defaultValue: N
+        tableName: lease
+- changeSet:
+    id: 1569290156879-2
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: int
+        columnName: due_day_of_month
+        defaultValueNumeric: '1'
+        tableName: lease
+- changeSet:
+    id: 1569290156879-3
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: number(19,2)
+        columnName: monthly_rent
+        defaultValueNumeric: '0'
+        tableName: lease
+- changeSet:
+    id: 1569290156879-4
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: number(19,2)
+        columnName: sec_dep
+        defaultValueNumeric: '0'
+        tableName: lease
+
