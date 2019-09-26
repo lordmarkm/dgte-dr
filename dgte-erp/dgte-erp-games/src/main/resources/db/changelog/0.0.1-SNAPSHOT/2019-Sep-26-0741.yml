@@ -1,0 +1,114 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569483682406-1
+    author: mbmartinez (generated)
+    changes:
+    - createSequence:
+        sequenceName: hibernate_sequence
+- changeSet:
+    id: 1569483682406-2
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: gamePK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: short_name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: platform_id
+            type: BIGINT
+        tableName: game
+- changeSet:
+    id: 1569483682406-3
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: platformPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: shortname
+            type: VARCHAR(255)
+        tableName: platform
+- changeSet:
+    id: 1569483682406-4
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_GAMECODE_COL
+        tableName: game
+- changeSet:
+    id: 1569483682406-5
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_PLATFORMCODE_COL
+        tableName: platform
+- changeSet:
+    id: 1569483682406-6
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: platform_id
+        baseTableName: game
+        constraintName: FKqbkf2002dfk9drnxmwxiqix6h
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: platform
+        validate: true
+

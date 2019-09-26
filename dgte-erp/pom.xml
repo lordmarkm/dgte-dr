@@ -13,7 +13,7 @@
     <java.version>8</java.version>
     <dgte-shared.version>1.0</dgte-shared.version>
     <timestamp>${maven.build.timestamp}</timestamp>
-    <maven.build.timestamp.format>yyyy-MMM-dd</maven.build.timestamp.format>
+    <maven.build.timestamp.format>yyyy-MMM-dd-HHmm</maven.build.timestamp.format>
 
     <!-- Dependencies -->
     <lombok.version>1.18.6</lombok.version>
