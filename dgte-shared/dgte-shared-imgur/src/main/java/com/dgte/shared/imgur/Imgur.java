@@ -14,12 +14,12 @@ public class Imgur {
 
     private static final String IMGUR_URL = "https://api.imgur.com/3";
     private String clientId;
-    private String clientSecret;
+    //private String clientSecret;
     private ImgurClient client;
 
     public Imgur(String clientId, String clientSecret) {
         this.clientId = clientId;
-        this.clientSecret = clientSecret;
+        //this.clientSecret = clientSecret;
         this.client = Feign.builder()
                         .encoder(new FormEncoder(new JacksonEncoder()))
                         .decoder(new JacksonDecoder())

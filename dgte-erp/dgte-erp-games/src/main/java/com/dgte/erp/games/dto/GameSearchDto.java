@@ -12,13 +12,13 @@ import static com.dgte.erp.games.domain.QGame.game;
 public class GameSearchDto implements SearchDto {
 
     private String name;
-    private String platformCode;
+    private String platformRefCode;
 
     @Override
     public BooleanExpression toQuery() {
         BooleanExpression query = game.deleted.isFalse();
-        if (!Strings.isNullOrEmpty(this.platformCode)) {
-            query = query.and(game.platform.code.eq(this.platformCode));
+        if (!Strings.isNullOrEmpty(this.platformRefCode)) {
+            query = query.and(game.platform.refCode.eq(this.platformRefCode));
         }
         if (!Strings.isNullOrEmpty(this.getName())) {
             query = query.and(game.name.like(this.getName() + LIKE_SUFFIX));

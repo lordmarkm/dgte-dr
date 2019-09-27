@@ -1,0 +1,262 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569548864171-2
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: game_copyPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: ref_game_cp_status_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: game_id
+            type: BIGINT
+        - column:
+            name: gamer_id
+            type: BIGINT
+        tableName: game_copy
+- changeSet:
+    id: 1569548864171-3
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: gamerPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: code
+            type: VARCHAR(255)
+        - column:
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        tableName: gamer
+- changeSet:
+    id: 1569548864171-4
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: ref_game_cp_statusPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: label
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: ref_code
+            type: VARCHAR(255)
+        tableName: ref_game_cp_status
+- changeSet:
+    id: 1569548864171-5
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: ref_platformPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: label
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: ref_code
+            type: VARCHAR(255)
+        tableName: ref_platform
+- changeSet:
+    id: 1569548864171-6
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            defaultValueNumeric: 0
+            name: cp_for_rent
+            type: int4
+        tableName: game
+- changeSet:
+    id: 1569548864171-7
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            defaultValueNumeric: 0
+            name: cp_for_sale
+            type: int4
+        tableName: game
+- changeSet:
+    id: 1569548864171-8
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            defaultValueNumeric: 0
+            name: cp_on_hand
+            type: int4
+        tableName: game
+- changeSet:
+    id: 1569548864171-9
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            defaultValueNumeric: !!float '0'
+            name: price_buylist
+            type: numeric(19, 2)
+        tableName: game
+- changeSet:
+    id: 1569548864171-10
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            defaultValueNumeric: !!float '0'
+            name: price_sell
+            type: numeric(19, 2)
+        tableName: game
+- changeSet:
+    id: 1569548864171-11
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_GAMERCODE_COL
+        tableName: gamer
+- changeSet:
+    id: 1569548864171-12
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_GAME_COPYCODE_COL
+        tableName: game_copy
+- changeSet:
+    id: 1569548864171-13
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: ref_game_cp_status_id
+        baseTableName: game_copy
+        constraintName: FK43s972b9ffk83mvwcnv9vfpmo
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: ref_game_cp_status
+        validate: true
+- changeSet:
+    id: 1569548864171-14
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: gamer_id
+        baseTableName: game_copy
+        constraintName: FKbk7vae8h95t1087rwclye9470
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: gamer
+        validate: true
+- changeSet:
+    id: 1569548864171-15
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: game_id
+        baseTableName: game_copy
+        constraintName: FKdgxnu15ylrk9kkrw153ftu47w
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game
+        validate: true
+- changeSet:
+    id: 1569548864171-16
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: platform_id
+        baseTableName: game
+        constraintName: FKpd4eijye64eabb9hf1qt56ksw
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: ref_platform
+        validate: true
+- changeSet:
+    id: 1569548864171-17
+    author: mbmartinez (generated)
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableName: game
+        constraintName: FKqbkf2002dfk9drnxmwxiqix6h
+- changeSet:
+    id: 1569548864171-18
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: uc_platformcode_col
+        tableName: platform
+- changeSet:
+    id: 1569548864171-19
+    author: mbmartinez (generated)
+    changes:
+    - dropTable:
+        tableName: platform
+

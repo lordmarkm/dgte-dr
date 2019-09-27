@@ -1,3 +1,21 @@
 databaseChangeLog:
   - include:
       file: ./db/changelog/0.0.1-SNAPSHOT/2019-Sep-26-0741.yml
+  - include:
+      file: ./db/changelog/0.0.1-SNAPSHOT/2019-Sep-27-0147.yml
+  - changeSet:
+      id: 20190927-1
+      author: mbmartinez
+      changes:
+        - loadData:
+            tableName: ref_platform
+            file: ./db/changelog/0.0.1-SNAPSHOT/data/ref_platform.csv
+            quotchar: '"'
+  - changeSet:
+      id: 20190927-2
+      author: mbmartinez
+      changes:
+        - loadData:
+            tableName: ref_game_cp_status
+            file: ./db/changelog/0.0.1-SNAPSHOT/data/ref_game_cp_status.csv
+            quotchar: '"'
