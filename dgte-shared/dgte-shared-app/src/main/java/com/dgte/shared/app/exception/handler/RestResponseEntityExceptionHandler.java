@@ -2,6 +2,7 @@ package com.dgte.shared.app.exception.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -44,11 +45,21 @@ public abstract class RestResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = { 
-        InvalidCodeException.class
+        InvalidCodeException.class,
     })
     protected ResponseEntity<Object> handleBadRequest(RuntimeException ex, WebRequest request) {
         log.error("Bad request", ex);
         GenericResponse invalidCodeResponse = GenericResponse.withMessage(ex.getMessage());
+        return ResponseEntity.badRequest().body(invalidCodeResponse);
+    }
+
+    @ExceptionHandler(value = { 
+        HttpMessageNotReadableException.class
+    })
+    protected ResponseEntity<Object> handleHttpMessageUnreadable(HttpMessageNotReadableException ex, WebRequest request) {
+        String message = ex.getMessage();
+        String publicMessage = message.substring(0, message.indexOf(":"));
+        GenericResponse invalidCodeResponse = GenericResponse.withMessage(publicMessage);
         return ResponseEntity.badRequest().body(invalidCodeResponse);
     }
 

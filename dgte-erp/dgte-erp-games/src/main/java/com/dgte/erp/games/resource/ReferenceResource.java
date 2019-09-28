@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dgte.erp.games.dto.RefDataDto;
+import com.dgte.erp.games.dto.ReferencesDto;
 import com.dgte.erp.games.mapper.DgteErpGamesMapper;
+import com.dgte.erp.games.service.CopyStatusService;
 import com.dgte.erp.games.service.PlatformService;
-import com.dgte.shared.app.dto.GenericRefDataDto;
 
 @RestController
-@RequestMapping("/ref")
+@RequestMapping("/references")
 public class ReferenceResource {
 
     @Autowired
@@ -24,13 +25,26 @@ public class ReferenceResource {
     @Autowired
     private PlatformService platformService;
 
-    @GetMapping("/platform")
-    public ResponseEntity<List<RefDataDto>> getPlatforms() {
+    @Autowired
+    private CopyStatusService copyStatusService;
+
+    @GetMapping
+    public ResponseEntity<ReferencesDto> getPlatforms() {
+        ReferencesDto references = new ReferencesDto();
+
         List<RefDataDto> platforms = platformService.findAll()
                     .stream()
                     .map(mapper::toDto)
                     .collect(Collectors.toList());
-        return ResponseEntity.ok(platforms);
+        references.setPlatforms(platforms);
+
+        List<RefDataDto> gameCopyStatuses = copyStatusService.findAll()
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+        references.setGameCopyStatuses(gameCopyStatuses);
+
+        return ResponseEntity.ok(references);
     }
 
 }

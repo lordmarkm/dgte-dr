@@ -1,12 +1,12 @@
 package com.dgte.shared.app.dto;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class GenericRefDataDto extends BaseDto {
+public class GenericRefDataDto {
 
-    private String value;
+    private long id;
+    private String refCode;
+    private String label;
 
 }

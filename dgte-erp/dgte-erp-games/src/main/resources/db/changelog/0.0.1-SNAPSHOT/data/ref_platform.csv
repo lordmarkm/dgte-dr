@@ -1,4 +1,4 @@
-ref_code,label
-NS,Nintendo Switch
-PS4,Playstation 4
-XBONE,Xbox One
+id,ref_code,label
+1,NS,Nintendo Switch
+2,PS4,Playstation 4
+3,XBONE,Xbox One

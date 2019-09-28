@@ -9,7 +9,4 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class RefDataDto extends GenericRefDataDto {
 
-    private String name;
-    private String shortName;
-
 }

@@ -1,6 +1,6 @@
-ref_code,label
-RENTED,Rented
-SOLD,Sold
-PULLED_OUT,Pulled Out
-FOR_SALE,For Sale
-FOR_RENT,For Rent
+id,ref_code,label
+1,RENTED,Rented
+2,SOLD,Sold
+3,PULLED_OUT,Pulled Out
+4,FOR_SALE,For Sale
+5,FOR_RENT,For Rent

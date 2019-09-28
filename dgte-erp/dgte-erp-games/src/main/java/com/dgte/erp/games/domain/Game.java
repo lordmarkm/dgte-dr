@@ -19,10 +19,10 @@ import lombok.EqualsAndHashCode;
 @Entity(name = "game")
 public class Game extends BaseEntity {
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "short_name")
+    @Column(name = "short_name", unique = true)
     private String shortName;
 
     @ManyToOne(optional = false)
