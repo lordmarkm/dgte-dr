@@ -1,0 +1,10 @@
+<div class="bg-secondary py-2">
+  <div class="container d-flex">
+    <h5 class="text-white m-0">{{ title }}</h5>
+    <span *ngIf="dateApplied" class="ml-auto"><b>Date Applied:</b> {{ dateApplied }}</span>
+
+    <span class="edit-review text-white ml-auto" *ngIf="action" (click)="onTriggerAction()">
+      {{ action }}
+    </span>
+  </div>
+</div>

@@ -1,0 +1,269 @@
+// Buttons =====================================================================
+
+.btn {
+  font-family: $headings-font-family;
+  height: 47px;
+  font-size: 13.5px;
+
+  &,
+  &:hover {
+    color: $white;
+  }
+
+  &-primary:hover {
+    background-color: $secondary !important;
+    border-color: $secondary !important;
+  }
+
+  &-secondary:hover {
+    background-color: $primary !important;
+    border-color: $primary !important;
+  }
+
+  &.disabled {
+    color: $gray-700;
+    background-color: $gray-400;
+    border-color: $gray-400;
+    &:hover {
+      background-color: $gray-300!important;
+      border-color: $gray-300!important;
+    }
+  }
+
+  &-light,
+  &-light:hover {
+    color: $gray-700;
+  }
+
+  &-link,
+  &-link:hover {
+    color: $secondary;
+  }
+
+  &-link.disabled:hover {
+    color: $gray-600;
+  }
+
+  &-outline-primary {
+    color: $primary;
+  }
+
+  &-outline-secondary {
+    color: $secondary;
+  }
+
+  &-outline-success {
+    color: $success;
+  }
+
+  &-outline-info {
+    color: $info;
+  }
+
+  &-outline-warning {
+    color: $warning;
+  }
+
+  &-outline-danger {
+    color: $danger;
+  }
+
+  &-outline-dark {
+    color: $dark;
+  }
+
+  &-outline-light {
+
+    color: $light;
+
+    &:hover {
+      color: $dark;
+    }
+  }
+
+  &-lg {
+    height: 55px;
+    font-size: 15.5px;
+  }
+
+  &-sm {
+    height:47px;
+  }
+}
+
+.form-control {
+  //height: 40px;
+  select.decorated {
+    option {
+      &:hover,
+      &:checked {
+        background-color: $secondary;
+      }
+    }
+  }
+}
+
+.h-0 {
+ height: 0;
+}
+
+dt, dd {
+  overflow-wrap: break-word;
+}
+dt {
+  color: $gray-800;
+  font-weight: 600;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+
+.ng5-slider .ng5-slider-pointer {
+  &.ng5-slider-active:after {
+    background-color: $primary !important;
+  }
+
+  background-color: $secondary !important;
+}
+
+
+:focus {
+  outline: 0 !important;
+}
+
+.vertical-rule {
+  margin: 0 .5rem;
+  border-right: 1px solid $gray-400;
+  height: 100%;
+
+  &--md {
+    height: 24px;
+  }
+}
+
+ngb-tabset {
+  .tab-content  {
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem;
+  }
+}
+
+ngx-datatable {
+  datatable-body {
+    .empty-row {
+      text-align: center !important;
+      padding: 1rem 1.2rem !important;
+    }
+
+    .action-buttons {
+      display: flex;
+      a ~ a,
+      a ~ button,
+      button ~ a,
+      button ~ button {
+        margin-left: 8px;
+      }
+
+      a.button,
+      button {
+        color: $gray-600 !important;
+        cursor: pointer;
+        font-size: 1.3rem !important;
+        padding: 0!important;
+        height: auto !important;
+
+        &:hover {
+          color: $secondary !important;
+        }
+      }
+
+      .endorse {
+        position: relative;
+        top: -5px;
+      }
+
+      .decline {
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    .datatable-body-cell-label {
+      text-overflow: ellipsis;
+      overflow: visible;
+    }
+    datatable-body-cell {
+      overflow: visible;
+    }
+  }
+
+  datatable-footer {
+    .footer-wrapper {
+      padding-left: 1rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}
+
+.date-picker {
+  cursor: pointer;
+  &[readonly] {
+    background-color: unset !important;
+    opacity: 1;
+  }
+}
+
+.ng-select {
+  .ng-select-container {
+    min-height: 36px;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+  }
+}
+
+.form-control.no-border {
+  .ng-select-container {
+    border: none;
+  }
+}
+
+.text-danger {
+  color: #ff5151 !important;
+}
+
+.text-gray-600 {
+  color: $gray-600 !important;
+}
+
+.text-gray-400 {
+  color: $gray-400 !important;
+}
+
+.ball-pulse > div {
+  background: $secondary;
+}
+.invisible {
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  padding: 0!important;
+  border: 0 !important;
+}
+
+$btn-padding-x-xs:  .20rem !default;
+$btn-padding-y-xs:  .12rem !default;
+$input-btn-line-height-xs: 1.1 !default;
+
+.btn.btn-xs {
+   // line-height: ensure proper height of button next to small input
+   @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $font-size-sm, $input-btn-line-height-xs, $btn-border-radius-sm);
+   height: 28px;
+}

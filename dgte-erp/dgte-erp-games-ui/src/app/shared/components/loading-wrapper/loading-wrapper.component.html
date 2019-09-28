@@ -1,0 +1,13 @@
+<div class="wrapper h-100">
+  <div [ngClass]="{ blur: isLoading, 'h-100': true }">
+    <ng-content></ng-content>
+  </div>
+  <div *ngIf="isLoading" class="bg bg--component" [ngClass]="{'full-screen': fullScreen}">
+    <div class="loader-inner ball-pulse">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <h3 *ngIf="message" class="app-loader-message">{{ message }}</h3>
+  </div>
+</div>

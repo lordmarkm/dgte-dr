@@ -1,0 +1,18 @@
+<header>
+  <div class="navbar navbar-light bg-light shadow-sm">
+    <div class="container d-flex py-4 justify-content-between">
+
+      <a [routerLink]="iconUrl" class="navbar-brand">
+        <img src="assets/images/robinsonsbank1.png">
+      </a>
+      <div class="d-flex align-items-center">
+        <a [routerLink]="iconUrl"
+           class="navbar-brand d-none d-sm-inline-block mr-3">
+          <img src="https://www.robinsonsbank.com.ph/assets/custom/images/GO-SALARY.png">
+        </a>
+        <h5 *ngIf="company && company.name.length < 30" class="d-sm-inline-block">{{ company.name }}</h5>
+        <h6 *ngIf="company && company.name.length > 30" class="d-sm-inline-block">{{ company.name }}</h6>
+      </div>
+    </div>
+  </div>
+</header>
