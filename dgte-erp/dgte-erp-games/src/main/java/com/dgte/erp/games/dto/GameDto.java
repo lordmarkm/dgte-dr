@@ -1,5 +1,7 @@
 package com.dgte.erp.games.dto;
 
+import java.math.BigDecimal;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -22,4 +24,7 @@ public class GameDto extends BaseDto {
     @NotNull
     private GenericRefDataDto platform;
 
+    private BigDecimal buylistPrice;
+    private BigDecimal sellPrice;
+    private String imageUrl;
 }

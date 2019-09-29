@@ -10,14 +10,16 @@ import { Game } from '@games/shared/models';
 })
 export class LandingPageComponent implements OnInit {
   public isLoading = false;
-  public buyGames: Game[];
+  public buyGames1: Game[];
+  public buyGames2: Game[];
 
   constructor(private router: Router,
               private gameService: GameService) { }
 
   ngOnInit() {
       this.gameService.frontPageBuy({ 'platformRefCode': 'NS' }).subscribe(buyGames => {
-          this.buyGames = buyGames;
+          this.buyGames1 = buyGames.slice(0, 4);
+          this.buyGames2 = buyGames.slice(4, 8);
           setTimeout(() => {
               this.doCarousel();
               }, 2000);
