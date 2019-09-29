@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpTokenInterceptor, ObfuscationHttpInterceptor } from '@los/core/interceptors';
+import { ObfuscationHttpInterceptor } from '@los/core/interceptors';
 import { SharedModule } from '@los/shared/shared.module';
 
 import { Components, EntryComponents } from './components';

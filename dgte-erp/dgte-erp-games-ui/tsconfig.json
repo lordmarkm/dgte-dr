@@ -23,7 +23,7 @@
       "@los/*": [
         "./src/app/*"
       ],
-      "@rent/*": [ "./src/app/modules/rent/*" ],
+      "@games/*": [ "./src/app/*" ],
       "@styles/*": ["src/styles/*"]
     }
   }

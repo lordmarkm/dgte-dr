@@ -1,22 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { GameService } from '@games/core/services';
+import { Game } from '@games/shared/models';
 
 @Component({
-  selector: 'dgtedr-landing-page',
+  selector: 'games-landing-page',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent implements OnInit {
   public isLoading = false;
+  public buyGames: Game[];
 
   constructor(private router: Router,
-              private route: ActivatedRoute) { }
+              private gameService: GameService) { }
 
   ngOnInit() {
+      this.gameService.frontPageBuy({ 'platformRefCode': 'NS' }).subscribe(buyGames => {
+          this.buyGames = buyGames;
+          setTimeout(() => {
+              this.doCarousel();
+              }, 2000);
+      });
+  }
 
-      console.log('product-section.length=' + $('#product-section').length);
+  ngAfterViewChecked() {
+      console.log('After view checked');
+  }
+
+  private doCarousel() {
       if ($("#product-section").length) {
-          $("#product-section").owlCarousel({
+          let elem: any = $('#product-section');
+          elem.owlCarousel({
               navigation : true,
               pagination : false,
               items : 4,
@@ -28,7 +43,5 @@ export class LandingPageComponent implements OnInit {
               singleItem : false
           });
       }
-
   }
-
 }

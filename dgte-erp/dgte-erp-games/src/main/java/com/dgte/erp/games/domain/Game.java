@@ -49,4 +49,6 @@ public class Game extends BaseEntity {
     @ColumnDefault("0")
     private BigDecimal sellPrice;
 
+    @Column(name = "img_url")
+    private String imageUrl;
 }

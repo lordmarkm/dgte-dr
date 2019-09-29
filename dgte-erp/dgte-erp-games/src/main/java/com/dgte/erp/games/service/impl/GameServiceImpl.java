@@ -1,16 +1,20 @@
 package com.dgte.erp.games.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dgte.erp.games.Constants;
 import com.dgte.erp.games.domain.Game;
 import com.dgte.erp.games.domain.Platform;
 import com.dgte.erp.games.dto.GameDto;
 import com.dgte.erp.games.dto.GameSearchDto;
+import com.dgte.erp.games.dto.PublicGameDto;
 import com.dgte.erp.games.mapper.DgteErpGamesMapper;
 import com.dgte.erp.games.service.GameService;
 import com.dgte.erp.games.service.GameServiceCustom;
@@ -50,6 +54,14 @@ public class GameServiceImpl implements GameServiceCustom {
         Game entity = mapper.toEntity(game);
         entity.setPlatform(platformOpt.get());
         return mapper.toDto(gameService.save(entity));
+    }
+
+    @Override
+    public List<PublicGameDto> frontPageBuy(GameSearchDto searchDto) {
+        PageRequest page = PageRequest.of(0, Constants.FRONT_PAGE_GRID_SIZE);
+        return gameService.findAll(searchDto.toQuery(), page)
+                    .map(mapper::toPublicDto)
+                    .getContent();
     }
 
 }

@@ -8,6 +8,7 @@ import com.dgte.erp.games.domain.CopyStatus;
 import com.dgte.erp.games.domain.Game;
 import com.dgte.erp.games.domain.Platform;
 import com.dgte.erp.games.dto.GameDto;
+import com.dgte.erp.games.dto.PublicGameDto;
 import com.dgte.erp.games.dto.RefDataDto;
 import com.dgte.shared.app.dto.BaseDto;
 import com.dgte.shared.jpa.domain.BaseEntity;
@@ -20,6 +21,7 @@ public interface DgteErpGamesMapper {
     BaseEntity anyDtoToEntity(BaseDto dto);
 
     GameDto toDto(Game game);
+    PublicGameDto toPublicDto(Game game);
     Game toEntity(GameDto game);
 
     RefDataDto toDto(Platform platform);

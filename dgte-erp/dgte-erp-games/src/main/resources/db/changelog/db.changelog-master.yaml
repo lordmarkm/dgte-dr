@@ -19,3 +19,5 @@ databaseChangeLog:
             tableName: ref_game_cp_status
             file: ./db/changelog/0.0.1-SNAPSHOT/data/ref_game_cp_status.csv
             quotchar: '"'
+  - include:
+      file: ./db/changelog/0.0.1-SNAPSHOT/2019-Sep-29-1215.yml

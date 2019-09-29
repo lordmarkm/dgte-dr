@@ -19,11 +19,12 @@
                 <a href="javascript:void(0)">NEW</a>
               </li>
             </ul>
+            <div>BUYGAMES {{buyGames|json}}</div>
             <div class="product-section main" id="product-section">
-              <div class="product-section-content main-item cat1">
+              <div *ngFor="let game of buyGames" class="product-section-content main-item cat1">
                 <div class="product-description">
                   <figure class="product-image">
-                    <img src="assets/images/img8.jpg" alt="product" />
+                    <img [src]="game.imageUrl" class="product-icon" alt="product" />
                     <div class="overlay">
                       <div class="product-view-block">
                         <div class="product-view clearfix">
@@ -34,7 +35,7 @@
                     </div>
                   </figure>
                   <div class="about-product">
-                    <h4><a href="#" class="item-name">T-Shirt Retro White</a></h4>
+                    <h4><a href="#" class="item-name">{{game.name}}</a></h4>
                     <span class="review-icon clearfix"> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star"></i> </span>
                     <span class="price"><span>$ 70.00</span>&nbsp; <del> $ 97.00</del></span>
                   </div>

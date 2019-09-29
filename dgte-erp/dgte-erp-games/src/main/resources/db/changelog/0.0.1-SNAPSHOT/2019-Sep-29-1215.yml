@@ -1,0 +1,61 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569759358669-4
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: img_url
+            type: varchar(255)
+        tableName: game
+- changeSet:
+    id: 1569759358669-5
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: name
+        constraintName: UC_GAMENAME_COL
+        tableName: game
+- changeSet:
+    id: 1569759358669-6
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: short_name
+        constraintName: UC_GAMESHORT_NAME_COL
+        tableName: game
+- changeSet:
+    id: 1569759358669-1
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: UC_GAMECODE_COL
+        tableName: game
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_GAMECODE_COL
+        tableName: game
+- changeSet:
+    id: 1569759358669-2
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: UC_GAMERCODE_COL
+        tableName: gamer
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_GAMERCODE_COL
+        tableName: gamer
+- changeSet:
+    id: 1569759358669-3
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: UC_GAME_COPYCODE_COL
+        tableName: game_copy
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_GAME_COPYCODE_COL
+        tableName: game_copy
+

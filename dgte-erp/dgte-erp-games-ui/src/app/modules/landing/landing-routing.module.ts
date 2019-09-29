@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LandingComponent } from './landing.component';
-import { LandingPageComponent, DirectoryComponent } from './components';
+import { LandingPageComponent } from './components';
 
 const routes: Routes = [
   {
@@ -12,10 +12,6 @@ const routes: Routes = [
       {
         path: '',
         component: LandingPageComponent
-      },
-      {
-        path: 'directory',
-        component: DirectoryComponent
       }
     ]
   }

@@ -18,7 +18,6 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 // uncomment when needed
 import { Components, EntryComponents } from './components';
-import { Directives } from './directives';
 import { Pipes } from './pipes';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -53,12 +52,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     ...Components,
-    ...Directives,
     ...Pipes,
   ],
   declarations: [
     ...Components,
-    ...Directives,
     ...Pipes,
   ],
   entryComponents: [
