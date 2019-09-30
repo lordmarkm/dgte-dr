@@ -21,3 +21,17 @@ databaseChangeLog:
             quotchar: '"'
   - include:
       file: ./db/changelog/0.0.1-SNAPSHOT/2019-Sep-29-1215.yml
+  - include:
+      file: ./db/changelog/0.0.1-SNAPSHOT/2019-Sep-30-0256.yml
+  - include:
+      file: ./db/changelog/0.0.1-SNAPSHOT/2019-Sep-30-0508.yml
+  - changeSet:
+      id: 20190927-3
+      author: mbmartinez
+      changes:
+        - loadData:
+            tableName: game
+            file: ./db/changelog/0.0.1-SNAPSHOT/data/games-switch-Sep-30-2019.csv
+            quotchar: '"'
+  - include:
+      file: ./db/changelog/0.0.1-SNAPSHOT/2019-Sep-30-0530.yml

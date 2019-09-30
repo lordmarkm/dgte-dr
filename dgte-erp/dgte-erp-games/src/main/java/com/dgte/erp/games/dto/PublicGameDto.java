@@ -17,6 +17,8 @@ public class PublicGameDto extends BaseDto {
     private GenericRefDataDto platform;
     private BigDecimal buylistPrice;
     private BigDecimal sellPrice;
+    private BigDecimal buylistRupees;
+    private BigDecimal sellRupees;
     private String imageUrl;
 
 }

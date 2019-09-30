@@ -36,13 +36,15 @@ public class BaseEntity {
 
     @CreatedDate
     @Column(name = "created_date", updatable = false)
+    @ColumnDefault("now()")
     private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(name = "updated_date")
+    @ColumnDefault("now()")
     private LocalDateTime updatedDate;
 
-    @Column(name = "code", nullable = false, updatable = false, unique = true)
+    @Column(name = "code", nullable = false, updatable = false, unique = true, columnDefinition = "uuid DEFAULT uuid_generate_v4()")
     private String code;
 
     @PrePersist

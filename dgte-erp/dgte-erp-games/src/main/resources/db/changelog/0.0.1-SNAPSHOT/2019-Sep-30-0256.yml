@@ -1,0 +1,83 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569812220147-1
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: varchar(255)
+        columnName: code
+        defaultValue: uuid_generate_v4()
+        tableName: game
+- changeSet:
+    id: 1569812220147-2
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: varchar(255)
+        columnName: code
+        defaultValue: uuid_generate_v4()
+        tableName: game_copy
+- changeSet:
+    id: 1569812220147-3
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: varchar(255)
+        columnName: code
+        defaultValue: uuid_generate_v4()
+        tableName: gamer
+- changeSet:
+    id: 1569812220147-4
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: timestamp
+        columnName: created_date
+        defaultValueComputed: now()
+        tableName: game
+- changeSet:
+    id: 1569812220147-5
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: timestamp
+        columnName: created_date
+        defaultValueComputed: now()
+        tableName: game_copy
+- changeSet:
+    id: 1569812220147-6
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: timestamp
+        columnName: created_date
+        defaultValueComputed: now()
+        tableName: gamer
+- changeSet:
+    id: 1569812220147-7
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: timestamp
+        columnName: updated_date
+        defaultValueComputed: now()
+        tableName: game
+- changeSet:
+    id: 1569812220147-8
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: timestamp
+        columnName: updated_date
+        defaultValueComputed: now()
+        tableName: game_copy
+- changeSet:
+    id: 1569812220147-9
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: timestamp
+        columnName: updated_date
+        defaultValueComputed: now()
+        tableName: gamer
+

@@ -1,0 +1,51 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569821443126-9
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            defaultValueNumeric: !!float '0'
+            name: price_buylist_rupees
+            type: numeric(19, 2)
+        tableName: game
+- changeSet:
+    id: 1569821443126-10
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            defaultValueNumeric: !!float '0'
+            name: price_sell_rupees
+            type: numeric(19, 2)
+        tableName: game
+- changeSet:
+    id: 1569821443126-1
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: game
+- changeSet:
+    id: 1569821443126-2
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: game_copy
+- changeSet:
+    id: 1569821443126-3
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: gamer
+

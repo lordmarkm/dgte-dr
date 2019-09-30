@@ -12,7 +12,7 @@ export class LandingPageComponent implements OnInit {
   public isLoading = false;
   public buyGames1: Game[];
   public buyGames2: Game[];
-
+  private carouselCalled:boolean = false;
   constructor(private router: Router,
               private gameService: GameService) { }
 
@@ -27,11 +27,12 @@ export class LandingPageComponent implements OnInit {
   }
 
   ngAfterViewChecked() {
-      console.log('After view checked');
+    this.doCarousel();
   }
 
   private doCarousel() {
-      if ($("#product-section").length) {
+      if (!this.carouselCalled && $(".product-section-content").length) {
+          this.carouselCalled = true;
           let elem: any = $('#product-section');
           elem.owlCarousel({
               navigation : true,

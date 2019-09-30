@@ -49,6 +49,14 @@ public class Game extends BaseEntity {
     @ColumnDefault("0")
     private BigDecimal sellPrice;
 
+    @Column(name = "price_buylist_rupees")
+    @ColumnDefault("0")
+    private BigDecimal buylistRupees;
+
+    @Column(name = "price_sell_rupees")
+    @ColumnDefault("0")
+    private BigDecimal sellRupees;
+
     @Column(name = "img_url")
     private String imageUrl;
 }

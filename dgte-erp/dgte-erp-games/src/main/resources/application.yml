@@ -12,13 +12,13 @@ spring:
     password: postgres
     driverClassName: org.postgresql.Driver
   jpa:
-    hibernate.ddl-auto: none
+    hibernate.ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
     open-in-view: false
     properties:
       hibernate.jdbc.lob.non_contextual_creation: true
   liquibase:
-    enabled: true
+    enabled: false
 
 logging:
   level:

@@ -1,0 +1,29 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569820165987-1
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: game
+- changeSet:
+    id: 1569820165987-2
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: game_copy
+- changeSet:
+    id: 1569820165987-3
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: gamer
+

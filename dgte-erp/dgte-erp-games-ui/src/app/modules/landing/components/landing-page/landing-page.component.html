@@ -36,7 +36,7 @@
                   <div class="about-product">
                     <h4><a href="#" class="item-name">{{game.name}}</a></h4>
                     <span class="review-icon clearfix"> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star"></i> </span>
-                    <span class="price"><span>$ 70.00</span>&nbsp; <del> $ 97.00</del></span>
+                    <span class="price"><span>{{game.sellPrice | currency: '₱'}}</span>&nbsp; <rupee-price [price]="game.sellRupees"></rupee-price></span>
                   </div>
                 </div>
                 <div *ngIf="buyGames2[i]" class="product-description">
@@ -54,7 +54,7 @@
                   <div class="about-product">
                     <h4><a href="#" class="item-name">{{buyGames2[i].name}}</a></h4>
                     <span class="review-icon clearfix"> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star"></i> </span>
-                    <span class="price"><span>$ 70.00</span>&nbsp; <del> $ 97.00</del></span>
+                    <span class="price"><span>{{buyGames2[i].sellPrice | currency: '₱'}}</span>&nbsp; <rupee-price [price]="buyGames2[i].sellRupees"></rupee-price></span>
                   </div>
                 </div>
               </div>
