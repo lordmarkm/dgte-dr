@@ -1,204 +1,333 @@
-      <div class="content homepage-three">
-        <div class="featured-block container">
-          <div class="row">
-            <div class="block-heading">
-              <h2>FEATURED PRODUCTS</h2>
-              <span class="border-image"> <img src="assets/svg/shape.svg" alt="image" class="svg" /> </span>
-            </div>
-            <ul class="product-block center-block"  id="project-terms">
-              <li id="all">
-                <a href="javascript:void(0)">ALL</a>
-              </li>
-              <li id="cat1">
-                <a href="javascript:void(0)">HOT</a>
-              </li>
-              <li id="cat2">
-                <a href="javascript:void(0)">BEST</a>
-              </li>
-              <li id="cat3">
-                <a href="javascript:void(0)">NEW</a>
-              </li>
-            </ul>
-            <div class="product-section main" id="product-section">
-              <div *ngFor="let game of buyGames1; let i = index" class="product-section-content main-item cat1">
-                <div class="product-description">
-                  <figure class="product-image">
-                    <img [src]="game.imageUrl" class="product-icon" alt="product" />
-                    <div class="overlay">
-                      <div class="product-view-block">
-                        <div class="product-view clearfix">
-                          <a href="assets/images/img8.jpg" class="zoom icon_zoom-in_alt single_image"></a><a href="#" class="data-report icon_datareport"></a><a href="#" class="heart icon_heart_alt"></a>
-                        </div>
-                        <a href="#" class="btn add-cart">ADD TO CART</a>
-                      </div>
-                    </div>
-                  </figure>
-                  <div class="about-product">
-                    <h4><a href="#" class="item-name">{{game.name}}</a></h4>
-                    <span class="review-icon clearfix"> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star"></i> </span>
-                    <span class="price"><span>{{game.sellPrice | currency: '₱'}}</span>&nbsp; <rupee-price [price]="game.sellRupees"></rupee-price></span>
+<div class="homepage-three-banner forcefullwidth_wrapper_tp_banner">
+  <div id="banner-owl-demo" class="owl-carousel owl-theme">
+    <div class="item">
+      <figure class="banner-image">
+        <img src="assets/images/slider3.jpg" alt="image" />
+        <div class="banner-text">
+          <span class="img-text"><span>LITTLE PRICES </span> | <strong>
+              BOYS</strong></span> <a href="#" class="read-more-content">READ MORE <i
+            class="eicon fs1" data-icon="$"> </i></a>
+        </div>
+      </figure>
+    </div>
+    <div class="item">
+      <figure class="banner-image">
+        <img src="assets/images/slider2.jpg" alt="image" />
+        <div class="banner-text">
+          <span class="img-text"><span>LITTLE PRICES </span> | <strong>
+              GIRLS</strong></span> <a href="#" class="read-more-content">READ MORE
+            <i class="eicon fs1" data-icon="$"> </i>
+          </a>
+        </div>
+      </figure>
+    </div>
+    <div class="item">
+      <figure class="banner-image">
+        <img src="assets/images/slider1.jpg" alt="image" />
+        <div class="banner-text">
+          <span class="img-text"><span>SWEATERS &amp;
+              CARDIGANS </span> | <strong> BOYS</strong></span> <a href="#"
+            class="read-more-content">READ MORE <i class="eicon fs1"
+            data-icon="$"> </i></a>
+        </div>
+      </figure>
+    </div>
+    <div class="item">
+      <figure class="banner-image">
+        <img src="assets/images/slider4.jpg" alt="image" />
+        <div class="banner-text">
+          <span class="img-text"><span>DRESSES AND
+              JUMPSUITS </span> | <strong> GIRLS</strong></span> <a href="#"
+            class="read-more-content">READ MORE <i class="eicon fs1"
+            data-icon="$"> </i></a>
+        </div>
+      </figure>
+    </div>
+    <div class="item">
+      <figure class="banner-image">
+        <img src="assets/images/slider3.jpg" alt="image" />
+        <div class="banner-text">
+          <span class="img-text"><span>LITTLE PRICES </span> | <strong>
+              BOYS</strong></span> <a href="#" class="read-more-content">READ MORE <i
+            class="eicon fs1" data-icon="$"> </i></a>
+        </div>
+      </figure>
+    </div>
+    <div class="item">
+      <figure class="banner-image">
+        <img src="assets/images/slider2.jpg" alt="image" />
+        <div class="banner-text">
+          <span class="img-text"><span>LITTLE PRICES </span> | <strong>
+              GIRLS</strong></span> <a href="#" class="read-more-content">READ MORE
+            <i class="eicon fs1" data-icon="$"> </i>
+          </a>
+        </div>
+      </figure>
+    </div>
+    <div class="item">
+      <figure class="banner-image">
+        <img src="assets/images/slider1.jpg" alt="image" />
+        <div class="banner-text">
+          <span class="img-text"><span>SWEATERS &amp;
+              CARDIGANS </span> | <strong> BOYS</strong></span> <a href="#"
+            class="read-more-content">READ MORE <i class="eicon fs1"
+            data-icon="$"> </i></a>
+        </div>
+      </figure>
+    </div>
+    <div class="item">
+      <figure class="banner-image">
+        <img src="assets/images/slider4.jpg" alt="image" />
+        <div class="banner-text">
+          <span class="img-text"><span>DRESSES AND
+              JUMPSUITS </span> | <strong> GIRLS</strong></span> <a href="#"
+            class="read-more-content">READ MORE <i class="eicon fs1"
+            data-icon="$"> </i></a>
+        </div>
+      </figure>
+    </div>
+  </div>
+</div>
+<div class="content homepage-three">
+  <div class="featured-block container">
+    <div class="row">
+      <div class="block-heading">
+        <h2>FEATURED PRODUCTS</h2>
+        <span class="border-image"> <img
+          src="assets/svg/shape.svg" alt="image" class="svg" />
+        </span>
+      </div>
+      <ul class="product-block center-block" id="project-terms">
+        <li id="all"><a href="javascript:void(0)">ALL</a></li>
+        <li id="cat1"><a href="javascript:void(0)">HOT</a></li>
+        <li id="cat2"><a href="javascript:void(0)">BEST</a></li>
+        <li id="cat3"><a href="javascript:void(0)">NEW</a></li>
+      </ul>
+      <div class="product-section main" id="product-section">
+        <div *ngFor="let game of buyGames1; let i = index"
+          class="product-section-content main-item cat1">
+          <div class="product-description">
+            <figure class="product-image">
+              <img [src]="game.imageUrl" class="product-icon"
+                alt="product" />
+              <div class="overlay">
+                <div class="product-view-block">
+                  <div class="product-view clearfix">
+                    <a href="assets/images/img8.jpg"
+                      class="zoom icon_zoom-in_alt single_image"></a><a
+                      href="#" class="data-report icon_datareport"></a><a
+                      href="#" class="heart icon_heart_alt"></a>
                   </div>
-                </div>
-                <div *ngIf="buyGames2[i]" class="product-description">
-                  <figure class="product-image">
-                    <img [src]="buyGames2[i].imageUrl" class="product-icon" alt="product" />
-                    <div class="overlay">
-                      <div class="product-view-block">
-                        <div class="product-view clearfix">
-                          <a href="assets/images/img8.jpg" class="zoom icon_zoom-in_alt single_image"></a><a href="#" class="data-report icon_datareport"></a><a href="#" class="heart icon_heart_alt"></a>
-                        </div>
-                        <a href="#" class="btn add-cart">ADD TO CART</a>
-                      </div>
-                    </div>
-                  </figure>
-                  <div class="about-product">
-                    <h4><a href="#" class="item-name">{{buyGames2[i].name}}</a></h4>
-                    <span class="review-icon clearfix"> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star active"></i> <i class="icon_star"></i> </span>
-                    <span class="price"><span>{{buyGames2[i].sellPrice | currency: '₱'}}</span>&nbsp; <rupee-price [price]="buyGames2[i].sellRupees"></rupee-price></span>
-                  </div>
+                  <a href="#" class="btn add-cart">ADD TO CART</a>
                 </div>
               </div>
-            </div>
-            <div id="projects-copy" class="hide"></div>
-          </div>
-        </div>
-        <div class="lookbook-section clearfix">
-          <div class="lookbook-boys zoom">
-            <img src="assets/images/img20.jpg" alt="" />
-            <div class="lookbook-left">
-              <strong class="lookbook">LOOKBOOK</strong>
-              <span class="lookbook-text">Baby Boys</span>
-            </div>
-          </div>
-          <div class="lookbook-girls zoom">
-            <img src="assets/images/img21.jpg" alt="" />
-            <div class="lookbook-right">
-              <strong class="lookbook">LOOKBOOK</strong>
-              <span class="lookbook-text">Baby Girls</span>
+            </figure>
+            <div class="about-product">
+              <h4>
+                <a href="#" class="item-name">{{game.name}}</a>
+              </h4>
+              <span class="review-icon clearfix"> <i
+                class="icon_star active"></i> <i
+                class="icon_star active"></i> <i
+                class="icon_star active"></i> <i
+                class="icon_star active"></i> <i class="icon_star"></i>
+              </span> <span class="price"><span>{{game.sellPrice
+                  | currency: '₱'}}</span>&nbsp; <rupee-price
+                  [price]="game.sellRupees"></rupee-price></span>
             </div>
           </div>
-        </div>
-        <div class="news-block container">
-          <div class="row">
-            <div class="block-heading">
-              <h2>LATEST NEWS</h2>
-              <span class="border-image"> <img src="assets/svg/shape.svg" alt="image" class="svg" /> </span>
-            </div>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="row">
-                <div id="news-owl-demo" class="owl-carousel owl-theme">
-                  <div class="item">
-                    <div class="news-block-wrapper zoom">
-                      <figure class="news-icon">
-                        <img src="assets/images/img17.jpg" alt="image" />
-                      </figure>
-                      <div class="more-news">
-                        <h4><a href="#">style girl with tattoo</a></h4>
-                        <span class="date">22 / 10 / 2015</span>
-                        <p>
-                          Praesent eu massa vel diam laoreet elementum acuti sed felis. Donec suscipit ultricies risus...
-                        </p>
-                        <a href="#" class="read-more">read more <i class="eicon fs1" data-icon="$"></i></a>
-                      </div>
-                    </div>
+          <div *ngIf="buyGames2[i]" class="product-description">
+            <figure class="product-image">
+              <img [src]="buyGames2[i].imageUrl" class="product-icon"
+                alt="product" />
+              <div class="overlay">
+                <div class="product-view-block">
+                  <div class="product-view clearfix">
+                    <a href="assets/images/img8.jpg"
+                      class="zoom icon_zoom-in_alt single_image"></a><a
+                      href="#" class="data-report icon_datareport"></a><a
+                      href="#" class="heart icon_heart_alt"></a>
                   </div>
-                  <div class="item">
-                    <div class="news-block-wrapper zoom">
-                      <figure class="news-icon">
-                        <img src="assets/images/img18.jpg" alt="image" />
-                      </figure>
-                      <div class="more-news">
-                        <h4><a href="#">karo shirt for men cooler</a></h4>
-                        <span class="date">22 / 10 / 2015</span>
-                        <p>
-                          Praesent eu massa vel diam laoreet elementum acuti sed felis. Donec suscipit ultricies risus...
-                        </p>
-                        <a href="#" class="read-more">read more <i class="eicon fs1" data-icon="$"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="news-block-wrapper zoom">
-                      <figure class="news-icon">
-                        <img src="assets/images/img19.jpg" alt="image" />
-                      </figure>
-                      <div class="more-news">
-                        <h4><a href="#">leather shoes for men</a></h4>
-                        <span class="date">22 / 10 / 2015</span>
-                        <p>
-                          Praesent eu massa vel diam laoreet elementum acuti sed felis. Donec suscipit ultricies risus...
-                        </p>
-                        <a href="#" class="read-more">read more <i class="eicon fs1" data-icon="$"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="news-block-wrapper zoom">
-                      <figure class="news-icon">
-                        <img src="assets/images/img17.jpg" alt="image" />
-                      </figure>
-                      <div class="more-news">
-                        <h4><a href="#">style girl with tattoo</a></h4>
-                        <span class="date">22 / 10 / 2015</span>
-                        <p>
-                          Praesent eu massa vel diam laoreet elementum acuti sed felis. Donec suscipit ultricies risus...
-                        </p>
-                        <a href="#" class="read-more">read more <i class="eicon fs1" data-icon="$"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="news-block-wrapper zoom">
-                      <figure class="news-icon">
-                        <img src="assets/images/img18.jpg" alt="image" />
-                      </figure>
-                      <div class="more-news">
-                        <h4><a href="#">style girl with tattoo</a></h4>
-                        <span class="date">22 / 10 / 2015</span>
-                        <p>
-                          Praesent eu massa vel diam laoreet elementum acuti sed felis. Donec suscipit ultricies risus...
-                        </p>
-                        <a href="#" class="read-more">read more <i class="eicon fs1" data-icon="$"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="news-block-wrapper zoom">
-                      <figure class="news-icon">
-                        <img src="assets/images/img19.jpg" alt="image" />
-                      </figure>
-                      <div class="more-news">
-                        <h4><a href="#">style girl with tattoo</a></h4>
-                        <span class="date">22 / 10 / 2015</span>
-                        <p>
-                          Praesent eu massa vel diam laoreet elementum acuti sed felis. Donec suscipit ultricies risus...
-                        </p>
-                        <a href="#" class="read-more">read more <i class="eicon fs1" data-icon="$"></i></a>
-                      </div>
-                    </div>
-                  </div>
+                  <a href="#" class="btn add-cart">ADD TO CART</a>
                 </div>
               </div>
+            </figure>
+            <div class="about-product">
+              <h4>
+                <a href="#" class="item-name">{{buyGames2[i].name}}</a>
+              </h4>
+              <span class="review-icon clearfix"> <i
+                class="icon_star active"></i> <i
+                class="icon_star active"></i> <i
+                class="icon_star active"></i> <i
+                class="icon_star active"></i> <i class="icon_star"></i>
+              </span> <span class="price"><span>{{buyGames2[i].sellPrice
+                  | currency: '₱'}}</span>&nbsp; <rupee-price
+                  [price]="buyGames2[i].sellRupees"></rupee-price></span>
             </div>
           </div>
         </div>
-        <div class="information-block container">
-          <div class="row">
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="info-item">
-                <a href="#"><i class="icon-line" data-icon=">"></i> <strong>FREE SHIPPING WORLDWIDE</strong> <span class="information">Guaranteed Delivery In 7 Days</span></a>
+      </div>
+      <div id="projects-copy" class="hide"></div>
+    </div>
+  </div>
+  <div class="lookbook-section clearfix">
+    <div class="lookbook-boys zoom">
+      <img src="assets/images/img20.jpg" alt="" />
+      <div class="lookbook-left">
+        <strong class="lookbook">LOOKBOOK</strong> <span
+          class="lookbook-text">Baby Boys</span>
+      </div>
+    </div>
+    <div class="lookbook-girls zoom">
+      <img src="assets/images/img21.jpg" alt="" />
+      <div class="lookbook-right">
+        <strong class="lookbook">LOOKBOOK</strong> <span
+          class="lookbook-text">Baby Girls</span>
+      </div>
+    </div>
+  </div>
+  <div class="news-block container">
+    <div class="row">
+      <div class="block-heading">
+        <h2>LATEST NEWS</h2>
+        <span class="border-image"> <img
+          src="assets/svg/shape.svg" alt="image" class="svg" />
+        </span>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+          <div id="news-owl-demo" class="owl-carousel owl-theme">
+            <div class="item">
+              <div class="news-block-wrapper zoom">
+                <figure class="news-icon">
+                  <img src="assets/images/img17.jpg" alt="image" />
+                </figure>
+                <div class="more-news">
+                  <h4>
+                    <a href="#">style girl with tattoo</a>
+                  </h4>
+                  <span class="date">22 / 10 / 2015</span>
+                  <p>Praesent eu massa vel diam laoreet elementum
+                    acuti sed felis. Donec suscipit ultricies risus...</p>
+                  <a href="#" class="read-more">read more <i
+                    class="eicon fs1" data-icon="$"></i></a>
+                </div>
               </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="info-item">
-                <a href="#"><i class="icon icon-basic-life-buoy"></i> <strong>24/24 SUPPORT SERVICES</strong> <span class="information">Call Hotline 1900-888999</span></a>
+            <div class="item">
+              <div class="news-block-wrapper zoom">
+                <figure class="news-icon">
+                  <img src="assets/images/img18.jpg" alt="image" />
+                </figure>
+                <div class="more-news">
+                  <h4>
+                    <a href="#">karo shirt for men cooler</a>
+                  </h4>
+                  <span class="date">22 / 10 / 2015</span>
+                  <p>Praesent eu massa vel diam laoreet elementum
+                    acuti sed felis. Donec suscipit ultricies risus...</p>
+                  <a href="#" class="read-more">read more <i
+                    class="eicon fs1" data-icon="$"></i></a>
+                </div>
               </div>
             </div>
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="info-item">
-                <a href="#"><i class="icon icon-basic-anticlockwise"></i> <strong>MONEY BACK GUARANTEE</strong> <span class="information">Send Within 30 Days</span></a>
+            <div class="item">
+              <div class="news-block-wrapper zoom">
+                <figure class="news-icon">
+                  <img src="assets/images/img19.jpg" alt="image" />
+                </figure>
+                <div class="more-news">
+                  <h4>
+                    <a href="#">leather shoes for men</a>
+                  </h4>
+                  <span class="date">22 / 10 / 2015</span>
+                  <p>Praesent eu massa vel diam laoreet elementum
+                    acuti sed felis. Donec suscipit ultricies risus...</p>
+                  <a href="#" class="read-more">read more <i
+                    class="eicon fs1" data-icon="$"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="news-block-wrapper zoom">
+                <figure class="news-icon">
+                  <img src="assets/images/img17.jpg" alt="image" />
+                </figure>
+                <div class="more-news">
+                  <h4>
+                    <a href="#">style girl with tattoo</a>
+                  </h4>
+                  <span class="date">22 / 10 / 2015</span>
+                  <p>Praesent eu massa vel diam laoreet elementum
+                    acuti sed felis. Donec suscipit ultricies risus...</p>
+                  <a href="#" class="read-more">read more <i
+                    class="eicon fs1" data-icon="$"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="news-block-wrapper zoom">
+                <figure class="news-icon">
+                  <img src="assets/images/img18.jpg" alt="image" />
+                </figure>
+                <div class="more-news">
+                  <h4>
+                    <a href="#">style girl with tattoo</a>
+                  </h4>
+                  <span class="date">22 / 10 / 2015</span>
+                  <p>Praesent eu massa vel diam laoreet elementum
+                    acuti sed felis. Donec suscipit ultricies risus...</p>
+                  <a href="#" class="read-more">read more <i
+                    class="eicon fs1" data-icon="$"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="news-block-wrapper zoom">
+                <figure class="news-icon">
+                  <img src="assets/images/img19.jpg" alt="image" />
+                </figure>
+                <div class="more-news">
+                  <h4>
+                    <a href="#">style girl with tattoo</a>
+                  </h4>
+                  <span class="date">22 / 10 / 2015</span>
+                  <p>Praesent eu massa vel diam laoreet elementum
+                    acuti sed felis. Donec suscipit ultricies risus...</p>
+                  <a href="#" class="read-more">read more <i
+                    class="eicon fs1" data-icon="$"></i></a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="information-block container">
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="info-item">
+          <a href="#"><i class="icon-line" data-icon=">"></i> <strong>FREE
+              SHIPPING WORLDWIDE</strong> <span class="information">Guaranteed
+              Delivery In 7 Days</span></a>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="info-item">
+          <a href="#"><i class="icon icon-basic-life-buoy"></i> <strong>24/24
+              SUPPORT SERVICES</strong> <span class="information">Call
+              Hotline 1900-888999</span></a>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="info-item">
+          <a href="#"><i class="icon icon-basic-anticlockwise"></i>
+            <strong>MONEY BACK GUARANTEE</strong> <span
+            class="information">Send Within 30 Days</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

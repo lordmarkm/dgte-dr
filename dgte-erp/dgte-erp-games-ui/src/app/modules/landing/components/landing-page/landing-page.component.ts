@@ -45,6 +45,22 @@ export class LandingPageComponent implements OnInit {
               itemsMobile : [479,1],
               singleItem : false
           });
+
+          if ($("#banner-owl-demo").length) {
+            let bannerOwlElem: any = $("#banner-owl-demo");
+            bannerOwlElem.owlCarousel({
+              navigation : true,
+              pagination : false,
+              items : 4,
+              itemsDesktop : [1199, 4],
+              itemsDesktopSmall : [979, 3],
+              itemsTablet : [768, 2],
+              itemsMobile : [479, 1],
+              slideSpeed : 300,
+              paginationSpeed : 400,
+              singleItem : false
+            });
+          }
       }
   }
 }
