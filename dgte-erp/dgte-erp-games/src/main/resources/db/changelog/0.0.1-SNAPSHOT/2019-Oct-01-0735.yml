@@ -1,0 +1,61 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569915373802-9
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: display_name
+            type: varchar(255)
+        tableName: gamer
+- changeSet:
+    id: 1569915373802-10
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: varchar(255)
+        tableName: gamer
+- changeSet:
+    id: 1569915373802-11
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email
+        constraintName: UC_GAMEREMAIL_COL
+        tableName: gamer
+- changeSet:
+    id: 1569915373802-1
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: game
+- changeSet:
+    id: 1569915373802-2
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: game_copy
+- changeSet:
+    id: 1569915373802-3
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: gamer
+

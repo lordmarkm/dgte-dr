@@ -1,20 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@games/core/services';
+import { AngularFireAuth } from "@angular/fire/auth";
 
 @Component({
   selector: 'dgte-erp-games-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  public displayName: String;
+  public displayImage: String;
+
+  constructor(private authService: AuthService,
+          public afAuth: AngularFireAuth) { }
 
   ngOnInit() {
     this.doJqueryStuff();
+    this.afAuth.authState.subscribe(auth => {
+        console.log(auth);
+        if (auth) {
+            this.displayName = auth['displayName'];
+            this.displayImage = auth['photoURL'];
+        } else {
+            delete this.displayName;
+            delete this.displayImage;
+        }
+    });
   }
 
   public firebaseLogin() {
       this.authService.FacebookAuth();
+  }
+
+  public firebaseLogout() {
+      this.authService.logout();
   }
 
   private doJqueryStuff() {

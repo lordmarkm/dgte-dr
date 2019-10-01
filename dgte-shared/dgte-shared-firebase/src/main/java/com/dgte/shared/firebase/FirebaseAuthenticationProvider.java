@@ -63,7 +63,7 @@ public class FirebaseAuthenticationProvider extends AbstractUserDetailsAuthentic
 
     private void setAuthorities(FirebaseUserDetails fbud) {
         if (null != userAuthorityService) {
-            fbud.setAuthorities(userAuthorityService.getUserAuthorities(fbud.getUsername()).getBody());
+            fbud.setAuthorities(userAuthorityService.getUserAuthorities(fbud));
         } else {
             LOG.warn("No authority client is defined! User will have no authorities in this Spring context");
         }

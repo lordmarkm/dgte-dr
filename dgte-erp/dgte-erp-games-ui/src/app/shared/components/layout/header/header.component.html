@@ -5,10 +5,17 @@
         <div class="col-xs-12">
           <ul class="top-header-left clearfix">
             <li class="register-link clearfix">
-              <i class="lock-icon icon_lock"> </i>
-              <a (click)="firebaseLogin()" href="javascript:;" class="login">Log In</a>
-              <span>/</span>
-              <a href="#" class="register">Register </a>
+              <ng-container *ngIf="!displayName">
+                <i class="lock-icon icon_lock"> </i>
+                <a (click)="firebaseLogin()" href="javascript:;" class="login">Log In</a>
+                <span>/</span>
+                <a href="#" class="register">Register </a>
+              </ng-container>
+              <ng-container *ngIf="displayName">
+                <img [src]="displayImage" class="profile-img"/>
+                <span class="ml-1">{{displayName}}</span>
+                <a href="javascript:;" (click)="firebaseLogout()">Log Out</a>
+              </ng-container>
             </li>
             <li class="select-wrapper"><select class="select">
                 <option>English</option>

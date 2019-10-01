@@ -35,3 +35,5 @@ databaseChangeLog:
             quotchar: '"'
   - include:
       file: ./db/changelog/0.0.1-SNAPSHOT/2019-Sep-30-0530.yml
+  - include:
+      file: ./db/changelog/0.0.1-SNAPSHOT/2019-Oct-01-0735.yml

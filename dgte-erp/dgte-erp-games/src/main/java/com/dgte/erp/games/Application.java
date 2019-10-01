@@ -2,6 +2,9 @@ package com.dgte.erp.games;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
+
+import com.dgte.shared.firebase.FirebaseConfig;
 
 /**
  *
@@ -10,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
+@Import({ FirebaseConfig.class })
 public class Application {
 
     public static void main(String[] args) {

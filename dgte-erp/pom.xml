@@ -69,6 +69,11 @@
         <artifactId>dgte-shared-app</artifactId>
         <version>${dgte-shared.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.dgte</groupId>
+        <artifactId>dgte-shared-firebase</artifactId>
+        <version>${dgte-shared.version}</version>
+      </dependency>
 
       <!-- Utility Dependencies -->
     <dependency>

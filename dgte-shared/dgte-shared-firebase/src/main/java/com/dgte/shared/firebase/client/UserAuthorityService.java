@@ -2,11 +2,12 @@ package com.dgte.shared.firebase.client;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
+
+import com.dgte.shared.firebase.FirebaseUserDetails;
 
 public interface UserAuthorityService {
 
-    ResponseEntity<List<GrantedAuthority>> getUserAuthorities(String username);
+    List<GrantedAuthority> getUserAuthorities(FirebaseUserDetails firebaseUserDetails);
 
 }

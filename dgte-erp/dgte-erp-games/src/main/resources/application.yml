@@ -29,3 +29,6 @@ minio:
   accessKey: 8IF0YHYC3P2GZ4SPHC8R
   secretKey: 6Y7JDRrjFbVXiS1E9Vuhf8OOll3EcREno7BlfvIw
   bucketName: dgte-erp-rent
+
+firebase:
+  config-file: kaiten-game-firebase-adminsdk.json
