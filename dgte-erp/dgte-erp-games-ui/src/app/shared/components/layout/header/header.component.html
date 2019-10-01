@@ -4,10 +4,12 @@
       <div class="row clearfix">
         <div class="col-xs-12">
           <ul class="top-header-left clearfix">
-            <li class="register-link clearfix"><i
-              class="lock-icon icon_lock"> </i><a href="login.html"
-              class="login">Log In</a> <span>/</span><a href="#"
-              class="register">Register </a></li>
+            <li class="register-link clearfix">
+              <i class="lock-icon icon_lock"> </i>
+              <a (click)="firebaseLogin()" href="javascript:;" class="login">Log In</a>
+              <span>/</span>
+              <a href="#" class="register">Register </a>
+            </li>
             <li class="select-wrapper"><select class="select">
                 <option>English</option>
                 <option>Spanish</option>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@games/core/services';
 
 @Component({
   selector: 'dgte-erp-games-header',
@@ -6,8 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  constructor(private authService: AuthService) { }
+
   ngOnInit() {
     this.doJqueryStuff();
+  }
+
+  public firebaseLogin() {
+      this.authService.FacebookAuth();
   }
 
   private doJqueryStuff() {
@@ -35,7 +42,8 @@ export class HeaderComponent implements OnInit {
     });
     if (jQuery("#countdown").length) {
       //==========countdown=======
-      jQuery("#countdown").countdown({
+      let countdown: any = jQuery("#countdown");
+      countdown.countdown({
         //Time set = Year, Month,Date
         until : new Date(2015, 12, 19)
       });

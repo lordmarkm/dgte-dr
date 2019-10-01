@@ -12,7 +12,11 @@ import { SharedModule } from '@los/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-@NgModule({
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
+
+@NgModule({ 
   declarations: [
     AppComponent,
     PageNotFoundComponent
@@ -26,6 +30,8 @@ import { AppComponent } from './app.component';
     CoreModule,
     SharedModule,
     AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase, 'kaiten-game'),
+    AngularFireAuthModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

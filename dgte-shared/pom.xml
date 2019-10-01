@@ -22,5 +22,6 @@
     <module>dgte-shared-imgur</module>
     <module>dgte-shared-jpa</module>
     <module>dgte-shared-app</module>
+    <module>dgte-shared-firebase</module>
   </modules>
 </project>

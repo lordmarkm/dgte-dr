@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  apiUrl: '/api/v1'
+  apiUrl: '/api/v1',
+  firebase: {
+      apiKey: 'AIzaSyDQ-yXoIPjgh2BP1rSUKMTaDkPOcbl9sXo',
+      authDomain: 'kaiten-game.firebaseapp.com'
+  }
 };
 
 /*
