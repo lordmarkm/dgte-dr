@@ -1,0 +1,95 @@
+databaseChangeLog:
+- changeSet:
+    id: 1570003512587-12
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: now()
+            name: due_date
+            type: date
+        tableName: game_order_item_rent
+- changeSet:
+    id: 1570003512587-13
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: NEW
+            name: status
+            type: varchar(255)
+        tableName: game_order_item_buy
+- changeSet:
+    id: 1570003512587-14
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: NEW
+            name: status
+            type: varchar(255)
+        tableName: game_order_item_rent
+- changeSet:
+    id: 1570003512587-15
+    author: mbmartinez (generated)
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableName: game_order_item_sell
+        constraintName: FKj36b060d0c2fkdj8q0ewl0rxw
+- changeSet:
+    id: 1570003512587-16
+    author: mbmartinez (generated)
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableName: game_order_item_sell
+        constraintName: FKpasxdc6ylx0wdtwir0ny4cd3w
+- changeSet:
+    id: 1570003512587-17
+    author: mbmartinez (generated)
+    changes:
+    - dropColumn:
+        columnName: fulf_game_cp_id
+        tableName: game_order_item_sell
+- changeSet:
+    id: 1570003512587-18
+    author: mbmartinez (generated)
+    changes:
+    - dropColumn:
+        columnName: game_id
+        tableName: game_order_item_sell
+- changeSet:
+    id: 1570003512587-1
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: game
+- changeSet:
+    id: 1570003512587-2
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: game_copy
+- changeSet:
+    id: 1570003512587-3
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: gamer
