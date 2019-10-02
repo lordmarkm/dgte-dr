@@ -1,0 +1,423 @@
+databaseChangeLog:
+- changeSet:
+    id: 1569996092772-10
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: addr_sellPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: uuid_generate_v4()
+            name: code
+            type: UUID
+        - column:
+            defaultValueComputed: now()
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            defaultValueComputed: now()
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: line_1
+            type: VARCHAR(255)
+        - column:
+            name: line_2
+            type: VARCHAR(255)
+        - column:
+            name: line_3
+            type: VARCHAR(255)
+        tableName: addr_sell
+- changeSet:
+    id: 1569996092772-11
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: game_orderPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: uuid_generate_v4()
+            name: code
+            type: UUID
+        - column:
+            defaultValueComputed: now()
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            defaultValueComputed: now()
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: addr_line_1
+            type: VARCHAR(255)
+        - column:
+            name: addr_line_2
+            type: VARCHAR(255)
+        - column:
+            name: addr_line_3
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: order_type
+            type: VARCHAR(255)
+        - column:
+            name: addr_sell_id
+            type: BIGINT
+        tableName: game_order
+- changeSet:
+    id: 1569996092772-12
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: order_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: buy_price
+            type: numeric(19, 2)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: buy_rupees
+            type: numeric(19, 2)
+        - column:
+            name: fulf_game_cp_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: game_id
+            type: BIGINT
+        tableName: game_order_item_buy
+- changeSet:
+    id: 1569996092772-13
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: order_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: deposit_rupees
+            type: numeric(19, 2)
+        - column:
+            name: fulf_game_cp_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: game_id
+            type: BIGINT
+        tableName: game_order_item_rent
+- changeSet:
+    id: 1569996092772-14
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: order_id
+            type: BIGINT
+        - column:
+            name: fulf_game_cp_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: game_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: sell_price
+            type: numeric(19, 2)
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: sell_rupees
+            type: numeric(19, 2)
+        tableName: game_order_item_sell
+- changeSet:
+    id: 1569996092772-15
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: gamer_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: line_1
+            type: VARCHAR(255)
+        - column:
+            name: line_2
+            type: VARCHAR(255)
+        - column:
+            name: line_3
+            type: VARCHAR(255)
+        - column:
+            defaultValue: N
+            name: primary
+            type: CHAR(1)
+        tableName: gamer_addr
+- changeSet:
+    id: 1569996092772-16
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_ADDR_SELLCODE_COL
+        tableName: addr_sell
+- changeSet:
+    id: 1569996092772-17
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_GAME_ORDERCODE_COL
+        tableName: game_order
+- changeSet:
+    id: 1569996092772-18
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: addr_sell_id
+        baseTableName: game_order
+        constraintName: FK4on2chsllgj98ivnjl2j2el9p
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: addr_sell
+        validate: true
+- changeSet:
+    id: 1569996092772-19
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: fulf_game_cp_id
+        baseTableName: game_order_item_buy
+        constraintName: FK5ku10tjbu28qhfp7bd1ut19wl
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game_copy
+        validate: true
+- changeSet:
+    id: 1569996092772-20
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: game_id
+        baseTableName: game_order_item_buy
+        constraintName: FK6xen6p27dxsnkvr3pttgfkoky
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game
+        validate: true
+- changeSet:
+    id: 1569996092772-21
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: order_id
+        baseTableName: game_order_item_buy
+        constraintName: FK89nrnxpw5bvjwq35tttugut7b
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game_order
+        validate: true
+- changeSet:
+    id: 1569996092772-22
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: order_id
+        baseTableName: game_order_item_rent
+        constraintName: FKelmtah9cj8igub27n2vj4yvfr
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game_order
+        validate: true
+- changeSet:
+    id: 1569996092772-23
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: order_id
+        baseTableName: game_order_item_sell
+        constraintName: FKiytgvgtbhcxa5d5a99ib5ixrm
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game_order
+        validate: true
+- changeSet:
+    id: 1569996092772-24
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: game_id
+        baseTableName: game_order_item_sell
+        constraintName: FKj36b060d0c2fkdj8q0ewl0rxw
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game
+        validate: true
+- changeSet:
+    id: 1569996092772-25
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: gamer_id
+        baseTableName: gamer_addr
+        constraintName: FKkram1ydvbcu7dlaky1sadmetu
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: gamer
+        validate: true
+- changeSet:
+    id: 1569996092772-26
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: game_id
+        baseTableName: game_order_item_rent
+        constraintName: FKna3tfdlo6sc25ul99cfgn0d9g
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game
+        validate: true
+- changeSet:
+    id: 1569996092772-27
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: fulf_game_cp_id
+        baseTableName: game_order_item_sell
+        constraintName: FKpasxdc6ylx0wdtwir0ny4cd3w
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game_copy
+        validate: true
+- changeSet:
+    id: 1569996092772-28
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: fulf_game_cp_id
+        baseTableName: game_order_item_rent
+        constraintName: FKpt1dxsy81n0est45pw9r4u9bf
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game_copy
+        validate: true
+- changeSet:
+    id: 1569996092772-1
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: game
+- changeSet:
+    id: 1569996092772-2
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: game_copy
+- changeSet:
+    id: 1569996092772-3
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: uuid
+        columnName: code
+        defaultValueComputed: uuid_generate_v4()
+        tableName: gamer
+- changeSet:
+    id: 1569997571427-12
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: gamer_id
+            type: int8
+        tableName: game_order
+- changeSet:
+    id: 1569997571427-13
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: gamer_id
+        baseTableName: game_order
+        constraintName: FKk1hlaod7rqs2ec4yidt58bi52
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: gamer
+        validate: true

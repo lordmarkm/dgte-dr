@@ -1,6 +1,10 @@
 package com.dgte.erp.games.domain;
 
+import java.util.List;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
 import com.dgte.shared.jpa.domain.BaseEntity;
@@ -18,5 +22,9 @@ public class Gamer extends BaseEntity {
 
     @Column(name = "email", unique = true, nullable = false)
     private String email;
+
+    @ElementCollection
+    @CollectionTable(name = "gamer_addr")
+    private List<GamerDeliveryAddress> addresses;
 
 }
