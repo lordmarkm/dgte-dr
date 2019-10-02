@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from '@los/shared/components/404/page-not-found
 
 const routes: Routes = [
   { path: '', loadChildren: './modules/landing/landing.module#LandingModule' },
+  { path: 'user-profile', loadChildren: './modules/user-profile/user-profile.module#UserProfileModule' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

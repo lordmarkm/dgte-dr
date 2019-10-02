@@ -1,17 +1,19 @@
 package com.dgte.erp.games.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 
 import com.dgte.erp.games.domain.Gamer;
 import com.dgte.erp.games.service.GamerService;
 import com.dgte.erp.games.service.GamerServiceCustom;
 import com.dgte.shared.firebase.FirebaseUserDetails;
+import com.dgte.shared.firebase.client.UserAuthorityService;
 
-public class GamerServiceImpl implements GamerServiceCustom {
+@Primary
+public class GamerServiceImpl implements GamerServiceCustom, UserAuthorityService {
 
     @Autowired
     private GamerService gamerService;

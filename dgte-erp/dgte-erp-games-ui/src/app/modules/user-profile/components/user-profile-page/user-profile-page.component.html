@@ -1,0 +1,93 @@
+      <div class="common-banner login-banner forcefullwidth_wrapper_tp_banner">
+        <div class="container">
+
+
+          <!-- Not logged in banner -->
+          <div *ngIf="!displayName" class="row">
+            <div class="main-banner-text">
+              <span>You are not logged in</span>
+              <ul class="banner-nav">
+                <li>
+                  <a href="index.html">Home</a>
+                </li>
+                <li>
+                  <a href="shopping-cart.html">Shop</a>
+                </li>
+                <li class="active">
+                  <a href="#">Login</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Logged in banner -->
+          <div *ngIf="displayName" class="row">
+            <div class="main-banner-text">
+              <span><img [src]="displayImage" />&nbsp;{{displayName}}</span>
+              <ul class="banner-nav">
+                <li>
+                  <a routerLink="/">Home</a>
+                </li>
+                <li>
+                  <a href="shopping-cart.html">Shop</a>
+                </li>
+                <li class="active">
+                  <a href="javascript:;" (click)="logout()">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+<div *ngIf="displayName" class="content">
+  <div class="login-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-4">
+          <div class="account-login">
+            <h3>log in your account</h3>
+            <span class="discover">Log in to your account to discovery all great features in this template.</span>
+            <form class="login-account-form">
+              <input type="text" class="login-account-form-text"
+                placeholder="NanoEvil|" /> <input type="password"
+                placeholder="Password" /> <input type="checkbox"
+                id="keep-login" />
+              <div class="forgot-pswrd">
+                <label for="keep-login"> <span><i
+                    class="fa fa-check"></i></span> Keep me logged in
+                </label> <a href="#">Forgot your password ?</a>
+              </div>
+
+              <input type="submit" value="login" />
+            </form>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-7 col-sm-offset-1">
+          <div class="register-now">
+            <h3>Don't have an Account? Register Now</h3>
+            <span class="benifits">By creating an account with
+              our store, you will be able to move through the checkout
+              process faster, store multiple shipping addresses, view
+              and track your orders in your account and more. </span>
+            <form class="register-now-form">
+              <ul class="clearfix">
+                <li><input type="text" placeholder="NanoEvil|" />
+                </li>
+                <li><input type="text" placeholder="Email Address" />
+                </li>
+                <li><input type="text" placeholder="Username" /></li>
+                <li><input type="text" placeholder="Phone" /></li>
+                <li><input type="password" placeholder="Password" />
+                </li>
+                <li><input type="password"
+                  placeholder="Re - Password" /></li>
+                <li><input type="submit" value="register now" /></li>
+              </ul>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
