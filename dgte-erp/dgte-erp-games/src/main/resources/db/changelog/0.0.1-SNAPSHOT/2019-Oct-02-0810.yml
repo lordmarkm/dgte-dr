@@ -1,0 +1,103 @@
+databaseChangeLog:
+- changeSet:
+    id: 1570003887841-11
+    author: mbmartinez (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: ref_addr_sellPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            defaultValueComputed: uuid_generate_v4()
+            name: code
+            type: UUID
+        - column:
+            defaultValueComputed: now()
+            name: created_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            defaultValue: N
+            name: deleted
+            type: CHAR(1)
+        - column:
+            defaultValueComputed: now()
+            name: updated_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: line_1
+            type: VARCHAR(255)
+        - column:
+            name: line_2
+            type: VARCHAR(255)
+        - column:
+            name: line_3
+            type: VARCHAR(255)
+        tableName: ref_addr_sell
+- changeSet:
+    id: 1570003887841-12
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: ref_addr_sell_id
+            type: int8
+        tableName: game_order
+- changeSet:
+    id: 1570003887841-13
+    author: mbmartinez (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: code
+        constraintName: UC_REF_ADDR_SELLCODE_COL
+        tableName: ref_addr_sell
+- changeSet:
+    id: 1570003887841-14
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: ref_addr_sell_id
+        baseTableName: game_order
+        constraintName: FKkydem8av3w6cs4n04un7lw160
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: ref_addr_sell
+        validate: true
+- changeSet:
+    id: 1570003887841-15
+    author: mbmartinez (generated)
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableName: game_order
+        constraintName: FK4on2chsllgj98ivnjl2j2el9p
+- changeSet:
+    id: 1570003887841-16
+    author: mbmartinez (generated)
+    changes:
+    - dropUniqueConstraint:
+        constraintName: uc_addr_sellcode_col
+        tableName: addr_sell
+- changeSet:
+    id: 1570003887841-17
+    author: mbmartinez (generated)
+    changes:
+    - dropTable:
+        tableName: addr_sell
+- changeSet:
+    id: 1570003887841-18
+    author: mbmartinez (generated)
+    changes:
+    - dropColumn:
+        columnName: addr_sell_id
+        tableName: game_order
+

@@ -41,7 +41,7 @@ public class Order extends BaseEntity {
     private BuyDeliveryAddress buyDeliveryAddress;
 
     @ManyToOne
-    @JoinColumn(name = "addr_sell_id")
+    @JoinColumn(name = "ref_addr_sell_id")
     private SellDeliveryAddress sellDeliveryAddress;
 
 }

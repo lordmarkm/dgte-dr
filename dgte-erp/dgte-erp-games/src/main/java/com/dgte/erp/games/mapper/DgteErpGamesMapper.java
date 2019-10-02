@@ -7,6 +7,8 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import com.dgte.erp.games.domain.CopyStatus;
 import com.dgte.erp.games.domain.Game;
 import com.dgte.erp.games.domain.Platform;
+import com.dgte.erp.games.domain.SellDeliveryAddress;
+import com.dgte.erp.games.dto.AddressDto;
 import com.dgte.erp.games.dto.GameDto;
 import com.dgte.erp.games.dto.PublicGameDto;
 import com.dgte.erp.games.dto.RefDataDto;
@@ -26,5 +28,6 @@ public interface DgteErpGamesMapper {
 
     RefDataDto toDto(Platform platform);
     RefDataDto toDto(CopyStatus copyStatus);
+    AddressDto toDto(SellDeliveryAddress address);
 
 }

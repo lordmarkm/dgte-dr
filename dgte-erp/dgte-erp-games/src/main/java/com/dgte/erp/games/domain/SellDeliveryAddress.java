@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Entity(name = "addr_sell")
+@Entity(name = "ref_addr_sell")
 public class SellDeliveryAddress extends BaseEntity {
 
     @Column(name = "line_1", nullable = false)

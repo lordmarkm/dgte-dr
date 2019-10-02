@@ -9,5 +9,6 @@ public class ReferencesDto {
 
     private List<RefDataDto> platforms;
     private List<RefDataDto> gameCopyStatuses;
+    private List<AddressDto> sellDeliveryAddresses;
 
 }
