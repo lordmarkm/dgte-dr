@@ -1,30 +1,29 @@
 package com.dgte.erp.games.domain;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedDate;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Embeddable
-public class RentOrderItem {
-
-    @ManyToOne
-    @JoinColumn(name = "game_id", nullable = false)
-    private Game game;
+public class RentOrderItem extends OrderItem {
 
     @Column(name = "deposit_rupees", nullable = false)
     @ColumnDefault("0")
     private BigDecimal depositRupees;
 
-    @ManyToOne
-    @JoinColumn(name = "fulf_game_cp_id", nullable = true)
-    private CopyOfGame fullfillingCopyOfGame;
+    @CreatedDate
+    @Column(name = "due_date", nullable = false)
+    @ColumnDefault("now()")
+    private LocalDate dueDate;
 
 }

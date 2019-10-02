@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dgte.erp.games.dto.OrderDto;
+import com.dgte.erp.games.dto.PublicOrderDto;
 import com.dgte.erp.games.service.OrderService;
 
 @RestController
@@ -18,7 +18,7 @@ public class OrderResource {
     private OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<OrderDto> save(@RequestBody OrderDto order) {
+    public ResponseEntity<PublicOrderDto> save(@RequestBody PublicOrderDto order) {
         return ResponseEntity.ok(orderService.save(order));
     }
 
