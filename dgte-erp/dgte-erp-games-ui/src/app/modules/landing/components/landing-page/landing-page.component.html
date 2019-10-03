@@ -104,68 +104,13 @@
         <li id="cat3"><a href="javascript:void(0)">NEW</a></li>
       </ul>
       <div class="product-section main" id="product-section">
-        <div *ngFor="let game of buyGames1; let i = index"
-          class="product-section-content main-item cat1">
-          <div class="product-description">
-            <figure class="product-image">
-              <img [src]="game.imageUrl" class="product-icon"
-                alt="product" />
-              <div class="overlay">
-                <div class="product-view-block">
-                  <div class="product-view clearfix">
-                    <a href="assets/images/img8.jpg"
-                      class="zoom icon_zoom-in_alt single_image"></a><a
-                      href="#" class="data-report icon_datareport"></a><a
-                      href="#" class="heart icon_heart_alt"></a>
-                  </div>
-                  <a href="#" class="btn add-cart">ADD TO CART</a>
-                </div>
-              </div>
-            </figure>
-            <div class="about-product">
-              <h4>
-                <a href="#" class="item-name">{{game.name}}</a>
-              </h4>
-              <span class="review-icon clearfix"> <i
-                class="icon_star active"></i> <i
-                class="icon_star active"></i> <i
-                class="icon_star active"></i> <i
-                class="icon_star active"></i> <i class="icon_star"></i>
-              </span> <span class="price"><span>{{game.sellPrice
-                  | currency: '₱'}}</span>&nbsp; <rupee-price
-                  [price]="game.sellRupees"></rupee-price></span>
-            </div>
-          </div>
-          <div *ngIf="buyGames2[i]" class="product-description">
-            <figure class="product-image">
-              <img [src]="buyGames2[i].imageUrl" class="product-icon"
-                alt="product" />
-              <div class="overlay">
-                <div class="product-view-block">
-                  <div class="product-view clearfix">
-                    <a href="assets/images/img8.jpg"
-                      class="zoom icon_zoom-in_alt single_image"></a><a
-                      href="#" class="data-report icon_datareport"></a><a
-                      href="#" class="heart icon_heart_alt"></a>
-                  </div>
-                  <a href="#" class="btn add-cart">ADD TO CART</a>
-                </div>
-              </div>
-            </figure>
-            <div class="about-product">
-              <h4>
-                <a href="#" class="item-name">{{buyGames2[i].name}}</a>
-              </h4>
-              <span class="review-icon clearfix"> <i
-                class="icon_star active"></i> <i
-                class="icon_star active"></i> <i
-                class="icon_star active"></i> <i
-                class="icon_star active"></i> <i class="icon_star"></i>
-              </span> <span class="price"><span>{{buyGames2[i].sellPrice
-                  | currency: '₱'}}</span>&nbsp; <rupee-price
-                  [price]="buyGames2[i].sellRupees"></rupee-price></span>
-            </div>
-          </div>
+        <div *ngFor="let game of buyGames1" class="product-section-content main-item cat1">
+          <buyable-game [game]="game"></buyable-game>
+        </div>
+      </div>
+      <div *ngIf="buyGames2.length" class="product-section main" id="product-section2">
+        <div *ngFor="let game of buyGames2" class="product-section-content main-item cat1">
+          <buyable-game [game]="game"></buyable-game>
         </div>
       </div>
       <div id="projects-copy" class="hide"></div>

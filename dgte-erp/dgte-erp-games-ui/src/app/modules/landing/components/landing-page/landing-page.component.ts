@@ -46,6 +46,19 @@ export class LandingPageComponent implements OnInit {
               singleItem : false
           });
 
+          let elem2: any = $('#product-section2');
+          elem2.owlCarousel({
+              navigation : true,
+              pagination : false,
+              items : 4,
+              itemsDesktop : [1199, 4],
+              itemsDesktopSmall : [979,4],
+              itemsTablet :   [768,4],
+              itemsTabletSmall : [767,2],
+              itemsMobile : [479,1],
+              singleItem : false
+          });
+
           if ($("#banner-owl-demo").length) {
             let bannerOwlElem: any = $("#banner-owl-demo");
             bannerOwlElem.owlCarousel({
