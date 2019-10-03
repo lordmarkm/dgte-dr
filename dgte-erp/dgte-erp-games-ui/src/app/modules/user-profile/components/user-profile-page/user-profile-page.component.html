@@ -45,30 +45,24 @@
       <div class="row">
         <div class="col-xs-12 col-sm-4">
           <div class="account-login">
-            <h3>log in your account</h3>
-            <span class="discover">Log in to your account to discovery all great features in this template.</span>
-            <form class="login-account-form">
-              <input type="text" class="login-account-form-text"
-                placeholder="NanoEvil|" /> <input type="password"
-                placeholder="Password" /> <input type="checkbox"
-                id="keep-login" />
-              <div class="forgot-pswrd">
-                <label for="keep-login"> <span><i
-                    class="fa fa-check"></i></span> Keep me logged in
-                </label> <a href="#">Forgot your password ?</a>
-              </div>
-
-              <input type="submit" value="login" />
-            </form>
+            <h3>
+              <img id="img-bag-of-rupees" src="assets/images/kaiten/bag-of-rupees.png" alt="" /> My wallet<br>
+              <rupee-amount [amount]="1250" [title]="'You have this many rupees'"></rupee-amount>
+              <peso-amount [amount]="1000" [title]="'You have this many pesos'"></peso-amount>
+            </h3>
+            <span class="discover">Your wallet contains both your Rupees and Account balance in Philippine Pesos.</span>
+          </div>
+          <div class="account-login">
+            <h3>
+              <img id="img-bag-of-rupees" src="assets/images/kaiten/bag-of-rupees.png" alt="" /> My Delivery Addresses<br>
+            </h3>
+            <span class="discover">These are your saved delivery addresses</span>
           </div>
         </div>
         <div class="col-xs-12 col-sm-7 col-sm-offset-1">
           <div class="register-now">
-            <h3>Don't have an Account? Register Now</h3>
-            <span class="benifits">By creating an account with
-              our store, you will be able to move through the checkout
-              process faster, store multiple shipping addresses, view
-              and track your orders in your account and more. </span>
+            <h3>My transaction history</h3>
+            <span class="benifits">A record of your past transactions.</span>
             <form class="register-now-form">
               <ul class="clearfix">
                 <li><input type="text" placeholder="NanoEvil|" />

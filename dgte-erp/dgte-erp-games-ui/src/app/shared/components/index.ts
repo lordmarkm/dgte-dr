@@ -4,13 +4,17 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { SectionTitleComponent } from './layout/section-title/section-title.component';
 import { LoadingWrapperComponent } from './loading-wrapper/loading-wrapper.component';
 import { RupeePriceComponent } from './rupee-price/rupee-price.component';
+import { PesoAmountComponent } from './peso-amount/peso-amount.component';
+import { RupeeAmountComponent } from './rupee-amount/rupee-amount.component';
 
 export const Components = [
   HeaderComponent,
   FooterComponent,
   SectionTitleComponent,
   LoadingWrapperComponent,
-  RupeePriceComponent
+  RupeePriceComponent,
+  PesoAmountComponent,
+  RupeeAmountComponent
 ];
 
 export const EntryComponents = [
@@ -21,5 +25,7 @@ export {
   FooterComponent,
   SectionTitleComponent,
   LoadingWrapperComponent,
-  RupeePriceComponent
+  RupeePriceComponent,
+  PesoAmountComponent,
+  RupeeAmountComponent
 };
