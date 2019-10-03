@@ -53,10 +53,15 @@
             <span class="discover">Your wallet contains both your Rupees and Account balance in Philippine Pesos.</span>
           </div>
           <div class="account-login">
-            <h3>
-              <img id="img-bag-of-rupees" src="assets/images/kaiten/bag-of-rupees.png" alt="" /> My Delivery Addresses<br>
-            </h3>
-            <span class="discover">These are your saved delivery addresses</span>
+            <div class="row no-gutters">
+              <div class="col-md-2 col-sm-2"><img id="img-delivery-address" src="assets/images/kaiten/delivery-address.png" alt="" /></div>
+              <div class="col-md-9 col-sm-9">
+                <h3>My Delivery Addresses</h3>
+                <span *ngIf="deliveryAddresses?.length" class="discover">These are your saved delivery addresses</span>
+                <span *ngIf="!deliveryAddresses?.length" class="discover">You don't have any saved delivery addresses</span>
+              </div>
+            </div>
+            <button class="btn btn-default">Add delivery address</button>
           </div>
         </div>
         <div class="col-xs-12 col-sm-7 col-sm-offset-1">

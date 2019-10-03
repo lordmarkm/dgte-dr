@@ -2,3 +2,17 @@
   height: 50px;
   width: 50px;
 }
+#img-delivery-address {
+  height: 50px;
+  width: 50px;
+}
+.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  > .col,
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
