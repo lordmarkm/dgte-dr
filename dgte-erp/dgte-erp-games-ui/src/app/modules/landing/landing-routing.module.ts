@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LandingComponent } from './landing.component';
-import { LandingPageComponent, CheckoutComponent } from './components';
+import { LandingPageComponent, ShoppingCartPageComponent, CheckoutComponent } from './components';
 
 const routes: Routes = [
   {
@@ -12,6 +12,10 @@ const routes: Routes = [
       {
         path: '',
         component: LandingPageComponent
+      },
+      {
+        path: 'shopping-cart',
+        component: ShoppingCartPageComponent
       },
       {
         path: 'checkout',

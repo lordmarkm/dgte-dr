@@ -74,8 +74,8 @@
                     <span class="total">Total</span> <span class="amount"><peso-amount [amount]="shoppingCart?.totalAmount"></peso-amount></span>
                   </div>
                   <div class="butn-group clearfix">
-                    <a href="#" class="cart">VIEW CART</a> <a href="#"
-                      class="checkout">CHECKOUT</a>
+                    <a routerLink="/shopping-cart" class="cart">VIEW CART</a>
+                    <a routerLink="/checkout" class="checkout">CHECKOUT</a>
                   </div>
                 </ng-container>
                 <ng-container *ngIf="!shoppingCart?.itemCount">
