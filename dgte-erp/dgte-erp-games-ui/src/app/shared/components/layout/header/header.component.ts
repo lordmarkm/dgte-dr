@@ -1,23 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '@games/core/services';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { ShoppingCartService } from '@games/core/services';
 
 @Component({
   selector: 'dgte-erp-games-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   public displayName: String;
   public displayImage: String;
+  public shoppingCart: any;
+  private shoppingCartServiceSub;
+  private authStateSub;
 
   constructor(private authService: AuthService,
-          public afAuth: AngularFireAuth) { }
+          public afAuth: AngularFireAuth,
+          private shoppingCartService: ShoppingCartService) { }
 
   ngOnInit() {
     this.doJqueryStuff();
-    this.afAuth.authState.subscribe(auth => {
+    this.authStateSub = this.afAuth.authState.subscribe(auth => {
         console.log(auth);
         if (auth) {
             this.displayName = auth['displayName'];
@@ -27,6 +32,14 @@ export class HeaderComponent implements OnInit {
             delete this.displayImage;
         }
     });
+    this.shoppingCartServiceSub = this.shoppingCartService.shoppingCart.subscribe(shoppingCart => {
+      this.shoppingCart = shoppingCart;
+    });
+  }
+
+  ngOnDestroy() {
+    this.authStateSub.unsubscribe();
+    this.shoppingCartServiceSub.unsubscribe();
   }
 
   public firebaseLogin() {
@@ -35,6 +48,10 @@ export class HeaderComponent implements OnInit {
 
   public firebaseLogout() {
       this.authService.logout();
+  }
+
+  public removeItem(index, mode) {
+    this.shoppingCartService.removeItem(index, mode);
   }
 
   private doJqueryStuff() {

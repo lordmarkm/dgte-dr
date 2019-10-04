@@ -1,0 +1,15 @@
+<figure class="item-image">
+  <a href="#"><img [src]="imgUrl" [alt]="item.game.name" /></a>
+</figure>
+<div class="item-description">
+  <a href="#" class="item-name">{{item.game.name}}</a> 
+  <span class="review-icon clearfix">
+    <i class="icon_star active"></i> <i
+    class="icon_star active"></i> <i
+    class="icon_star active"></i> <i
+    class="icon_star active"></i> <i
+    class="icon_star"></i>
+  </span>
+  <strong class="price"><peso-amount [amount]="item.buyPrice"></peso-amount></strong>
+</div>
+<span (click)="removeItem(i, 'BUY')" class="delete fa fa-trash"> </span>

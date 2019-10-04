@@ -30,7 +30,7 @@
           <ul class="top-header-right clearfix">
             <li class="profile"><a routerLink="/user-profile"><i class="icon_profile"></i>My Account </a></li>
             <li class="gift"><a href="#"><i class="icon_gift"></i>My Wishlist</a></li>
-            <li class="checkout"><a href="#"><i class="icon_check_alt"></i>Checkout</a></li>
+            <li class="checkout"><a routerLink="/checkout"><i class="icon_check_alt"></i>Checkout</a></li>
           </ul>
         </div>
       </div>
@@ -49,69 +49,40 @@
             </form>
             <div class="cart-wrapper clearfix">
               <div class="open-cart">
-                <span class="cart">CART</span><i
-                  class="shopping-cart fa fa-shopping-cart"> <span
-                  class="badge">0</span>
+                <span class="cart">CART</span>
+                <i class="shopping-cart fa fa-shopping-cart">
+                <span class="badge">{{shoppingCart?.itemCount}}</span>
                 </i>
               </div>
-              <div class="item-block">
-                <ul class="item-list">
-                  <li>
-                    <figure class="item-image">
-                      <a href="#"><img
-                        src="assets/images/img-one.jpg" alt="t-shirt" /></a>
-                    </figure>
-                    <div class="item-description">
-                      <a href="#" class="item-name">T-Shirt Retro
-                        Black</a> <span class="review-icon clearfix">
-                        <i class="icon_star active"></i> <i
-                        class="icon_star active"></i> <i
-                        class="icon_star active"></i> <i
-                        class="icon_star active"></i> <i
-                        class="icon_star"></i>
-                      </span> <strong class="price">$ 70.00</strong>
-                    </div> <span class="delete fa fa-trash"> </span>
-                  </li>
-                  <li>
-                    <figure class="item-image">
-                      <a href="#"><img
-                        src="assets/images/img-two.jpg" alt="t-shirt" /></a>
-                    </figure>
-                    <div class="item-description">
-                      <a href="#" class="item-name">T-Shirt Retro
-                        Black</a> <span class="review-icon clearfix">
-                        <i class="icon_star active"></i> <i
-                        class="icon_star active"></i> <i
-                        class="icon_star active"></i> <i
-                        class="icon_star active"></i> <i
-                        class="icon_star"></i>
-                      </span> <strong class="price">$ 70.00</strong>
-                    </div> <span class="delete fa fa-trash"> </span>
-                  </li>
-                  <li>
-                    <figure class="item-image">
-                      <a href="#"><img
-                        src="assets/images/img-three.jpg" alt="t-shirt" /></a>
-                    </figure>
-                    <div class="item-description">
-                      <a href="#" class="item-name">T-Shirt Retro
-                        White</a> <span class="review-icon clearfix">
-                        <i class="icon_star active"></i> <i
-                        class="icon_star active"></i> <i
-                        class="icon_star active"></i> <i
-                        class="icon_star active"></i> <i
-                        class="icon_star"></i>
-                      </span> <strong class="price">$ 70.00</strong>
-                    </div> <span class="delete fa fa-trash"> </span>
-                  </li>
-                </ul>
-                <div class="total-amount clearfix">
-                  <span class="total">Total</span> <span class="amount">€1145.00</span>
-                </div>
-                <div class="butn-group clearfix">
-                  <a href="#" class="cart">VIEW CART</a> <a href="#"
-                    class="checkout">CHECKOUT</a>
-                </div>
+              <div class="item-block" style="border: 1px solid black;">
+                <ng-container *ngIf="shoppingCart?.itemCount">
+                  <ul class="item-list">
+                    <li *ngIf="shoppingCart?.buyItems.length"><h5>Buy</h5></li>
+                    <li *ngFor="let item of shoppingCart.buyItems; let i = index">
+                      <shopping-cart-item [item]="item" [mode]="'BUY'" [index]="i"></shopping-cart-item>
+                    </li>
+                    <li *ngIf="shoppingCart?.sellItems.length"><h5>Buy</h5></li>
+                    <li *ngFor="let item of shoppingCart.sellItems; let i = index">
+                      <shopping-cart-item [item]="item" [mode]="'SELL'" [index]="i"></shopping-cart-item>
+                    </li>
+                    <li *ngIf="shoppingCart?.rentItems.length"><h5>Buy</h5></li>
+                    <li *ngFor="let item of shoppingCart.rentItems; let i = index">
+                      <shopping-cart-item [item]="item" [mode]="'RENT'" [index]="i"></shopping-cart-item>
+                    </li>
+                  </ul>
+                  <div class="total-amount clearfix">
+                    <span class="total">Total</span> <span class="amount"><peso-amount [amount]="shoppingCart?.totalAmount"></peso-amount></span>
+                  </div>
+                  <div class="butn-group clearfix">
+                    <a href="#" class="cart">VIEW CART</a> <a href="#"
+                      class="checkout">CHECKOUT</a>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!shoppingCart?.itemCount">
+                  <div class="total-amount clearfix">
+                    <span class="total">Shopping cart is empty, homes</span>
+                  </div>
+                </ng-container>
               </div>
             </div>
           </div>
