@@ -8,6 +8,9 @@ import { PesoAmountComponent } from './peso-amount/peso-amount.component';
 import { RupeeAmountComponent } from './rupee-amount/rupee-amount.component';
 import { BuyableGameComponent } from './buyable-game/buyable-game.component';
 
+//modals
+import { AddToCartComponent } from './modal-add-to-cart/modal-add-to-cart.component';
+
 export const Components = [
   HeaderComponent,
   FooterComponent,
@@ -16,10 +19,14 @@ export const Components = [
   RupeePriceComponent,
   PesoAmountComponent,
   RupeeAmountComponent,
-  BuyableGameComponent
+  BuyableGameComponent,
+
+  //modals
+  AddToCartComponent,
 ];
 
 export const EntryComponents = [
+  AddToCartComponent
 ];
 
 export {
@@ -30,5 +37,6 @@ export {
   RupeePriceComponent,
   PesoAmountComponent,
   RupeeAmountComponent,
-  BuyableGameComponent
+  BuyableGameComponent,
+  AddToCartComponent
 };

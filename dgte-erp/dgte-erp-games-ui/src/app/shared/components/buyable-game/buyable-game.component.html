@@ -1,15 +1,14 @@
 <div class="product-description">
   <figure class="product-image">
-    <img [src]="game.imageUrl" class="product-icon" alt="product" />
+    <img [src]="game.imageUrl" class="product-icon" [alt]="game.name" />
     <div class="overlay">
       <div class="product-view-block">
         <div class="product-view clearfix">
-          <a href="assets/images/img8.jpg"
-            class="zoom icon_zoom-in_alt single_image"></a><a href="#"
-            class="data-report icon_datareport"></a><a href="#"
-            class="heart icon_heart_alt"></a>
+          <a href="assets/images/img8.jpg" class="zoom icon_zoom-in_alt single_image">
+          </a><a href="#" class="data-report icon_datareport"></a>
+          <a href="#" class="heart icon_heart_alt"></a>
         </div>
-        <a href="#" class="btn add-cart">ADD TO CART</a>
+        <button (click)="addToCart(game)" type="button" class="btn add-cart">ADD TO CART</button>
       </div>
     </div>
   </figure>

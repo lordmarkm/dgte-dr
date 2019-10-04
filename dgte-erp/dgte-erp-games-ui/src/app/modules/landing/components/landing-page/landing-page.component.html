@@ -108,7 +108,7 @@
           <buyable-game [game]="game"></buyable-game>
         </div>
       </div>
-      <div *ngIf="buyGames2.length" class="product-section main" id="product-section2">
+      <div *ngIf="buyGames2?.length" class="product-section main" id="product-section2">
         <div *ngFor="let game of buyGames2" class="product-section-content main-item cat1">
           <buyable-game [game]="game"></buyable-game>
         </div>
@@ -140,7 +140,7 @@
           src="assets/svg/shape.svg" alt="image" class="svg" />
         </span>
       </div>
-      <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-12">
         <div class="row">
           <div id="news-owl-demo" class="owl-carousel owl-theme">
             <div class="item">
