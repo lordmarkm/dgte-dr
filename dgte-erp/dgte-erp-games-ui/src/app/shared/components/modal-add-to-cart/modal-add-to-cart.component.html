@@ -7,8 +7,20 @@
         <span class="icon_close" aria-hidden="true"></span>
       </button>
       <div class="pop-up-text">
-        <h2>you are {{mode}}ing {{game.name}}</h2>
-        <p *ngIf="mode === 'BUY'">This will cost <peso-amount [amount]="orderItem.buyPrice"></peso-amount></p>
+        <h2 id="add-to-cart-modal-text">you are {{mode}}ing {{game.name}}
+        and paying with 
+
+          <select [(ngModel)]="orderItem.currency" (change)="onCurrencyChange()">
+            <option value="CASH">Cash</option>
+            <option *ngIf="auth" value="RUPEES">Rupees</option>
+          </select>
+        </h2>
+        <div *ngIf="!auth" id="add-to-cart-modal-rupee-payment-note"><small>You must be <span id="add-to-cart-modal-login" (click)="firebaseLogin()">logged in</span> to pay with Rupees</small></div>
+        <p id="add-to-cart-modal-cost-info" *ngIf="mode === 'BUY'">
+          This will cost
+          <peso-amount *ngIf="orderItem.currency === 'CASH'" [amount]="orderItem.buyPrice"></peso-amount>
+          <rupee-amount *ngIf="orderItem.currency === 'RUPEES'" [amount]="orderItem.buyPrice"></rupee-amount>
+        </p>
         <button (click)="addToCart()" type="button" class="btn btn-default">Proceed</button>
         <button (click)="activeModal.close()" type="button" class="btn btn-default ml-3">Never mind</button>
       </div>

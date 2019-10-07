@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingCartService } from '@games/core/services';
+import { AuthService } from '@games/core/services';
+import { AngularFireAuth } from "@angular/fire/auth";
 import swal from 'sweetalert2';
 
 @Component({
@@ -8,18 +10,27 @@ import swal from 'sweetalert2';
   templateUrl: './modal-add-to-cart.component.html',
   styleUrls: ['./modal-add-to-cart.component.scss']
 })
-export class AddToCartComponent implements OnInit {
+export class AddToCartComponent implements OnInit, OnDestroy {
   @Input() game: any;
   @Input() mode: string;
   public orderItem: any;
   public backgroundImageUrl: string;
+  private authStateSub;
+  public auth;
 
   constructor(public activeModal: NgbActiveModal,
-    private shoppingCart: ShoppingCartService) {}
+    private shoppingCart: ShoppingCartService,
+    private authService: AuthService,
+    public afAuth: AngularFireAuth) {}
 
   ngOnInit() {
+    this.authStateSub = this.afAuth.authState.subscribe(auth => {
+      this.auth = auth;
+    });
+
     this.orderItem = {
-      game: this.game
+      game: this.game,
+      currency: 'CASH'
     };
 
     this.backgroundImageUrl = this.game.imageUrl.replace(/\.([^.]+)$/, 'h.$1');
@@ -38,24 +49,34 @@ export class AddToCartComponent implements OnInit {
     }
   }
 
-  public async addToCart() {
+  ngOnDestroy() {
+    this.authStateSub.unsubscribe();
+  }
+
+  public firebaseLogin() {
+      this.authService.FacebookAuth();
+  }
+
+  public onCurrencyChange() {
+    switch(this.orderItem.currency) {
+      case 'CASH':
+        this.orderItem.buyPrice = this.game.sellPrice;
+        break;
+      case 'RUPEES':
+        this.orderItem.buyPrice = this.game.sellRupees;
+        break;
+      default:
+        alert('Unhandled currency: ' + this.orderItem.currency);
+    }
+  }
+
+  public addToCart() {
     this.shoppingCart.addItem(this.orderItem, this.mode);
     swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this imaginary file!",
-      type: 'warning',
-      showConfirmButton: true,
-      showCancelButton: true     
-    })
-    .then((willDelete) => {
-
-        if(willDelete.value){
-             swal("Success");
-        }else{
-          swal("Fail");
-        }
-
-      console.log(willDelete)
+      title: "Success",
+      text: this.game.name + " has been added to your shopping cart",
+      type: 'success',
+      showConfirmButton: true
     });
     this.activeModal.close(this.orderItem);
   }

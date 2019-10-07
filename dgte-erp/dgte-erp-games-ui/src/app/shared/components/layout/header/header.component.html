@@ -71,7 +71,13 @@
                     </li>
                   </ul>
                   <div class="total-amount clearfix">
-                    <span class="total">Total</span> <span class="amount"><peso-amount [amount]="shoppingCart?.totalAmount"></peso-amount></span>
+                    <span class="total">Total</span>
+                    <span class="amount">
+                      <peso-amount [amount]="shoppingCart?.totalAmount"></peso-amount>
+                      <ng-container *ngIf="shoppingCart?.totalRupees !== 0">
+                        <br><rupee-amount [amount]="shoppingCart?.totalRupees"></rupee-amount>
+                      </ng-container>
+                    </span>
                   </div>
                   <div class="butn-group clearfix">
                     <a routerLink="/shopping-cart" class="cart">VIEW CART</a>

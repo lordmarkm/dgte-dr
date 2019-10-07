@@ -25,8 +25,12 @@ export class ShoppingCartService {
     console.log(item);
     switch (mode) {
       case 'BUY':
+        if (item.currency === 'CASH') {
+          this.shoppingCartModel.totalAmount += item.buyPrice;
+        } else if (item.currency === 'RUPEES') {
+          this.shoppingCartModel.totalRupees += item.buyPrice;
+        }
         this.shoppingCartModel.buyItems.push(item);
-        this.shoppingCartModel.totalAmount += item.buyPrice;
         break;
       case 'SELL':
         this.shoppingCartModel.sellItems.push(item);

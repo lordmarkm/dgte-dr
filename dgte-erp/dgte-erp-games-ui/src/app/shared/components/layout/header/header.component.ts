@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.doJqueryStuff();
     this.authStateSub = this.afAuth.authState.subscribe(auth => {
-        console.log(auth);
         if (auth) {
             this.displayName = auth['displayName'];
             this.displayImage = auth['photoURL'];

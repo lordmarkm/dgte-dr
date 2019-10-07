@@ -10,6 +10,9 @@
     class="icon_star active"></i> <i
     class="icon_star"></i>
   </span>
-  <strong class="price"><peso-amount [amount]="item.buyPrice"></peso-amount></strong>
+  <strong class="price">
+    <peso-amount *ngIf="item.currency == 'CASH'" [amount]="item.buyPrice"></peso-amount>
+    <rupee-amount *ngIf="item.currency == 'RUPEES'" [amount]="item.buyPrice"></rupee-amount>
+  </strong>
 </div>
 <span (click)="removeItem(i, 'BUY')" class="delete fa fa-trash"> </span>

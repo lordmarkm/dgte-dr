@@ -13,7 +13,7 @@
   </div>
 </div>
 <!--Content Area Start-->
-<div class="content">
+<div *ngIf="shoppingCart.itemCount" class="content">
   <!-- Cart Section Starts Here -->
   <div class="cart-section">
     <div class="container">
@@ -52,72 +52,6 @@
                       <option value="cash">Cash</option>
                       <option value="rupees"><img src="assets/images/green_rupee.png" style="height: 20px;"> Rupees</option>
                     </select>
-                  </td>
-                  <td data-total="total" class="cart-total"><span
-                    class="cart-price">$45.05</span></td>
-                  <td class="cart-btn"><a href="#" class="trash"><i
-                      class="fa fa-trash"></i></a><a href="#" class="pencil"><span
-                      class="icon_pencil" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td data-product="product name" class="cart-fig">
-                    <figure>
-                      <img src="assets/images/cart-1.jpg" alt="" />
-                    </figure>
-                    <div class="cart-description">
-                      <h4>Samurai T-Shirt</h4>
-                      <span><sub>5</sub> Color : <strong>White</strong></span>
-                      <span><sub>5</sub> Size : <strong>XL</strong></span>
-                    </div>
-                  </td>
-                  <td data-price="price" class="cart-price-head"><span
-                    class="cart-price">$45.05</span></td>
-                  <td data-quantity="quantity" class="cart-quantity">
-                    <input type="text" placeholder="1" />
-                  </td>
-                  <td data-total="total" class="cart-total"><span
-                    class="cart-price">$45.05</span></td>
-                  <td class="cart-btn"><a href="#" class="trash"><i
-                      class="fa fa-trash"></i></a><a href="#" class="pencil"><span
-                      class="icon_pencil" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td data-product="product name" class="cart-fig">
-                    <figure>
-                      <img src="assets/images/cart-2.jpg" alt="" />
-                    </figure>
-                    <div class="cart-description">
-                      <h4>Typograpy T-Shirt</h4>
-                      <span><sub>5</sub> Color : <strong>Black</strong></span>
-                      <span><sub>5</sub> Size : <strong>XXL</strong></span>
-                    </div>
-                  </td>
-                  <td data-price="price" class="cart-price-head"><span
-                    class="cart-price">$45.05</span></td>
-                  <td data-quantity="quantity" class="cart-quantity">
-                    <input type="text" placeholder="1" />
-                  </td>
-                  <td data-total="total" class="cart-total"><span
-                    class="cart-price">$45.05</span></td>
-                  <td class="cart-btn"><a href="#" class="trash"><i
-                      class="fa fa-trash"></i></a><a href="#" class="pencil"><span
-                      class="icon_pencil" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td data-product="product name" class="cart-fig">
-                    <figure>
-                      <img src="assets/images/cart-3.jpg" alt="" />
-                    </figure>
-                    <div class="cart-description">
-                      <h4>Jean T-Shirt</h4>
-                      <span><sub>5</sub> Color : <strong>Black</strong></span>
-                      <span><sub>5</sub> Size : <strong>XXL</strong></span>
-                    </div>
-                  </td>
-                  <td data-price="price" class="cart-price-head"><span
-                    class="cart-price">$45.05</span></td>
-                  <td data-quantity="quantity" class="cart-quantity">
-                    <input type="text" placeholder="1" />
                   </td>
                   <td data-total="total" class="cart-total"><span
                     class="cart-price">$45.05</span></td>
@@ -185,4 +119,8 @@
     </div>
   </div>
   <!-- Cart Section Ends Here -->
+</div>
+
+<div *ngIf="!shoppingCart.itemCount" class="content mb-3 text-center">
+  <h3>Shopping cart is empty, bruh<br><a routerLink="/">Home</a></h3>
 </div>
