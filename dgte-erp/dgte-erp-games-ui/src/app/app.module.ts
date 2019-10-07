@@ -31,7 +31,7 @@ import { environment } from '../environments/environment';
     SharedModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'kaiten-game'),
-    AngularFireAuthModule 
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

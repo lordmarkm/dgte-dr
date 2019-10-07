@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingCartService } from '@games/core/services';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'modal-add-to-cart',
@@ -22,8 +23,6 @@ export class AddToCartComponent implements OnInit {
     };
 
     this.backgroundImageUrl = this.game.imageUrl.replace(/\.([^.]+)$/, 'h.$1');
-    console.log('bgImgUrl=' + this.backgroundImageUrl);
-
     switch (this.mode) {
       case 'BUY':
         this.orderItem.buyPrice = this.game.sellPrice;
@@ -39,9 +38,26 @@ export class AddToCartComponent implements OnInit {
     }
   }
 
-  public addToCart() {
+  public async addToCart() {
     this.shoppingCart.addItem(this.orderItem, this.mode);
-    this.activeModal.close();
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      type: 'warning',
+      showConfirmButton: true,
+      showCancelButton: true     
+    })
+    .then((willDelete) => {
+
+        if(willDelete.value){
+             swal("Success");
+        }else{
+          swal("Fail");
+        }
+
+      console.log(willDelete)
+    });
+    this.activeModal.close(this.orderItem);
   }
 
 }

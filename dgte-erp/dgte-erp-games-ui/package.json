@@ -29,6 +29,7 @@
     "@mobiscroll/angular": "file:./src/lib/mobiscroll-package/mobiscroll-angular-4.6.1.tgz",
     "@ng-bootstrap/ng-bootstrap": "^4.2.1",
     "@ng-select/ng-select": "^2.18.0",
+    "@toverux/ngx-sweetalert2": "4.0.0",
     "@swimlane/ngx-datatable": "^14.0.0",
     "@types/jquery": "^3.3.31",
     "@w11k/ngx-componentdestroyed": "^4.1.4",
@@ -54,6 +55,7 @@
     "ngx-perfect-scrollbar": "^8.0.0",
     "rxjs": "6.3.3",
     "rxjs-compat": "6.3.3",
+    "sweetalert2": "7.22.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
