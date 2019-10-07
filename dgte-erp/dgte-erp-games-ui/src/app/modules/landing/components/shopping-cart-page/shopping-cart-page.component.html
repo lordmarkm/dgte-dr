@@ -39,8 +39,8 @@
                     </figure>
                     <div class="cart-description">
                       <h4>{{item.game.name}}</h4>
-                      <span><sub>5</sub> Color : <strong>White</strong></span>
-                      <span><sub>5</sub> Size : <strong>XL</strong></span>
+                      <span>{{item.game.shortName}} - Qty : <strong>1</strong></span>
+                      <span>With case? <strong>Yes</strong></span>
                     </div>
                   </td>
                   <td data-price="price" class="cart-price-head">
@@ -53,8 +53,12 @@
                       <option value="rupees"><img src="assets/images/green_rupee.png" style="height: 20px;"> Rupees</option>
                     </select>
                   </td>
-                  <td data-total="total" class="cart-total"><span
-                    class="cart-price">$45.05</span></td>
+                  <td data-total="total" class="cart-total">
+                    <span class="cart-price">
+                      <peso-amount *ngIf="item.currency=='CASH'" [amount]="item.buyPrice"></peso-amount>
+                      <rupee-amount *ngIf="item.currency=='RUPEES'" [amount]="item.buyPrice"></rupee-amount>
+                    </span>
+                  </td>
                   <td class="cart-btn"><a href="#" class="trash"><i
                       class="fa fa-trash"></i></a><a href="#" class="pencil"><span
                       class="icon_pencil" aria-hidden="true"></span></a></td>
@@ -67,8 +71,7 @@
       </div>
       <div class="row">
         <div class="col-12 d-flex justify-content-end">
-          <span class="shopping-btn"><a href="#">clear
-              shopping cart</a></span>
+          <button (click)="clearShoppingCart()" class="btn shopping-btn" type="button">clear shopping cart</button>
         </div>
       </div>
       <div class="row">

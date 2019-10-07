@@ -1,3 +1,23 @@
 .custom-table th {
   border-top: 0 !important;
 }
+.shopping-btn {
+	background: transparent;
+	border: 1px solid #cfcfcf;
+	font-family: montserrat;
+	letter-spacing: 0.5px;
+	margin: 2px 0 0;
+	padding: 18px 33px 15px 24px;
+	text-transform: uppercase;
+	-webkit-appearance: none;
+	transition: 0.5s all ease;
+	-webkit-transition: 0.5s all ease;
+	-webkit-border-radius: 0;
+}
+.shopping-btn:hover, .comment-form .comment-block li button:hover, .contact-form > input[type="submit"]:hover, .register-now-form input[type="submit"]:hover, .pop-up-box input[type="submit"]:hover, .cart-proceed:hover {
+	color: #fff;
+	background-color: #d3b800;
+}
+.shopping-btn.continue {
+	float: right;
+}
