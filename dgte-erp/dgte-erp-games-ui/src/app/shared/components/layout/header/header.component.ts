@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '@games/core/services';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ShoppingCartService } from '@games/core/services';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'dgte-erp-games-header',
@@ -46,7 +47,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public firebaseLogout() {
+    if (this.shoppingCart.itemCount) {
+      swal({
+        title: "Confirm logout",
+        text: "Are you sure you want to log out? There are items in your shopping cart. Upon logging out, any Rupee transactions will be converted to cash transactions.",
+        type: 'question',
+        showConfirmButton: true,
+        confirmButtonText: 'Yes, log me out',
+        showCancelButton: true,
+        cancelButtonText: 'Just a prank, bruh'
+      }).then(result => {
+        if (result.value) {
+          this.authService.logout();
+        }
+      });
+    } else {
       this.authService.logout();
+    }
   }
 
   public removeItem(index, mode) {

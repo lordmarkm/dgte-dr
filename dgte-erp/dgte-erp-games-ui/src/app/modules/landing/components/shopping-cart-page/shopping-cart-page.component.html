@@ -48,9 +48,9 @@
                     <div class="cart-price"><rupee-amount [amount]="item.game.sellRupees"></rupee-amount></div>
                   </td>
                   <td data-quantity="quantity" class="cart-quantity">
-                    <select>
-                      <option value="cash">Cash</option>
-                      <option value="rupees"><img src="assets/images/green_rupee.png" style="height: 20px;"> Rupees</option>
+                    <select [(ngModel)]="item.currency" (change)="onCurrencyChange(item)">
+                      <option value="CASH">Cash</option>
+                      <option *ngIf="auth" value="RUPEES"><img src="assets/images/green_rupee.png" style="height: 20px;"> Rupees</option>
                     </select>
                   </td>
                   <td data-total="total" class="cart-total">

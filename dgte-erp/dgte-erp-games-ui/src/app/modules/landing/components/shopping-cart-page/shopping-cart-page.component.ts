@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShoppingCartService } from '@games/core/services';
+import { AuthService } from '@games/core/services';
+import { AngularFireAuth } from "@angular/fire/auth";
 import swal from 'sweetalert2';
 
 @Component({
@@ -11,10 +13,17 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
   public isLoading = false;
   public shoppingCart;
   private shoppingCartSub;
+  private authStateSub;
+  public auth;
 
-  constructor(private shoppingCartService: ShoppingCartService) { }
+  constructor(private shoppingCartService: ShoppingCartService,
+    private authService: AuthService,
+    public afAuth: AngularFireAuth) { }
 
   ngOnInit() {
+    this.authStateSub = this.afAuth.authState.subscribe(auth => {
+      this.auth = auth;
+    });
     this.shoppingCartSub = this.shoppingCartService.shoppingCart.subscribe(shoppingCart => {
       this.shoppingCart = shoppingCart;
     });
@@ -22,6 +31,7 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.shoppingCartSub.unsubscribe();
+    this.authStateSub.unsubscribe();
   }
 
   clearShoppingCart() {
@@ -38,10 +48,14 @@ export class ShoppingCartPageComponent implements OnInit, OnDestroy {
           title: 'Cleared!',
           text: 'Your shopping cart is cleared! Congratulations on your impulse control, baby. Proud of you.',
           type: 'success',
-          showConfirmationButton: true
+          showConfirmButton: true
         });
       }
     });
+  }
+
+  onCurrencyChange(item) {
+    this.shoppingCartService.onCurrencyChange(item);
   }
 
 }
