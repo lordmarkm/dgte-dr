@@ -54,6 +54,7 @@
   <modules>
     <module>dgte-erp-docs</module>
     <module>dgte-erp-rent</module>
+    <module>dgte-erp-games</module>
   </modules>
 
   <dependencyManagement>
@@ -189,48 +190,15 @@
           </dependencies>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>${maven.plugin.version}</version>
-          <configuration>
-            <skip>${maven.test.skip}</skip>
-          </configuration>
-          <executions>
-            <execution>
-              <id>copy-resources</id>
-              <phase>prepare-package</phase>
-              <goals>
-                <goal>copy-resources</goal>
-              </goals>
-              <configuration>
-                <outputDirectory>
-                  ${project.build.outputDirectory}/static/docs
-                </outputDirectory>
-                <resources>
-                  <resource>
-                    <directory>
-                      ${project.build.directory}/generated-docs
-                    </directory>
-                  </resource>
-                </resources>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
           <groupId>com.spotify</groupId>
           <artifactId>dockerfile-maven-plugin</artifactId>
           <version>${dockerfile-maven-plugin.version}</version>
           <configuration>
             <tag>${project.version}</tag>
             <dockerfile>src/main/docker/Dockerfile</dockerfile>
-
-            <!--<repository>server1.ss.exist.com:80/robinsons/${project.groupId}/${project.artifactId}</repository>
-            <username>rbank</username>
-            <password>Ex1stgl0bal</password>-->
-            <repository>existrbank/${project.artifactId}</repository>
-            <username>existrbank</username>
-            <password>ex1strbank</password> 
+            <repository>kaitengame/${project.artifactId}</repository>
+            <username>kaitengame</username>
+            <password>12345Qwert</password> 
           </configuration>
           <executions>
             <execution>
@@ -265,43 +233,36 @@
             </execution>
           </executions>
         </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>jasperreports-maven-plugin</artifactId>
-          <version>${jasperreports.maven.version}</version>
-          <configuration>
-            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-            <additionalClasspath>${project.basedir}/src/test/resources</additionalClasspath>
-          </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>net.sf.jasperreports</groupId>
-              <artifactId>jasperreports</artifactId>
-              <version>${jasperreports.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>javax.servlet</groupId>
-              <artifactId>javax.servlet-api</artifactId>
-              <version>${servlet.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>jasperreports</groupId>
-              <artifactId>jasperreports</artifactId>
-              <version>1.2.0</version>
-              <exclusions>
-                <exclusion>
-                  <groupId>commons-collections</groupId>
-                  <artifactId>commons-collections</artifactId>
-                </exclusion>
-                <exclusion>
-                  <groupId>commons-beanutils</groupId>
-                  <artifactId>commons-beanutils</artifactId>
-                </exclusion>
-              </exclusions>
-            </dependency>
-          </dependencies>
-        </plugin>
       </plugins>
     </pluginManagement>
   </build>
+
+  <profiles>
+    <profile>
+      <id>buildImage</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>repackage</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>com.spotify</groupId>
+            <artifactId>dockerfile-maven-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

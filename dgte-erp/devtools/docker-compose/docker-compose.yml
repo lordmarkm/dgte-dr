@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+  db:
+    container_name: dgte-erp-games-db
+    image: postgres:11.2-alpine
+    restart: unless-stopped
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_DB: 'dgte_erp_games'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  games:
+    container_name: dgte-erp-games
+    image: kaitengame/dgte-erp-games:0.0.1-SNAPSHOT
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - /var/log/games:/var/log/games
+  ui:
+    container_name: dgte-erp-games-ui
+    image: kaitengame/dgte-erp-games-ui:1.0
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:80'
+    environment:
+      WAIT_HOSTS: db:5432, games:8083
+volumes:
+  postgres-data:
+
+

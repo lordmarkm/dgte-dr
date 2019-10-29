@@ -1,5 +1,5 @@
 {
-  "name": "los-ui",
+  "name": "dgte-erp-games-ui",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "generate-stats": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --prod --stats-json --source-map --named-chunks --output-hashing none",
-    "analyze-stats": "webpack-bundle-analyzer dist/los-ui/stats.json",
+    "analyze-stats": "webpack-bundle-analyzer dist/dgte-erp-games-ui/stats.json",
     "analyze-bundle": "npm run generate-stats && npm run analyze-stats"
   },
   "private": true,
