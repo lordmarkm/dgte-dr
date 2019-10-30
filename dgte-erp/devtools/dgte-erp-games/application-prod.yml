@@ -1,0 +1,34 @@
+server:
+  port: 8083
+  servlet:
+    context-path: /api/v1/games
+
+spring:
+  application:
+    name: dgte-erp-games
+  datasource:
+    url: jdbc:postgresql://db:5432/dgte_erp_games
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  jpa:
+    hibernate.ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    open-in-view: false
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true
+  liquibase:
+    enabled: true
+
+logging:
+  level:
+    com.dgte: DEBUG
+
+minio:
+  domain: http://localhost:9000
+  accessKey: 8IF0YHYC3P2GZ4SPHC8R
+  secretKey: 6Y7JDRrjFbVXiS1E9Vuhf8OOll3EcREno7BlfvIw
+  bucketName: dgte-erp-games
+
+firebase:
+  config-file: kaiten-game-firebase-adminsdk.json

@@ -3,7 +3,7 @@ version: '2'
 services:
   db:
     container_name: dgte-erp-games-db
-    image: postgres:11.2-alpine
+    image: kaitengame/postgres:1.0
     restart: unless-stopped
     ports:
       - '5433:5432'
@@ -19,6 +19,9 @@ services:
     restart: unless-stopped
     depends_on:
       - db
+    environment:
+      SPRING_PROFILES_ACTIVE: 'prod'
+      JVM_OPTS: '-Xmx128m -Xms128m -XX:MaxPermSize=64m'
     volumes:
       - /var/log/games:/var/log/games
   ui:
@@ -29,8 +32,6 @@ services:
       - '80:80'
       - '443:80'
     environment:
-      WAIT_HOSTS: db:5432, games:8083
+      WAIT_HOSTS: games:8083
 volumes:
   postgres-data:
-
-

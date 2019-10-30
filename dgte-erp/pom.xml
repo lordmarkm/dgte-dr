@@ -195,7 +195,6 @@
           <version>${dockerfile-maven-plugin.version}</version>
           <configuration>
             <tag>${project.version}</tag>
-            <dockerfile>src/main/docker/Dockerfile</dockerfile>
             <repository>kaitengame/${project.artifactId}</repository>
             <username>kaitengame</username>
             <password>12345Qwert</password> 
