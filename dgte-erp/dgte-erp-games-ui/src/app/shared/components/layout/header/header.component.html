@@ -61,11 +61,11 @@
                     <li *ngFor="let item of shoppingCart.buyItems; let i = index">
                       <shopping-cart-item [item]="item" [mode]="'BUY'" [index]="i"></shopping-cart-item>
                     </li>
-                    <li *ngIf="shoppingCart?.sellItems.length"><h5>Buy</h5></li>
+                    <li *ngIf="shoppingCart?.sellItems.length"><h5>Sell</h5></li>
                     <li *ngFor="let item of shoppingCart.sellItems; let i = index">
                       <shopping-cart-item [item]="item" [mode]="'SELL'" [index]="i"></shopping-cart-item>
                     </li>
-                    <li *ngIf="shoppingCart?.rentItems.length"><h5>Buy</h5></li>
+                    <li *ngIf="shoppingCart?.rentItems.length"><h5>Rent</h5></li>
                     <li *ngFor="let item of shoppingCart.rentItems; let i = index">
                       <shopping-cart-item [item]="item" [mode]="'RENT'" [index]="i"></shopping-cart-item>
                     </li>

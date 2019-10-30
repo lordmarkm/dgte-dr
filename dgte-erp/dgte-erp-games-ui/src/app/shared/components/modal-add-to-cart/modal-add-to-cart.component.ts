@@ -3,6 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingCartService } from '@games/core/services';
 import { AuthService } from '@games/core/services';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { OrderItem } from '@games/shared/models';
 import swal from 'sweetalert2';
 
 @Component({
@@ -13,7 +14,7 @@ import swal from 'sweetalert2';
 export class AddToCartComponent implements OnInit, OnDestroy {
   @Input() game: any;
   @Input() mode: string;
-  public orderItem: any;
+  public orderItem: OrderItem;
   public backgroundImageUrl: string;
   private authStateSub;
   public auth;
@@ -28,10 +29,7 @@ export class AddToCartComponent implements OnInit, OnDestroy {
       this.auth = auth;
     });
 
-    this.orderItem = {
-      game: this.game,
-      currency: 'CASH'
-    };
+    this.orderItem = new OrderItem(this.game, 'CASH');
 
     this.backgroundImageUrl = this.game.imageUrl.replace(/\.([^.]+)$/, 'h.$1');
     switch (this.mode) {
@@ -39,10 +37,10 @@ export class AddToCartComponent implements OnInit, OnDestroy {
         this.orderItem.buyPrice = this.game.sellPrice;
         break;
       case 'SELL':
-        this.orderItem.sellprice = this.game.buylistPrice;
+        this.orderItem.sellPrice = this.game.buylistPrice;
         break;
       case 'RENT':
-        this.orderItem.deposit = this.game.depositRupees;
+        this.orderItem.depositRupees = this.game.depositRupees;
         break;
       default:
         console.error('Unknown sell mode: ' + this.mode);

@@ -35,7 +35,7 @@
                 <tr *ngFor="let item of shoppingCart.buyItems">
                   <td data-product="product name" class="cart-fig">
                     <figure>
-                      <img src="assets/images/cart-1.jpg" alt="" />
+                      <img [src]="item.game.imageUrl" alt="" />
                     </figure>
                     <div class="cart-description">
                       <h4>{{item.game.name}}</h4>

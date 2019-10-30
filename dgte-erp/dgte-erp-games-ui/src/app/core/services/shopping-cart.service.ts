@@ -3,19 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from '@env/environment';
 import { HttpHeaders } from '@angular/common/http';
+import { ShoppingCart, Game } from '@games/shared/models';
 
 @Injectable()
 export class ShoppingCartService {
-  private shoppingCartModel: any = {
-    buyItems: [],
-    sellItems: [],
-    rentItems: [],
-    itemCount: 0,
-    totalAmount: 0,
-    totalRupees: 0
-  };
+  private shoppingCartModel: ShoppingCart = new ShoppingCart();
 
-  private shoppingCartSubject = new BehaviorSubject<any>(this.shoppingCartModel);
+  private shoppingCartSubject = new BehaviorSubject<ShoppingCart>(this.shoppingCartModel);
   public shoppingCart = this.shoppingCartSubject.asObservable();
 
   constructor(private httpClient: HttpClient) {}

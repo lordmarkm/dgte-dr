@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ShoppingCartService } from '@games/core/services';
 import { AuthService } from '@games/core/services';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { ShoppingCart } from '@games/shared/models';
 import swal from 'sweetalert2';
 
 @Component({
@@ -11,7 +12,7 @@ import swal from 'sweetalert2';
 })
 export class ShoppingCartPageComponent implements OnInit, OnDestroy {
   public isLoading = false;
-  public shoppingCart;
+  public shoppingCart: ShoppingCart;
   private shoppingCartSub;
   private authStateSub;
   public auth;
