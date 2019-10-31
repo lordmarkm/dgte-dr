@@ -6,15 +6,15 @@ import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class GamerService {
-  private serviceUrl = 'games';
+  private serviceUrl = 'games/gamer';
   private urls = {
-      FRONT_PAGE_BUY: `${environment.apiUrl}/${this.serviceUrl}/public/game/buy`
+      DELIVERY_ADDRESSES: `${environment.apiUrl}/${this.serviceUrl}/delivery-addresses`
   };
 
   constructor(private httpClient: HttpClient) {}
 
-  public frontPageBuy(params): Observable<any> {
-      return this.httpClient.get(this.urls.FRONT_PAGE_BUY, { params: params });
+  public getDeliveryAddresses(): Observable<any> {
+      return this.httpClient.get(this.urls.DELIVERY_ADDRESSES);
   }
 
 }

@@ -51,3 +51,5 @@ databaseChangeLog:
             tableName: ref_addr_sell
             file: ./db/changelog/0.0.1-SNAPSHOT/data/ref_addr_sell.csv
             quotchar: '"'
+  - include:
+      file: ./db/changelog/0.0.1-SNAPSHOT/2019-Oct-31-0234.yml

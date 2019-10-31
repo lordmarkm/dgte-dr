@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 1572489330670-12
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: authorities
+            type: varchar(255)
+        tableName: gamer
+

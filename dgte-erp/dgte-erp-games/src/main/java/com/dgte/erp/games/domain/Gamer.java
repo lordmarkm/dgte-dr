@@ -27,4 +27,10 @@ public class Gamer extends BaseEntity {
     @CollectionTable(name = "gamer_addr")
     private List<GamerDeliveryAddress> addresses;
 
+    /**
+     * comma-separated list
+     */
+    @Column(name = "authorities")
+    private String authorities;
+
 }

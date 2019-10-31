@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ShoppingCartService } from '@games/core/services';
+import { ShoppingCartService, GamerService } from '@games/core/services';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AuthService } from '@games/core/services';
 import { ShoppingCart } from '@games/shared/models';
@@ -16,10 +16,12 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   public displayName: string;
   public displayImage: string;
   private authStateSub;
+  public addresses: any = [];
 
   constructor(private shoppingCartService: ShoppingCartService,
     private afAuth: AngularFireAuth,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private gamerService: GamerService) { }
 
   ngOnInit() {
     this.shoppingCartSub = this.shoppingCartService.shoppingCart.subscribe(shoppingCart => {
@@ -33,6 +35,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
             delete this.displayName;
             delete this.displayImage;
         }
+    });
+    this.gamerService.getDeliveryAddresses().subscribe(addresses => {
+      this.addresses = addresses;
     });
   }
 

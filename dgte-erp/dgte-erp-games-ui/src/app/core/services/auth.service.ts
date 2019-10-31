@@ -32,7 +32,7 @@ export class AuthService {
     .then((result) => {
         console.log(result);
         this.afAuth.auth.currentUser.getIdToken().then(token => {
-            console.log(token);
+          console.log(token);
         });
         console.log('You have been successfully logged in!')
     }).catch((error) => {
