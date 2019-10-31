@@ -64,15 +64,15 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="border-block shipping-adrs-block">
               <h3 class="form-heading">Shipping ADDRESS</h3>
-              <div>
-                {{addresses|json}}
+              <div class="registered-customer">
+                <label>registered customers</label>
               </div>
+              <span *ngIf="!addresses.length">You don't have any registered shipping addresses</span>
+              <form (submit)="addShippingAddress()" class="form-gap clearfix">
+                <button type="submit" class="btn btn-default">Add shipping address</button>
+              </form>
               <form class="form-gap clearfix">
-                <span class="chk-option"> <label for="r4">
-                    <input type="checkbox" name="chk1" value="c1" id="r4" />
-                    <span class="chk-btn"> <span></span> </span> Ship to billing address? </label> </span>
                 <div class="registered-customer">
-                  <label>registered customers</label>
                   <textarea name="about" placeholder="Notes about your order, e.g. special notes for delivery..."></textarea>
                 </div>
                 <button type="submit" class="btn btn-default">
