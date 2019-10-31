@@ -49,4 +49,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   public firebaseLogin() {
       this.authService.FacebookAuth();
   }
+
+  addShippingAddress() {
+    return false;
+  }
 }
