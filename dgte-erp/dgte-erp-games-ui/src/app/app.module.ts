@@ -7,7 +7,6 @@ import { FirebaseTokenInterceptor } from '@games/shared/interceptors';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CoreModule } from '@los/core/core.module';
 import { PageNotFoundComponent } from '@los/shared/components/404/page-not-found.component';
 import { SharedModule } from '@los/shared/shared.module';
 
@@ -29,7 +28,6 @@ import { environment } from '../environments/environment';
     CommonModule,
     HttpClientModule,
     FormsModule,
-    CoreModule,
     SharedModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'kaiten-game'),

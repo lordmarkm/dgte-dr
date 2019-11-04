@@ -11,6 +11,7 @@ import { ShoppingCartItemComponent } from './shopping-cart-item/shopping-cart-it
 
 //modals
 import { AddToCartComponent } from './modal-add-to-cart/modal-add-to-cart.component';
+import { AddOrUpdateAddressComponent } from './address/modal-add-or-update-address.component';
 
 export const Components = [
   HeaderComponent,
@@ -25,10 +26,12 @@ export const Components = [
 
   //modals
   AddToCartComponent,
+  AddOrUpdateAddressComponent
 ];
 
 export const EntryComponents = [
-  AddToCartComponent
+  AddToCartComponent,
+  AddOrUpdateAddressComponent
 ];
 
 export {

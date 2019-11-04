@@ -1,0 +1,34 @@
+<div class="modal" role="dialog">
+
+  <div class="pop-up-box">
+
+    <div class="pop-up-text-wrap">
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+        <span class="icon_close" aria-hidden="true"></span>
+      </button>
+      <div class="pop-up-text">
+        <h2 id="add-to-cart-modal-text">Add or Update Address</h2>
+        <form (submit)="save()" class="form" ngNativeValidate>
+          <div class="form-group">
+            <input [(ngModel)]="address.line1" name="addr-line1" maxlength="50" placeholder="Address Line 1" type="text" id="line1" class="form-control" required/>
+          </div>
+          <div class="form-group">
+            <input [(ngModel)]="address.line2" name="addr-line2" maxlength="50" placeholder="Address Line 1" type="text" id="line1" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <input [(ngModel)]="address.line3" name="addr-line3" maxlength="50" placeholder="Address Line 1" type="text" id="line1" class="form-control"/>
+          </div>
+          <div class="form-group">
+            <label ngbButtonLabel class="btn-default">
+              <input ngbButton [(ngModel)]="address.primary" id="addr-primary" name="addr-primary" type="checkbox" />
+              Primary
+            </label>
+          </div>
+          <button type="submit" class="btn btn-default">Save</button>
+          <button (click)="activeModal.close()" type="button" class="btn btn-default ml-3">Never mind</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

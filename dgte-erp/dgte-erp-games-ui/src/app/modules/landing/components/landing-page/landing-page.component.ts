@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GameService } from '@games/core/services';
+import { GameService } from '@games/shared/services';
 import { Game } from '@games/shared/models';
 
 @Component({

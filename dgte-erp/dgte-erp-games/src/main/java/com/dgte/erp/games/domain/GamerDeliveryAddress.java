@@ -21,7 +21,7 @@ public class GamerDeliveryAddress {
     @Column(name = "line_3")
     private String line3;
 
-    @Column(name = "primary")
+    @Column(name = "is_primary")
     @Type(type = "yes_no")
     @ColumnDefault("N")
     private boolean primary;

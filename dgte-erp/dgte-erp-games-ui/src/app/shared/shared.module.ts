@@ -19,6 +19,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 // uncomment when needed
 import { Components, EntryComponents } from './components';
 import { Pipes } from './pipes';
+import { Services } from './services';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -62,6 +63,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ...EntryComponents,
   ],
   providers: [
+    ...Services,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

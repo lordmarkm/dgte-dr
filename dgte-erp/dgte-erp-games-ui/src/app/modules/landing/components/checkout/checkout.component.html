@@ -68,6 +68,9 @@
                 <label>registered customers</label>
               </div>
               <span *ngIf="!addresses.length">You don't have any registered shipping addresses</span>
+              <select *ngIf="addresses.length" [(ngModel)]="address">
+                <option *ngFor="let address of addresses" [value]="address">{{address.line1}}</option>
+              </select>
               <form (submit)="addShippingAddress()" class="form-gap clearfix">
                 <button type="submit" class="btn btn-default">Add shipping address</button>
               </form>

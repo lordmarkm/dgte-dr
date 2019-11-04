@@ -1,0 +1,20 @@
+databaseChangeLog:
+- changeSet:
+    id: 1572834914861-12
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            defaultValue: N
+            name: is_primary
+            type: char(1)
+        tableName: gamer_addr
+- changeSet:
+    id: 1572834914861-13
+    author: mbmartinez (generated)
+    changes:
+    - dropColumn:
+        columnName: primary
+        tableName: gamer_addr
+

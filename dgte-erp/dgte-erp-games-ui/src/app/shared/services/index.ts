@@ -8,7 +8,7 @@ import { GamerService } from './gamer.service';
 import { AuthService } from './auth.service';
 import { ShoppingCartService } from './shopping-cart.service';
 
-export const ApiServices = [
+export const Services = [
   GameService,
   GamerService,
   AuthService,

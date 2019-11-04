@@ -17,4 +17,7 @@ export class GamerService {
       return this.httpClient.get(this.urls.DELIVERY_ADDRESSES);
   }
 
+  public addAddress(address: any) {
+    return this.httpClient.post(this.urls.DELIVERY_ADDRESSES, address);
+  }
 }

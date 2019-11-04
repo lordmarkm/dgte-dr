@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GamerService } from '@games/core/services';
+import { GamerService } from '@games/shared/services';
 import { AngularFireAuth } from "@angular/fire/auth";
 
 @Component({

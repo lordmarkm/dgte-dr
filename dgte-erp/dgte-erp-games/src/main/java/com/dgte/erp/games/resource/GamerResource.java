@@ -2,18 +2,21 @@ package com.dgte.erp.games.resource;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dgte.erp.games.dto.GamerDeliveryAddressDto;
 import com.dgte.erp.games.service.GamerService;
+import com.dgte.shared.firebase.FirebaseUserDetails;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,6 +50,12 @@ public class GamerResource {
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
+    }
+
+    @PostMapping("/delivery-addresses")
+    public ResponseEntity<GamerDeliveryAddressDto> addDeliveryAddress(Principal principal, @RequestBody GamerDeliveryAddressDto address) {
+        return gamerService.addDeliveryAddress(principal.getName(), address).map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }

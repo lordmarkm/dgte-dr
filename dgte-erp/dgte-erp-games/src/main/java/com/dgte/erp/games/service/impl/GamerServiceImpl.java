@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dgte.erp.games.domain.Gamer;
+import com.dgte.erp.games.domain.GamerDeliveryAddress;
 import com.dgte.erp.games.dto.GamerDeliveryAddressDto;
 import com.dgte.erp.games.dto.GamerDto;
 import com.dgte.erp.games.mapper.DgteErpGamesMapper;
@@ -71,9 +72,18 @@ public class GamerServiceImpl implements GamerServiceCustom, UserAuthorityServic
     }
 
     @Override
-    public Gamer findOrCreateFromToken(UsernamePasswordAuthenticationToken principal) {
-        // TODO Auto-generated method stub
-        return null;
+    @Transactional
+    public Optional<GamerDeliveryAddressDto> addDeliveryAddress(String email, GamerDeliveryAddressDto addressDto) {
+        Optional<Gamer> gamer = gamerService.findByEmail(email);
+        if (gamer.isPresent()) {
+            log.info("Adding new address to gamer. gamer={}, address={}", email, addressDto);
+            GamerDeliveryAddress address = mapper.toEntity(addressDto);
+            gamer.get().getAddresses().add(address);
+            return Optional.of(addressDto);
+        } else {
+            log.info("Unable to find gamer & add address. email={}", email);
+            return Optional.empty();
+        }
     }
 
 }

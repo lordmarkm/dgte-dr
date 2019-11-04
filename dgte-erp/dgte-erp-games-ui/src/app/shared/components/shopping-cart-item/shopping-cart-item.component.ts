@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ShoppingCartService } from '@games/core/services';
+import { ShoppingCartService } from '@games/shared/services';
 
 @Component({
   selector: 'shopping-cart-item',

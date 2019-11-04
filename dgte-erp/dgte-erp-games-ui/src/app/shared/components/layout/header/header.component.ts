@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from '@games/core/services';
+import { AuthService } from '@games/shared/services';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { ShoppingCartService } from '@games/core/services';
+import { ShoppingCartService } from '@games/shared/services';
 import swal from 'sweetalert2';
 
 @Component({
