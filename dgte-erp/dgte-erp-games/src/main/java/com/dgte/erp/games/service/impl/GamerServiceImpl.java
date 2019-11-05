@@ -74,11 +74,14 @@ public class GamerServiceImpl implements GamerServiceCustom, UserAuthorityServic
     @Override
     @Transactional
     public Optional<GamerDeliveryAddressDto> addDeliveryAddress(String email, GamerDeliveryAddressDto addressDto) {
-        Optional<Gamer> gamer = gamerService.findByEmail(email);
-        if (gamer.isPresent()) {
-            log.info("Adding new address to gamer. gamer={}, address={}", email, addressDto);
+        Optional<Gamer> gamerOpt = gamerService.findByEmail(email);
+        if (gamerOpt.isPresent()) {
+            Gamer gamer = gamerOpt.get();
             GamerDeliveryAddress address = mapper.toEntity(addressDto);
-            gamer.get().getAddresses().add(address);
+            if (address.isPrimary()) {
+                gamer.getAddresses().forEach(addr -> addr.setPrimary(false));
+            }
+            gamer.getAddresses().add(address);
             return Optional.of(addressDto);
         } else {
             log.info("Unable to find gamer & add address. email={}", email);

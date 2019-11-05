@@ -44,7 +44,7 @@ public class BaseEntity {
     @ColumnDefault("now()")
     private LocalDateTime updatedDate;
 
-    @Column(name = "code", nullable = false, updatable = false, unique = true, columnDefinition = "uuid DEFAULT uuid_generate_v4()")
+    @Column(name = "code", nullable = false, updatable = false, unique = true, columnDefinition = "varchar(255) DEFAULT uuid_generate_v4()")
     private String code;
 
     @PrePersist

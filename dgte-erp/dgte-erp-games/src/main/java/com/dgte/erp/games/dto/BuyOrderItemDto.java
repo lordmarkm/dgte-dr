@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class BuyOrderItemDto extends OrderItemDto {
 
-    private BigDecimal buyPrice;
-    private BigDecimal buyRupees;
+    private BigDecimal buyPrice = BigDecimal.ZERO;
+    private BigDecimal buyRupees = BigDecimal.ZERO;
 
 }

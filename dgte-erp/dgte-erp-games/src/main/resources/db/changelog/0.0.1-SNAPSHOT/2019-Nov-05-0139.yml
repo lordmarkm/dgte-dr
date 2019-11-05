@@ -1,0 +1,35 @@
+databaseChangeLog:
+- changeSet:
+    id: 1572917998041-1
+    author: mbmartinez (generated)
+    changes:
+    - modifyDataType:
+        columnName: code
+        newDataType: varchar(255)
+        tableName: ref_addr_sell
+- changeSet:
+    id: 1572917998041-2
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: varchar(255)
+        columnName: code
+        defaultValue: uuid_generate_v4()
+        tableName: ref_addr_sell
+- changeSet:
+    id: 1572917998041-3
+    author: mbmartinez (generated)
+    changes:
+    - modifyDataType:
+        columnName: code
+        newDataType: varchar(255)
+        tableName: game_order
+- changeSet:
+    id: 1572917998041-4
+    author: mbmartinez (generated)
+    changes:
+    - addDefaultValue:
+        columnDataType: varchar(255)
+        columnName: code
+        defaultValue: uuid_generate_v4()
+        tableName: game_order

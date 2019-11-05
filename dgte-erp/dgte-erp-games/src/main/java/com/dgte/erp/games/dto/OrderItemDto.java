@@ -8,7 +8,7 @@ import lombok.Data;
 public abstract class OrderItemDto {
 
     private GameDto game;
-    private OrderItemStatus status;
+    private OrderItemStatus status = OrderItemStatus.NEW;
     private String fulfillingCopyOfGameCode;
 
 }

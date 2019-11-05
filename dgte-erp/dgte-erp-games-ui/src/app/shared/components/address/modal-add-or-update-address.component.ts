@@ -5,7 +5,7 @@ import { AuthService } from '@games/shared/services';
 import { AngularFireAuth } from "@angular/fire/auth";
 
 @Component({
-  selector: 'modal-add-to-cart',
+  selector: 'modal-add-or-update-address',
   templateUrl: './modal-add-or-update-address.component.html',
   styleUrls: ['./modal-add-or-update-address.component.scss']
 })

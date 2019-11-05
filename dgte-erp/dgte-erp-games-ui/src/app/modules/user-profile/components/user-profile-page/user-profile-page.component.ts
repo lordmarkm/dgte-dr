@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GamerService } from '@games/shared/services';
+import { GamerService, OrderService } from '@games/shared/services';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { Order } from '@games/shared/models';
 
 @Component({
   selector: 'games-user-profile-page',
@@ -13,21 +14,28 @@ export class UserProfilePageComponent implements OnInit {
   public userProfile;
   public displayName: String;
   public displayImage: String;
+  public orders: Order[];
 
   constructor(private router: Router, private gamerService: GamerService,
-    public afAuth: AngularFireAuth) { }
+    public afAuth: AngularFireAuth,
+    private orderService: OrderService) { }
 
   ngOnInit() {
     this.afAuth.authState.subscribe(auth => {
         console.log(auth);
         if (auth) {
-            this.displayName = auth['displayName'];
-            this.displayImage = auth['photoURL'];
+          this.displayName = auth['displayName'];
+          this.displayImage = auth['photoURL'];
+          this.getOrders();
         } else {
-            delete this.displayName;
-            delete this.displayImage;
+          delete this.displayName;
+          delete this.displayImage;
         }
     });
+  }
+
+  private getOrders() {
+    this.orderService.getOrders({}).subscribe(orders => this.orders = orders);
   }
 
 }

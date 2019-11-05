@@ -67,19 +67,20 @@
               <div class="registered-customer">
                 <label>registered customers</label>
               </div>
-              <span *ngIf="!addresses.length">You don't have any registered shipping addresses</span>
-              <select *ngIf="addresses.length" [(ngModel)]="address">
+              <span *ngIf="!addressesLoaded">Fetching addresses...</span>
+              <span *ngIf="addressesLoaded && !addresses.length">You don't have any registered shipping addresses</span>
+              <select *ngIf="addressesLoaded && addresses.length" [(ngModel)]="address">
                 <option *ngFor="let address of addresses" [value]="address">{{address.line1}}</option>
               </select>
               <form (submit)="addShippingAddress()" class="form-gap clearfix">
                 <button type="submit" class="btn btn-default">Add shipping address</button>
               </form>
-              <form class="form-gap clearfix">
+              <form (submit)="placeOrder()" class="form-gap clearfix">
                 <div class="registered-customer">
                   <textarea name="about" placeholder="Notes about your order, e.g. special notes for delivery..."></textarea>
                 </div>
                 <button type="submit" class="btn btn-default">
-                  CONTINUE
+                  Place order
                 </button>
               </form>
             </div>
@@ -123,23 +124,6 @@
               </tbody>
             </table>
           </div>
-          <div class="border-block payment-block">
-            <h3 class="form-heading">PAYMENT METHOD</h3>
-            <div class="form-gap">
-              <span class="option"> <label for="r5">
-                  <input type="radio" name="radio1" value="v1" id="r5" />
-                  <span class="radio-btn"> <span></span> </span> Direct Bank Transfer </label> </span>
-              <p>
-                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped until the funds have cleared in our account.
-              </p>
-              <span class="option"> <label for="r6">
-                  <input type="radio" name="radio1" value="v1" id="r6" />
-                  <span class="radio-btn"><span></span> </span> PayPal </label> </span>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-default">
-            PLACE ORDER
-          </button>
         </form>
       </div>
     </div>

@@ -1,0 +1,23 @@
+<los-loading-wrapper [isLoading]="loading">
+<div class="modal" role="dialog">
+
+  <div class="pop-up-box">
+
+    <div class="pop-up-text-wrap">
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+        <span class="icon_close" aria-hidden="true"></span>
+      </button>
+      <div class="pop-up-text">
+        <h2 id="add-to-cart-modal-text">Confirm order</h2>
+        <div>{{order|json}}</div>
+        <div *ngIf="error" class="text-danger">{{error}}</div>
+        <form (submit)="proceed()" class="form" ngNativeValidate>
+          <button type="submit" class="btn btn-default">Proceed</button>
+          <button (click)="activeModal.close()" type="button" class="btn btn-default ml-3">Never mind</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+</los-loading-wrapper>

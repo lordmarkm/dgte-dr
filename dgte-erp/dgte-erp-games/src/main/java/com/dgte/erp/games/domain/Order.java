@@ -14,6 +14,11 @@ import javax.persistence.ManyToOne;
 
 import com.dgte.shared.jpa.domain.BaseEntity;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Entity(name = "game_order")
 public class Order extends BaseEntity {
 

@@ -1,4 +1,4 @@
-import { Game } from '@games/shared/models';
+import { Game } from './game';
 
 export class ShoppingCart {
   buyItems: OrderItem[] = [];

@@ -8,13 +8,16 @@ import com.dgte.erp.games.domain.CopyStatus;
 import com.dgte.erp.games.domain.Game;
 import com.dgte.erp.games.domain.Gamer;
 import com.dgte.erp.games.domain.GamerDeliveryAddress;
+import com.dgte.erp.games.domain.Order;
 import com.dgte.erp.games.domain.Platform;
 import com.dgte.erp.games.domain.SellDeliveryAddress;
 import com.dgte.erp.games.dto.AddressDto;
 import com.dgte.erp.games.dto.GameDto;
 import com.dgte.erp.games.dto.GamerDeliveryAddressDto;
 import com.dgte.erp.games.dto.GamerDto;
+import com.dgte.erp.games.dto.OrderDto;
 import com.dgte.erp.games.dto.PublicGameDto;
+import com.dgte.erp.games.dto.PublicOrderDto;
 import com.dgte.erp.games.dto.RefDataDto;
 import com.dgte.shared.app.dto.BaseDto;
 import com.dgte.shared.jpa.domain.BaseEntity;
@@ -38,4 +41,8 @@ public interface DgteErpGamesMapper {
     Gamer toEntity(GamerDto gamer);
 
     GamerDeliveryAddress toEntity(GamerDeliveryAddressDto address);
+
+    Order toEntity(PublicOrderDto order);
+    OrderDto toDto(Order order);
+    PublicOrderDto toPublicDto(Order order);
 }

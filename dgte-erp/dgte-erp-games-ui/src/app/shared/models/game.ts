@@ -1,4 +1,4 @@
-import { BaseDto } from '@games/shared/models';
+import { BaseDto } from './base-dto';
 
 export class Game extends BaseDto {
   name: string;
