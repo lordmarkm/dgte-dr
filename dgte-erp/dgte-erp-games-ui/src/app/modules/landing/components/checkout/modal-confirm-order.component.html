@@ -9,8 +9,28 @@
       </button>
       <div class="pop-up-text">
         <h2 id="add-to-cart-modal-text">Confirm order</h2>
-        <div>{{order|json}}</div>
+        <!-- <div>{{order|json}}</div>  -->
         <div *ngIf="error" class="text-danger">{{error}}</div>
+
+        <div *ngIf="order.buyOrderItems?.length">
+          <h6>Buy</h6>
+          <div *ngFor="let buyOrderItem of order.buyOrderItems">
+            {{buyOrderItem.game.name}}
+          </div>
+          <h6>Total</h6>
+          <div>
+            <peso-amount *ngIf="order.totalBuyAmount" [amount]="order.totalBuyAmount"></peso-amount>
+            <rupee-amount *ngIf="order.totalBuyRupees" [amount]="order.totalBuyRupees"></rupee-amount>
+          </div>
+        </div>
+
+        <div>
+          <h6>Delivery Address</h6>
+          <div>{{order.buyDeliveryAddress.line1}}</div>
+          <div *ngIf="order.buyDeliveryAddress.line2">{{order.buyDeliveryAddress.line2}}</div>
+          <div *ngIf="order.buyDeliveryAddress.line3">{{order.buyDeliveryAddress.line3}}</div>
+        </div>
+
         <form (submit)="proceed()" class="form" ngNativeValidate>
           <button type="submit" class="btn btn-default">Proceed</button>
           <button (click)="activeModal.close()" type="button" class="btn btn-default ml-3">Never mind</button>

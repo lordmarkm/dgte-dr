@@ -8,7 +8,8 @@ import { HttpHeaders } from '@angular/common/http';
 export class GamerService {
   private serviceUrl = 'games/gamer';
   private urls = {
-      DELIVERY_ADDRESSES: `${environment.apiUrl}/${this.serviceUrl}/delivery-addresses`
+      DELIVERY_ADDRESSES: `${environment.apiUrl}/${this.serviceUrl}/delivery-addresses`,
+      WALLET: `${environment.apiUrl}/${this.serviceUrl}/wallet`,
   };
 
   constructor(private httpClient: HttpClient) {}
@@ -19,5 +20,9 @@ export class GamerService {
 
   public addAddress(address: any) {
     return this.httpClient.post(this.urls.DELIVERY_ADDRESSES, address);
+  }
+
+  public getWallet() {
+    return this.httpClient.get(this.urls.WALLET);
   }
 }

@@ -15,6 +15,7 @@ export class UserProfilePageComponent implements OnInit {
   public displayName: String;
   public displayImage: String;
   public orders: Order[];
+  public wallet: any;
 
   constructor(private router: Router, private gamerService: GamerService,
     public afAuth: AngularFireAuth,
@@ -27,6 +28,7 @@ export class UserProfilePageComponent implements OnInit {
           this.displayName = auth['displayName'];
           this.displayImage = auth['photoURL'];
           this.getOrders();
+          this.getWallet();
         } else {
           delete this.displayName;
           delete this.displayImage;
@@ -38,4 +40,7 @@ export class UserProfilePageComponent implements OnInit {
     this.orderService.getOrders({}).subscribe(orders => this.orders = orders);
   }
 
+  private getWallet() {
+    this.gamerService.getWallet().subscribe(wallet => this.wallet = wallet);
+  }
 }

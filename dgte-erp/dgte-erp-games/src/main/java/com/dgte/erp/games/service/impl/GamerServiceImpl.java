@@ -1,5 +1,6 @@
 package com.dgte.erp.games.service.impl;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
@@ -15,8 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dgte.erp.games.domain.Gamer;
 import com.dgte.erp.games.domain.GamerDeliveryAddress;
+import com.dgte.erp.games.domain.GamerWallet;
 import com.dgte.erp.games.dto.GamerDeliveryAddressDto;
 import com.dgte.erp.games.dto.GamerDto;
+import com.dgte.erp.games.dto.GamerWalletDto;
 import com.dgte.erp.games.mapper.DgteErpGamesMapper;
 import com.dgte.erp.games.service.GamerService;
 import com.dgte.erp.games.service.GamerServiceCustom;
@@ -85,6 +88,25 @@ public class GamerServiceImpl implements GamerServiceCustom, UserAuthorityServic
             return Optional.of(addressDto);
         } else {
             log.info("Unable to find gamer & add address. email={}", email);
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<GamerWalletDto> getWallet(String email) {
+        Optional<Gamer> gamerOpt = gamerService.findByEmail(email);
+        if (gamerOpt.isPresent()) {
+            Gamer gamer = gamerOpt.get();
+            if (null == gamer.getWallet()) {
+                GamerWallet newWallet = new GamerWallet();
+                newWallet.setBalance(BigDecimal.ZERO);
+                newWallet.setRupees(0);
+                gamer.setWallet(newWallet);
+            }
+            GamerWalletDto wallet = mapper.toDto(gamer.getWallet());
+            return Optional.of(wallet);
+        } else {
+            log.info("Unable to find gamer wallet. email={}", email);
             return Optional.empty();
         }
     }

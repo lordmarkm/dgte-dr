@@ -8,6 +8,7 @@ import com.dgte.erp.games.domain.CopyStatus;
 import com.dgte.erp.games.domain.Game;
 import com.dgte.erp.games.domain.Gamer;
 import com.dgte.erp.games.domain.GamerDeliveryAddress;
+import com.dgte.erp.games.domain.GamerWallet;
 import com.dgte.erp.games.domain.Order;
 import com.dgte.erp.games.domain.Platform;
 import com.dgte.erp.games.domain.SellDeliveryAddress;
@@ -15,6 +16,7 @@ import com.dgte.erp.games.dto.AddressDto;
 import com.dgte.erp.games.dto.GameDto;
 import com.dgte.erp.games.dto.GamerDeliveryAddressDto;
 import com.dgte.erp.games.dto.GamerDto;
+import com.dgte.erp.games.dto.GamerWalletDto;
 import com.dgte.erp.games.dto.OrderDto;
 import com.dgte.erp.games.dto.PublicGameDto;
 import com.dgte.erp.games.dto.PublicOrderDto;
@@ -45,4 +47,6 @@ public interface DgteErpGamesMapper {
     Order toEntity(PublicOrderDto order);
     OrderDto toDto(Order order);
     PublicOrderDto toPublicDto(Order order);
+
+    GamerWalletDto toDto(GamerWallet wallet);
 }

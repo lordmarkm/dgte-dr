@@ -1,0 +1,22 @@
+databaseChangeLog:
+- changeSet:
+    id: 1573432646959-9
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: peso_balance
+            type: numeric(19, 2)
+        tableName: gamer
+- changeSet:
+    id: 1573432646959-10
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: rupees
+            type: int4
+        tableName: gamer
+

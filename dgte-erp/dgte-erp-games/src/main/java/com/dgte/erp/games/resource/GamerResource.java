@@ -2,7 +2,6 @@ package com.dgte.erp.games.resource;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dgte.erp.games.dto.GamerDeliveryAddressDto;
+import com.dgte.erp.games.dto.GamerWalletDto;
 import com.dgte.erp.games.service.GamerService;
-import com.dgte.shared.firebase.FirebaseUserDetails;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +37,13 @@ public class GamerResource {
     public ResponseEntity<?> me(Principal principal) {
         log.info("Principal={}", principal);
         return ResponseEntity.ok(principal);
+    }
+
+    @GetMapping("/wallet")
+    public ResponseEntity<GamerWalletDto> wallet(Principal principal) {
+        return gamerService.getWallet(principal.getName())
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.FORBIDDEN).build());
     }
 
     @GetMapping("/delivery-addresses")

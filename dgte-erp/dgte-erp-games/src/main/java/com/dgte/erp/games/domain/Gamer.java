@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 import com.dgte.shared.jpa.domain.BaseEntity;
@@ -32,5 +33,8 @@ public class Gamer extends BaseEntity {
      */
     @Column(name = "authorities")
     private String authorities;
+
+    @Embedded
+    private GamerWallet wallet;
 
 }

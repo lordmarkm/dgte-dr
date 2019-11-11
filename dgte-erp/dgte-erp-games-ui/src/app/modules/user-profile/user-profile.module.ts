@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     SharedModule,
     UserProfileRoutingModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     EntryComponents
