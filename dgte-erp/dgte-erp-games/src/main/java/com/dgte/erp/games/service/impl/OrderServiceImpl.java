@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderServiceCustom {
 
     @Override
     @Transactional
-    public PublicOrderDto save(String email, PublicOrderDto orderDto) {
+    public PublicOrderDto authenticatedOrder(String email, PublicOrderDto orderDto) {
         Order order = mapper.toEntity(orderDto);
 
         Optional<Gamer> gamerOpt = gamerService.findByEmail(email);
@@ -48,4 +48,7 @@ public class OrderServiceImpl implements OrderServiceCustom {
         return mapper.toPublicDto(orderService.save(order));
     }
 
+    private computeTotals(Order order) {
+        
+    }
 }

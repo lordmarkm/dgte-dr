@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +29,12 @@ public class PublicOrderResource {
     private OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<PublicOrderDto> save(Principal principal, @Valid @RequestBody PublicOrderDto order) {
-        return ResponseEntity.ok(orderService.save(principal.getName(), order));
+    public ResponseEntity<PublicOrderDto> save(UsernamePasswordAuthenticationToken principal, @Valid @RequestBody PublicOrderDto order) {
+        if (principal.isAuthenticated()) {
+            return ResponseEntity.ok(orderService.authenticatedOrder(principal.getName(), order));
+        } else {
+            return ResponseEntity.ok(orderService.anonymousOrder(order));
+        }
     }
 
     @InitBinder

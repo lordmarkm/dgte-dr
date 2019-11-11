@@ -1,5 +1,6 @@
 package com.dgte.erp.games.domain;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -11,6 +12,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.ColumnDefault;
 
 import com.dgte.shared.jpa.domain.BaseEntity;
 
@@ -48,5 +51,25 @@ public class Order extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "ref_addr_sell_id")
     private SellDeliveryAddress sellDeliveryAddress;
+
+    @Column(name = "buy_amt", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal totalBuyAmount;
+
+    @Column(name = "buy_rp", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal totalBuyRupees;
+
+    @Column(name = "sell_amt", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal totalSellAmount;
+
+    @Column(name = "sell_rp", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal totalSellRupees;
+
+    @Column(name = "rent_rp", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal totalRentDeposit;
 
 }

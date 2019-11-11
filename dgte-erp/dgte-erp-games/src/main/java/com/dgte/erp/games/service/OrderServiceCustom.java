@@ -9,7 +9,8 @@ import com.dgte.erp.games.dto.PublicOrderDto;
 
 public interface OrderServiceCustom {
 
-    PublicOrderDto save(String email, PublicOrderDto game);
+    PublicOrderDto authenticatedOrder(String email, PublicOrderDto order);
+    PublicOrderDto anonymousOrder(PublicOrderDto order);
     Page<OrderDto> findAll(OrderSearchDto searchDto, Pageable page);
 
 }
