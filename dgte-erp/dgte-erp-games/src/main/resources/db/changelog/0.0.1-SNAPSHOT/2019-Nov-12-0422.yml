@@ -1,0 +1,167 @@
+databaseChangeLog:
+- changeSet:
+    id: 1573532609386-11
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: CASH
+            name: currency
+            type: varchar(255)
+        tableName: game_order_item_buy
+- changeSet:
+    id: 1573532609386-12
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: CASH
+            name: currency
+            type: varchar(255)
+        tableName: game_order_item_rent
+- changeSet:
+    id: 1573532609386-13
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: CASH
+            name: currency
+            type: varchar(255)
+        tableName: game_order_item_sell
+- changeSet:
+    id: 1573532609386-14
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: fulf_game_cp_id
+            type: int8
+        tableName: game_order_item_sell
+- changeSet:
+    id: 1573532609386-15
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: game_id
+            type: int8
+        tableName: game_order_item_sell
+- changeSet:
+    id: 1573532609386-16
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: rent_rp
+            type: int4
+        tableName: game_order
+- changeSet:
+    id: 1573532609386-17
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: !!float '0'
+            name: sell_amt
+            type: numeric(19, 2)
+        tableName: game_order
+- changeSet:
+    id: 1573532609386-18
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValueNumeric: 0
+            name: sell_rp
+            type: int4
+        tableName: game_order
+- changeSet:
+    id: 1573532609386-19
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            defaultValue: NEW
+            name: status
+            type: varchar(255)
+        tableName: game_order_item_sell
+- changeSet:
+    id: 1573532609386-20
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: game_id
+        baseTableName: game_order_item_sell
+        constraintName: FKj36b060d0c2fkdj8q0ewl0rxw
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game
+        validate: true
+- changeSet:
+    id: 1573532609386-21
+    author: mbmartinez (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: fulf_game_cp_id
+        baseTableName: game_order_item_sell
+        constraintName: FKpasxdc6ylx0wdtwir0ny4cd3w
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: game_copy
+        validate: true
+- changeSet:
+    id: 1573532609386-1
+    author: mbmartinez (generated)
+    changes:
+    - addNotNullConstraint:
+        columnDataType: number(19,2)
+        columnName: peso_balance
+        tableName: gamer
+    - addDefaultValue:
+        columnDataType: number(19,2)
+        columnName: peso_balance
+        defaultValueNumeric: '0'
+        tableName: gamer
+- changeSet:
+    id: 1573532609386-2
+    author: mbmartinez (generated)
+    changes:
+    - addNotNullConstraint:
+        columnDataType: int
+        columnName: rupees
+        tableName: gamer
+    - addDefaultValue:
+        columnDataType: int
+        columnName: rupees
+        defaultValueNumeric: '0'
+        tableName: gamer
+

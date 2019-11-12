@@ -58,7 +58,7 @@ public class Order extends BaseEntity {
 
     @Column(name = "buy_rp", nullable = false)
     @ColumnDefault("0")
-    private BigDecimal totalBuyRupees;
+    private int totalBuyRupees;
 
     @Column(name = "sell_amt", nullable = false)
     @ColumnDefault("0")
@@ -66,10 +66,10 @@ public class Order extends BaseEntity {
 
     @Column(name = "sell_rp", nullable = false)
     @ColumnDefault("0")
-    private BigDecimal totalSellRupees;
+    private int totalSellRupees;
 
     @Column(name = "rent_rp", nullable = false)
     @ColumnDefault("0")
-    private BigDecimal totalRentDeposit;
+    private int totalRentDeposit;
 
 }

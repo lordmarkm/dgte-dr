@@ -21,6 +21,6 @@ public class BuyOrderItem extends OrderItem {
 
     @Column(name = "buy_rupees", nullable = false)
     @ColumnDefault("0")
-    private BigDecimal buyRupees;
+    private int buyRupees;
 
 }

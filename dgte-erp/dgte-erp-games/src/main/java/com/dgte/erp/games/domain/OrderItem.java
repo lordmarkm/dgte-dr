@@ -28,4 +28,9 @@ public abstract class OrderItem {
     @ColumnDefault("NEW")
     private OrderItemStatus status;
 
+    @Column(name = "currency", nullable = false)
+    @ColumnDefault("CASH")
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
+
 }

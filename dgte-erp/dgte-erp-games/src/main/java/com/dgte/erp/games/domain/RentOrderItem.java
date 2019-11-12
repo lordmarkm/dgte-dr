@@ -1,6 +1,5 @@
 package com.dgte.erp.games.domain;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -19,7 +18,7 @@ public class RentOrderItem extends OrderItem {
 
     @Column(name = "deposit_rupees", nullable = false)
     @ColumnDefault("0")
-    private BigDecimal depositRupees;
+    private int depositRupees;
 
     @CreatedDate
     @Column(name = "due_date", nullable = false)

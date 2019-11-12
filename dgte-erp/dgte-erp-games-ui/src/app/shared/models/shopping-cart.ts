@@ -13,7 +13,9 @@ export class OrderItem {
   game: Game;
   currency: string = 'CASH';
   buyPrice: number = 0;
+  buyRupees: number = 0;
   sellPrice: number = 0;
+  sellRupees: number = 0;
   depositRupees: number = 0;
 
   constructor(game: Game, currency: string) {
