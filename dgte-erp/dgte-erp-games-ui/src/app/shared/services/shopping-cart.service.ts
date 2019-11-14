@@ -52,6 +52,13 @@ export class ShoppingCartService {
     this.recomputeTotals();
   }
 
+  public empty() {
+    this.shoppingCartModel.buyItems = [];
+    this.shoppingCartModel.sellItems = [];
+    this.shoppingCartModel.rentItems = [];
+    this.recomputeTotals();
+  }
+
   public onCurrencyChange(item) {
     switch (item.currency) {
       case 'CASH':

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { ShoppingCartService, GamerService } from '@games/shared/services';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AuthService } from '@games/shared/services';
@@ -6,6 +7,7 @@ import { ShoppingCart, Order } from '@games/shared/models';
 import { AddOrUpdateAddressComponent } from '@games/shared/components/address/modal-add-or-update-address.component';
 import { ConfirmOrderComponent } from './modal-confirm-order.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'games-checkout',
@@ -27,7 +29,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     private shoppingCartService: ShoppingCartService,
     private afAuth: AngularFireAuth,
     private authService: AuthService,
-    private gamerService: GamerService) { }
+    private gamerService: GamerService,
+    private router: Router) { }
 
   ngOnInit() {
     this.shoppingCartSub = this.shoppingCartService.shoppingCart.subscribe(shoppingCart => {
@@ -95,6 +98,17 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   handlePlaceOrderResult(placeOrderResult) {
     if (placeOrderResult) {
       console.log(placeOrderResult);
+      swal({
+        title: "Order Placed",
+        text: 'Order placement success. Please wait for us to contact you with confirmation.',
+        type: 'success',
+        showConfirmButton: true
+      }).then(confirmResult => {
+        if (confirmResult.value) {
+          this.shoppingCartService.empty();
+          this.router.navigate(['/user-profile']);
+        }
+      });
     }
   }
 

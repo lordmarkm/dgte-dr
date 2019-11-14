@@ -164,4 +164,27 @@ databaseChangeLog:
         columnName: rupees
         defaultValueNumeric: '0'
         tableName: gamer
-
+- changeSet:
+    id: 1573532609386-3
+    author: mbmartinez (generated)
+    changes:
+    - modifyDataType:
+        columnName: buy_rupees
+        newDataType: int4
+        tableName: game_order_item_buy
+- changeSet:
+    id: 1573532609386-4
+    author: mbmartinez (generated)
+    changes:
+    - modifyDataType:
+        columnName: sell_rupees
+        newDataType: int4
+        tableName: game_order_item_sell
+- changeSet:
+    id: 1573532609386-5
+    author: mbmartinez (generated)
+    changes:
+    - modifyDataType:
+        columnName: deposit_rupees
+        newDataType: int4
+        tableName: game_order_item_rent
