@@ -29,7 +29,7 @@
     <ngx-datatable-column name="" [minWidth]="200" [width]="200" [maxWidth]="200">
       <ng-template let-row="row" ngx-datatable-cell-template>
         <div class="btn-group">
-          <button (click)="viewTransaction(row)" type="button" class="btn btn-primary btn-xs"><i class="fa fa-search"></i> View</button>
+          <button [routerLink]="['/order-details']" [queryParams]="{ orderCode: row.code }" type="button" class="btn btn-primary btn-xs"><i class="fa fa-search"></i> View</button>
           <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
             <button class="btn btn-primary  btn-xs dropdown-toggle-split" ngbDropdownToggle></button>
             <div class="dropdown-menu" ngbDropdownMenu>

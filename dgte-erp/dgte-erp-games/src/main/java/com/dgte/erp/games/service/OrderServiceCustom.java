@@ -1,5 +1,7 @@
 package com.dgte.erp.games.service;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,5 +14,6 @@ public interface OrderServiceCustom {
     PublicOrderDto authenticatedOrder(String email, PublicOrderDto order);
     PublicOrderDto anonymousOrder(PublicOrderDto order);
     Page<OrderDto> findAll(OrderSearchDto searchDto, Pageable page);
+    Optional<OrderDto> findDtoByCode(String orderCode);
 
 }

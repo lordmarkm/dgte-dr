@@ -19,6 +19,10 @@ export class OrderService {
     return this.httpClient.get(this.urls.BASE_URL, { params: orderSearch });
   }
 
+  public findOrderByCode(orderCode: string): Observable<Order> {
+    return this.httpClient.get(this.urls.BASE_URL, { params: { 'orderCode': orderCode }});
+  }
+
   public placeOrder(order: Order): Observable<any> {
       return this.httpClient.post(this.urls.BASE_PUBLIC_URL, order);
   }

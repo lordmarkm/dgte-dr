@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LandingComponent } from './landing.component';
-import { LandingPageComponent, ShoppingCartPageComponent, CheckoutComponent } from './components';
+import { LandingPageComponent, ShoppingCartPageComponent, CheckoutComponent, OrderDetailsComponent } from './components';
 
 const routes: Routes = [
   {
@@ -20,6 +20,10 @@ const routes: Routes = [
       {
         path: 'checkout',
         component: CheckoutComponent
+      },
+      {
+        path: 'order-details',
+        component: OrderDetailsComponent
       }
     ]
   }

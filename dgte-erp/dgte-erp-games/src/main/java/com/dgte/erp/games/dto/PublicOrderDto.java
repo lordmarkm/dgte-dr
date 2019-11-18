@@ -12,6 +12,7 @@ import lombok.Data;
 @Data
 public class PublicOrderDto {
 
+    private String code;
     private LocalDateTime createdDate;
     private OrderType type;
     private OrderStatus status;

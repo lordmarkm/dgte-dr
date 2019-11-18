@@ -5,7 +5,7 @@ import { TransactionsTableComponent } from './user-profile-page/txns-table.compo
 export const Components = [
     UserProfileComponent,
     UserProfilePageComponent,
-    TransactionsTableComponent
+    TransactionsTableComponent,
 ];
 
 export const EntryComponents = [
@@ -14,5 +14,5 @@ export const EntryComponents = [
 export {
   UserProfileComponent,
   UserProfilePageComponent,
-  TransactionsTableComponent
+  TransactionsTableComponent,
 };

@@ -89,4 +89,9 @@ public class OrderServiceImpl implements OrderServiceCustom {
                 .reduce(0, (total, amt) -> total + amt));
     }
 
+    @Override
+    public Optional<OrderDto> findDtoByCode(String orderCode) {
+        return orderService.findByCode(orderCode).map(mapper::toDto);
+    }
+
 }

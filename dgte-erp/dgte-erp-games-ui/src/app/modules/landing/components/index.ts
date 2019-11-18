@@ -3,6 +3,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ConfirmOrderComponent } from './checkout/modal-confirm-order.component';
 import { ShoppingCartPageComponent } from './shopping-cart-page/shopping-cart-page.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 export const Components = [
   LandingComponent,
@@ -10,6 +11,7 @@ export const Components = [
   CheckoutComponent,
   ConfirmOrderComponent,
   ShoppingCartPageComponent,
+  OrderDetailsComponent
 ];
 
 export const EntryComponents = [
@@ -22,4 +24,5 @@ export {
   CheckoutComponent,
   ConfirmOrderComponent,
   ShoppingCartPageComponent,
+  OrderDetailsComponent
 };

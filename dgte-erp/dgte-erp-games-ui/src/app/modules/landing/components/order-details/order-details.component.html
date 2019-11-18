@@ -1,0 +1,68 @@
+      <div class="common-banner login-banner forcefullwidth_wrapper_tp_banner">
+        <div class="container">
+
+
+          <!-- Error banner-->
+          <div *ngIf="error" class="row text-center">
+            <div class="main-banner-text col-12">
+              <span class="text-danger">{{ error }}</span>
+              <ul class="banner-nav">
+                <li>
+                  <a href="index.html">Home</a>
+                </li>
+                <li>
+                  <a href="shopping-cart.html">Shop</a>
+                </li>
+                <li class="active">
+                  <a href="#">Login</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Normal banner -->
+          <div *ngIf="!error" class="row text-center">
+            <div class="main-banner-text col-12">
+              <span>Your order</span>
+              <ul class="banner-nav">
+                <li>
+                  <a href="index.html">Home</a>
+                </li>
+                <li>
+                  <a href="shopping-cart.html">Shop</a>
+                </li>
+                <li class="active">
+                  <a href="#">Login</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Logged in banner -->
+          <div *ngIf="displayName" class="row">
+            <div class="main-banner-text">
+              <span><img [src]="displayImage" />&nbsp;{{displayName}}</span>
+              <ul class="banner-nav">
+                <li>
+                  <a routerLink="/">Home</a>
+                </li>
+                <li>
+                  <a href="shopping-cart.html">Shop</a>
+                </li>
+                <li class="active">
+                  <a href="javascript:;" (click)="logout()">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  <div class="login-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          {{order|json}}
+        </div>
+      </div>
+    </div>
+  </div>
