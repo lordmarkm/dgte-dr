@@ -1,7 +1,5 @@
 package com.dgte.erp.games.resource;
 
-import java.security.Principal;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;

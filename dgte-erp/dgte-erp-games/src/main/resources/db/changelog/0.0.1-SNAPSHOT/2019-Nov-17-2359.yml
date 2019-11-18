@@ -1,0 +1,14 @@
+databaseChangeLog:
+- changeSet:
+    id: 1574035223091-9
+    author: mbmartinez (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: status
+            type: varchar(255)
+            defaultValue: NEW
+        tableName: game_order

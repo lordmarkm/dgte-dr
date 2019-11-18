@@ -16,7 +16,7 @@ export class OrderService {
   constructor(private httpClient: HttpClient) {}
 
   public getOrders(orderSearch: any): Observable<any> {
-    return this.httpClient.get(this.urls.BASE_URL);
+    return this.httpClient.get(this.urls.BASE_URL, { params: orderSearch });
   }
 
   public placeOrder(order: Order): Observable<any> {

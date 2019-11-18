@@ -27,6 +27,11 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/@swimlane/ngx-datatable/release/index.css",
+              "node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css",
+              "node_modules/@swimlane/ngx-datatable/release/assets/icons.css",
               "src/styles.scss"
             ],
             "stylePreprocessorOptions": {

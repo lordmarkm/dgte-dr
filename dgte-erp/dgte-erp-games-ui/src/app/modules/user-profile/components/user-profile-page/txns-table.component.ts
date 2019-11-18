@@ -21,7 +21,6 @@ export class TransactionsTableComponent implements OnInit {
 
   ngOnInit() {
     this.afAuth.authState.subscribe(auth => {
-        console.log(auth);
         if (auth) {
           this.getOrders();
         }
@@ -29,11 +28,23 @@ export class TransactionsTableComponent implements OnInit {
   }
 
   private getOrders() {
-    this.orderService.getOrders({}).subscribe(page => {
+    this.orderService.getOrders(this.searchQuery.toParams()).subscribe(page => {
         this.isLoading = false;
         this.transactions = page.content;
         this.searchQuery.totalElements = page.totalElements;
     });
+  }
+
+  public onSort(event): void {
+    const column: string = event.column.prop;
+    this.searchQuery.sort = `${column},${event.newValue}`;
+    this.getOrders();
+  }
+
+  public setPage(pageInfo) {
+    const page = pageInfo.page - 1;
+    this.searchQuery.setPageNumber(page);
+    this.getOrders();
   }
 
 }

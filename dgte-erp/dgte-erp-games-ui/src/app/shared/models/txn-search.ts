@@ -5,7 +5,7 @@ export class TxnSearch extends BaseSearchQuery {
   dateFrom: string;
   dateTo: string;
 
-  constructor(size = 5, pageNumber = 0, sort?) {
+  constructor(size = 5, pageNumber = 0, sort = 'createdDate,DESC') {
     super();
     super.setPageNumber(pageNumber);
     super.setSize(size);
@@ -16,6 +16,10 @@ export class TxnSearch extends BaseSearchQuery {
     let params = new HttpParams();
     params = params.append('size', this.size.toString());
     params = params.append('page', this.page.toString());
+
+    if (this.sort) {
+      params = params.append('sort', this.sort);
+    }
 
     if (this.dateFrom) {
       params = params.append('dateFrom', this.dateFrom);

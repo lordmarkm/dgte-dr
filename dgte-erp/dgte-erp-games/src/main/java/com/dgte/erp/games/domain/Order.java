@@ -72,4 +72,8 @@ public class Order extends BaseEntity {
     @ColumnDefault("0")
     private int totalRentDeposit;
 
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
 }

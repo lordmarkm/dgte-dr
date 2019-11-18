@@ -61,3 +61,5 @@ databaseChangeLog:
       file: ./db/changelog/0.0.1-SNAPSHOT/2019-Nov-11-0036.yml
   - include:
       file: ./db/changelog/0.0.1-SNAPSHOT/2019-Nov-12-0422.yml
+  - include:
+      file: ./db/changelog/0.0.1-SNAPSHOT/2019-Nov-17-2359.yml
