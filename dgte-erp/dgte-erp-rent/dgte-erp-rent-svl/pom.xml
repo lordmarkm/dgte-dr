@@ -18,7 +18,11 @@
     <dependency>
       <groupId>com.dgte</groupId>
       <artifactId>dgte-shared-firebase</artifactId>
-      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.fabiomaffioletti</groupId>
+      <artifactId>spring-boot-starter-data-firebase</artifactId>
+      <version>1.0.0.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>

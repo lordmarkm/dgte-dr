@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 
         // disable page caching
-        http.headers().cacheControl();
+        http.headers().cacheControl().disable();
     }
 
     public FirebaseAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
@@ -69,8 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-        //builder.userDetailsService(userService).passwordEncoder(passwordEncoder());
-        //builder.inMemoryAuthentication().withUser("admin").password("123qwe").roles("ADMIN");
         builder.authenticationProvider(firebaseAuthenticationProvider);
     }
 

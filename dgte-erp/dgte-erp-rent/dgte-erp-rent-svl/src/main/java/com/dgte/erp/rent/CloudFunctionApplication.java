@@ -12,9 +12,11 @@ import org.springframework.http.ResponseEntity;
 
 import com.dgte.erp.rent.shared.dto.ApartmentDto;
 import com.dgte.shared.firebase.FirebaseConfig;
+import com.github.fabiomaffioletti.firebase.EnableFirebaseRepositories;
 import com.google.common.collect.Lists;
 
 @SpringBootApplication
+@EnableFirebaseRepositories
 @Import({ FirebaseConfig.class })
 public class CloudFunctionApplication {
  
