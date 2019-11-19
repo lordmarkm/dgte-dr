@@ -1,0 +1,9 @@
+server:
+  port: 8089
+
+logging:
+  level:
+    com.dgte: DEBUG
+
+firebase:
+  config-file: kaiten-game-firebase-adminsdk.json

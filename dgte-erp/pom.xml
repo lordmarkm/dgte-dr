@@ -53,8 +53,8 @@
 
   <modules>
     <module>dgte-erp-docs</module>
-    <module>dgte-erp-rent</module>
     <module>dgte-erp-games</module>
+    <module>dgte-erp-rent</module>
   </modules>
 
   <dependencyManagement>
