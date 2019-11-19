@@ -19,6 +19,11 @@
       <groupId>com.dgte</groupId>
       <artifactId>dgte-shared-firebase</artifactId>
     </dependency>
+    <!-- Mapping -->
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.github.fabiomaffioletti</groupId>
       <artifactId>spring-boot-starter-data-firebase</artifactId>
