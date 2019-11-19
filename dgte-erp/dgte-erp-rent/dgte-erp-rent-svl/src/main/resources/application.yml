@@ -6,4 +6,4 @@ logging:
     com.dgte: DEBUG
 
 firebase:
-  config-file: kaiten-game-firebase-adminsdk.json
+  config-file: dgte-erp-rent-firebase-adminsdk.json

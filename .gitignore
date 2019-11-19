@@ -8,6 +8,7 @@ out
 !gradle/wrapper/gradle-wrapper.jar
 node_modules
 dist
+*-adminsdk.json
 
 ### STS ###
 .apt_generated
