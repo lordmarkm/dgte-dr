@@ -7,3 +7,5 @@ logging:
 
 firebase:
   config-file: dgte-erp-rent-firebase-adminsdk.json
+  service-account-filename: dgte-erp-rent-firebase-adminsdk.json
+  realtime-database-url: https://dgte-erp-rent.firebaseio.com

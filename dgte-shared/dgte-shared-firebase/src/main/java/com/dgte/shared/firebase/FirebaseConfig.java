@@ -33,7 +33,7 @@ public class FirebaseConfig {
                 .setCredentials(GoogleCredentials.fromStream(r.getInputStream()))
                 .build();
 
-        FirebaseApp.initializeApp(options);
+        FirebaseApp.initializeApp(options, "firebase-auth");
         return FirebaseAuth.getInstance();
     }
 
