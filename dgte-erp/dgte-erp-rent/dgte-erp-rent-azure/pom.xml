@@ -16,9 +16,9 @@
 
   <properties>
     <java.version>1.8</java.version>
-    <functionAppName>function-sample-azure</functionAppName>
-    <functionAppRegion>westus</functionAppRegion>
-    <functionResourceGroup>java-function-group</functionResourceGroup>
+    <functionAppName>dgte-era</functionAppName>
+    <functionAppRegion>Southeast Asia</functionAppRegion>
+    <functionResourceGroup>dgte-erp-rent-azure</functionResourceGroup>
     <stagingDirectory>${project.build.directory}/azure-functions/${functionAppName}</stagingDirectory>
     <start-class>com.dgte.erp.rent.AzureRentApplication</start-class>
     <azure.functions.maven.plugin.version>1.3.4</azure.functions.maven.plugin.version>
