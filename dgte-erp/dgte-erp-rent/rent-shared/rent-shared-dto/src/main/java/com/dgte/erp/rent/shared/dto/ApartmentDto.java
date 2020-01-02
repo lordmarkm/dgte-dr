@@ -1,11 +1,12 @@
 package com.dgte.erp.rent.shared.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class ApartmentDto {
+@EqualsAndHashCode(callSuper = true)
+public class ApartmentDto extends BaseDto {
 
-    private String code;
     private String name;
     private String address;
 

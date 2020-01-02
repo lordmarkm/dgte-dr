@@ -9,5 +9,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>rent-shared-dto</module>
+    <module>rent-shared-cosmosdb</module>
   </modules>
 </project>
