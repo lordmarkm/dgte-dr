@@ -15,4 +15,5 @@
       <artifactId>lombok</artifactId>
     </dependency>
   </dependencies>
+  <packaging>ejb</packaging>
 </project>

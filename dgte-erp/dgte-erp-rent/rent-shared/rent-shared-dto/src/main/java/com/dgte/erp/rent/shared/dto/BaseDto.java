@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class BaseDto {
 
-    private long id;
+    private String id;
     private boolean deleted;
     private String code;
     private LocalDateTime createdDate;

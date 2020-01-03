@@ -24,7 +24,7 @@ public class AzureRentApplication {
     public Function<ApartmentDto, ApartmentDto> save() {
         return dto -> {
             Apartment entity = mapper.toEntity(dto);
-            Apartment saved = apartmentRepo.save(entity);
+            Apartment saved = apartmentRepo.save(entity).block();
             return mapper.toDto(saved);
         };
     }
