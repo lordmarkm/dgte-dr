@@ -8,11 +8,13 @@ import com.dgte.erp.rent.model.Apartment;
 import com.dgte.erp.rent.model.BaseCosmosEntity;
 import com.dgte.erp.rent.model.Lease;
 import com.dgte.erp.rent.model.Project;
+import com.dgte.erp.rent.model.RentPayment;
 import com.dgte.erp.rent.model.Room;
 import com.dgte.erp.rent.shared.dto.ApartmentDto;
 import com.dgte.erp.rent.shared.dto.BaseDto;
 import com.dgte.erp.rent.shared.dto.LeaseDto;
 import com.dgte.erp.rent.shared.dto.ProjectDto;
+import com.dgte.erp.rent.shared.dto.RentPaymentDto;
 import com.dgte.erp.rent.shared.dto.RoomDto;
 
 @Mapper(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
@@ -33,4 +35,7 @@ public interface RentMapper {
 
     LeaseDto toDto(Lease entity);
     Lease toEntity(LeaseDto dto);
+
+    RentPaymentDto toDto(RentPayment entity);
+    RentPayment toEntity(RentPaymentDto dto);
 }
