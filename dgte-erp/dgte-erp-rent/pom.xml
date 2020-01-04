@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.springframework.cloud</groupId>
@@ -62,9 +64,24 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>com.dgte</groupId>
+        <artifactId>dgte-shared-firebase</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
         <groupId>org.mapstruct</groupId>
         <artifactId>mapstruct</artifactId>
-        <version>1.3.1.Final</version>
+        <version>${mapstruct.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>dgte-erp-rent</groupId>
+        <artifactId>rent-svl-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>dgte-erp-rent</groupId>
+        <artifactId>rent-shared-dto</artifactId>
+        <version>${project.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -109,8 +126,9 @@
   </build>
 
   <modules>
-    <module>dgte-erp-rent-svl</module>
     <module>rent-shared</module>
+    <module>rent-svl-core</module>
+    <module>dgte-erp-rent-svl</module>
     <module>dgte-erp-rent-azure</module>
   </modules>
 </project>

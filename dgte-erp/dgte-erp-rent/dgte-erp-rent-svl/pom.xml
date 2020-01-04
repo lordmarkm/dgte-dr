@@ -13,7 +13,6 @@
     <dependency>
       <groupId>dgte-erp-rent</groupId>
       <artifactId>rent-shared-dto</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>com.dgte</groupId>

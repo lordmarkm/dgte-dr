@@ -9,7 +9,6 @@ public class BaseDto {
 
     private String id;
     private boolean deleted;
-    private String code;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 

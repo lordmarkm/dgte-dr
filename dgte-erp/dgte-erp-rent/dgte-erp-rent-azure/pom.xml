@@ -6,7 +6,7 @@
 
   <artifactId>dgte-erp-rent-azure</artifactId>
   <packaging>jar</packaging>
-  <name>function-sample-azure</name>
+  <name>Dgte ERP :: Rent :: Azure Serverless</name>
 
   <parent>
     <groupId>dgte-erp-rent</groupId>
@@ -29,8 +29,7 @@
   <dependencies>
     <dependency>
       <groupId>dgte-erp-rent</groupId>
-      <artifactId>rent-shared-dto</artifactId>
-      <version>${project.version}</version>
+      <artifactId>rent-svl-core</artifactId>
     </dependency>
     <dependency>
       <groupId>dgte-erp-rent</groupId>

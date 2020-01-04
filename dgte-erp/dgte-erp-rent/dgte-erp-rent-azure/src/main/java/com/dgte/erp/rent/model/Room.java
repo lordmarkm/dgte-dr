@@ -8,12 +8,12 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Document(collection = "apartments", autoCreateCollection = false)
-public class Apartment extends BaseCosmosEntity {
+@Document(collection = "rooms", autoCreateCollection = false)
+public class Room extends BaseCosmosEntity {
 
-    @PartitionKey
     private String projectId;
+    @PartitionKey
+    private String apartmentId;
     private String name;
-    private String address;
 
 }

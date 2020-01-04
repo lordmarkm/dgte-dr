@@ -14,7 +14,7 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
 
 public class ApartmentSaveHandler extends AzureSpringBootRequestHandler<ApartmentDto, ApartmentDto> {
 
-    @FunctionName("save")
+    @FunctionName("saveApartment")
     public ApartmentDto execute(@HttpTrigger(name = "req", methods = {HttpMethod.GET,
             HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<ApartmentDto>> request,
         ExecutionContext context) {
