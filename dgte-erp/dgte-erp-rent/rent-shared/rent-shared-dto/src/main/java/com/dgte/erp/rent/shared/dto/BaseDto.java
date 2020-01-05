@@ -11,5 +11,6 @@ public class BaseDto {
     private boolean deleted;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private String remarks;
 
 }

@@ -10,5 +10,6 @@
   <modules>
     <module>rent-shared-dto</module>
     <module>rent-shared-cosmosdb</module>
+    <module>rent-shared-active-directory</module>
   </modules>
 </project>

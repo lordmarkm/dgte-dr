@@ -18,5 +18,6 @@ public class RentPaymentDto extends BaseDto {
     private LocalDate paymentDate;
     private LocalDate paymentCoverageStart;
     private LocalDate paymentCoverageEnd;
+    private String remarks;
 
 }

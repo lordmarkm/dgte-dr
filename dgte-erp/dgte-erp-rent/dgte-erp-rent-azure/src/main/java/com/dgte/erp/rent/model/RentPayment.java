@@ -23,5 +23,6 @@ public class RentPayment extends BaseCosmosEntity {
     private LocalDate paymentDate;
     private LocalDate paymentCoverageStart;
     private LocalDate paymentCoverageEnd;
+    private String remarks;
 
 }
