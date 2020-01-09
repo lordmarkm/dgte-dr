@@ -36,11 +36,13 @@
       <artifactId>rent-shared-cosmosdb</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <!-- 
     <dependency>
       <groupId>dgte-erp-rent</groupId>
       <artifactId>rent-shared-active-directory</artifactId>
       <version>${project.version}</version>
     </dependency>
+    -->
 
     <!-- Mapping -->
     <dependency>
@@ -62,6 +64,12 @@
       <artifactId>azure-active-directory-spring-boot-starter</artifactId>
       <version>2.2.1</version>
     </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+    </dependency>
+
 
     <!-- Test -->
     <dependency>

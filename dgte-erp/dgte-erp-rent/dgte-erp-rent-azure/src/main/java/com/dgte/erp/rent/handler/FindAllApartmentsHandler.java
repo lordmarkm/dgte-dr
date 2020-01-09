@@ -1,5 +1,6 @@
 package com.dgte.erp.rent.handler;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.cloud.function.adapter.azure.AzureSpringBootRequestHandler;
@@ -12,19 +13,17 @@ import com.microsoft.azure.functions.annotation.AuthorizationLevel;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 
-public class ApartmentSaveHandler extends AzureSpringBootRequestHandler<ApartmentDto, ApartmentDto> {
+public class FindAllApartmentsHandler extends AzureSpringBootRequestHandler<Optional<?>, List<ApartmentDto>> {
 
-    @FunctionName("saveApartment")
-    public ApartmentDto execute(@HttpTrigger(name = "req", methods = {HttpMethod.GET,
-            HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<ApartmentDto>> request,
+    @FunctionName("findAllApartments")
+    public List<ApartmentDto> findAllApartments(@HttpTrigger(name = "req",
+            methods = {HttpMethod.GET},
+            authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<?>> request,
         ExecutionContext context) {
 
-        context.getLogger().info(
-                String.format("Request for : [%s]",
-                        request.getBody())
-        );
+        context.getLogger().info(String.format("Find all apartments"));
+        return super.handleRequest(Optional.empty(), context);
 
-        return super.handleRequest(request.getBody().get(), context);
     }
 
 }
