@@ -48,8 +48,10 @@ public class ApartmentServiceImpl implements ApartmentService {
 
     @Override
     public List<ApartmentDto> findAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return apartmentRepo.findAll()
+                    .map(mapper::toDto)
+                    .collectList()
+                    .block();
     }
 
 }
