@@ -46,4 +46,10 @@ public class ApartmentServiceImpl implements ApartmentService {
         return null;
     }
 
+    @Override
+    public List<ApartmentDto> findAll() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

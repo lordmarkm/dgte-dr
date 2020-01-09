@@ -27,4 +27,16 @@ public class ApartmentSaveHandler extends AzureSpringBootRequestHandler<Apartmen
         return super.handleRequest(request.getBody().get(), context);
     }
 
+    @FunctionName("saveApartment")
+    public ApartmentDto execute(@HttpTrigger(name = "req", methods = {HttpMethod.GET,
+            HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Optional<ApartmentDto>> request,
+        ExecutionContext context) {
+
+        context.getLogger().info(
+                String.format("Request for : [%s]",
+                        request.getBody())
+        );
+
+        return super.handleRequest(request.getBody().get(), context);
+    }
 }

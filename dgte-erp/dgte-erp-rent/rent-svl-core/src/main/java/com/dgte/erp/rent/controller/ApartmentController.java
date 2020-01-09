@@ -2,6 +2,7 @@ package com.dgte.erp.rent.controller;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,11 @@ public class ApartmentController {
 
     @Autowired
     private ApartmentService apartmentService;
+
+    @Bean
+    public Supplier<List<ApartmentDto>> findAllApartments() {
+        return () -> apartmentService.findAll();
+    }
 
     @Bean
     public Function<ApartmentDto, ApartmentDto> saveApartment() {

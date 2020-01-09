@@ -10,5 +10,6 @@ public interface ApartmentService {
     ApartmentDto save(ApartmentDto apartment);
     List<ApartmentDto> findByProjectId(String projectId);
     Optional<ApartmentDto> findByCode(String code);
+    List<ApartmentDto> findAll();
 
 }
