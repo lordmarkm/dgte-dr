@@ -36,13 +36,11 @@
       <artifactId>rent-shared-cosmosdb</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <!-- 
     <dependency>
       <groupId>dgte-erp-rent</groupId>
       <artifactId>rent-shared-active-directory</artifactId>
       <version>${project.version}</version>
     </dependency>
-    -->
 
     <!-- Mapping -->
     <dependency>

@@ -5,16 +5,16 @@ import { environment } from '@env/environment';
 import { HttpHeaders } from '@angular/common/http';
 
 @Injectable()
-export class GameService {
+export class ProjectService {
   private serviceUrl = 'project';
   private urls = {
-      MAIN: `${environment.apiUrl}/${this.serviceUrl}`
+      FIND_ALL: `${environment.apiUrl}/findAllProjects`
   };
 
   constructor(private httpClient: HttpClient) {}
 
   public getProjects(params): Observable<any> {
-      return this.httpClient.get(this.urls.MAIN, { params: params });
+      return this.httpClient.get(this.urls.FIND_ALL, { params: params });
   }
 
 }
