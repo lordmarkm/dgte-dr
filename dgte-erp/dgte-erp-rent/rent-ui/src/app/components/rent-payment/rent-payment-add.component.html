@@ -1,18 +1,75 @@
 <div layout="column">
   <div flex>
     <mat-card>
+      <mat-card-content>
+        {{payment|json}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div flex>
+    <mat-card>
       <mat-card-header>
         <mat-card-title>Add Rent Payment</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <mat-form-field>
-          <mat-select placeholder="Project">
-            <mat-option value="Tanjay">Tanjay</mat-option>
-            <mat-option value="Batinguel">Batinguel</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <form (submit)="submit()">
+          <div layout="column">
+            <div flex>
+              <mat-form-field>
+                <mat-select [(ngModel)]="payment.projectId" (selectionChange)="getApartments()" name="projectId" placeholder="Project" required>
+                  <mat-option *ngFor="let project of projects" [value]="project.id">{{project.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div flex>
+              <mat-form-field>
+                <mat-select [(ngModel)]="payment.apartmentId" name="apartmentId"  placeholder="Apartment" required>
+                  <mat-option *ngFor="let apt of apartments" [value]="apt.id">{{apt.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div flex>
+              <mat-form-field>
+                <mat-select [(ngModel)]="payment.leaseId" name="leaseId" placeholder="Lease" required>
+                  <mat-option *ngFor="let lease of leases" [value]="lease.id">{{lease.leaseName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div flex>
+              <mat-form-field>
+                <input matInput [matDatepicker]="paymentDateDatepicker" [(ngModel)]="payment.paymentDate" name="paymentDate" placeholder="Payment Date" required>
+                <mat-datepicker-toggle matSuffix [for]="paymentDateDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #paymentDateDatepicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div flex>
+              <mat-form-field>
+                <input matInput [matDatepicker]="paymentCoverageStartDateDatepicker" [(ngModel)]="payment.paymentCoverageStartDate" 
+                  name="paymentCoverageStartDate" placeholder="Payment Coverage Start Date" required>
+                <mat-datepicker-toggle matSuffix [for]="paymentCoverageStartDateDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #paymentCoverageStartDateDatepicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div flex>
+              <mat-form-field>
+                <input matInput [matDatepicker]="paymentCoverageEndDateDatepicker" [(ngModel)]="payment.paymentCoverageEndDate"
+                  name="paymentCoverageEndDate" placeholder="Payment Coverage End Date" required>
+                <mat-datepicker-toggle matSuffix [for]="paymentCoverageEndDateDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #paymentCoverageEndDateDatepicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div flex>
+              <mat-form-field>
+                <input matInput type="number" [(ngModel)]="payment.amount" name="amount" placeholder="Payment Amount" required>
+              </mat-form-field>
+            </div>
+            <div flex>
+              <button mat-button type="submit">Submit</button>
+            </div>
+          </div>
+        </form>
       </mat-card-content>
-    </mat-card>
+    </mat-card>   
   </div>
 </div>
 
