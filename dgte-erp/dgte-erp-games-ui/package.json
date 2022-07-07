@@ -46,7 +46,7 @@
     "firebase": "^7.0.0",
     "loaders.css": "^0.1.2",
     "lodash": "^4.17.13",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ng-busy": "^7.0.0",
     "ng-pick-datetime": "^7.0.0",
     "ng-redux": "^4.1.0",
