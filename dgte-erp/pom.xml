@@ -27,7 +27,7 @@
     <spring.boot.maven.version>2.1.3.RELEASE</spring.boot.maven.version>
     <validation-api.version>2.0.1.Final</validation-api.version>
     <liquibase-hibernate5.version>3.6</liquibase-hibernate5.version>
-    <liquibase.hibernate-core.version>5.2.17.Final</liquibase.hibernate-core.version>
+    <liquibase.hibernate-core.version>5.3.20.Final</liquibase.hibernate-core.version>
     <asciidoctor-maven-plugin.version>1.5.7.1</asciidoctor-maven-plugin.version>
     <spring-restdocs.version>2.0.3.RELEASE</spring-restdocs.version>
     <dockerfile-maven-plugin.version>1.4.10</dockerfile-maven-plugin.version>
